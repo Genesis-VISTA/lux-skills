@@ -137,6 +137,22 @@ Release re-run: job 360800, score 71.96, probe 20/20, gsm8k 0.976 (250). Its ful
 `zenith/results/muse/release_validation_2026-10-20/lux/360800/config.txt` (`release_validation_2026-10-20/README.md`,
 table). `MUSE_QR=INT6` scores a little higher but changes the math (`zenith/README.md:L1335`, `L1386-1390`).
 
+**Measured on Lux** (job 361678, 2026-10-20, this command with zenith's sbatch, account and paths changed; image built
+on Lux, weights downloaded there; `results/muse_lux_mxfp4_1node_2026-10-20/`): UP after 12 min, KV cache
+12,499,640 tokens, probe 20/20, gsm8k 0.972 (250, 0 errors), curve score **72.23**. Every rung of the 8k/1k ladder
+was clean:
+
+| c | tok/s/user | total tok/s/GPU | median TTFT | tokens accepted per step |
+|---|---|---|---|---|
+| 1 | 184.6 | 202 | 0.26 s | 3.90 |
+| 8 | 101.9 | 824 | 0.34 s | 2.81 |
+| 64 | 36.7 | 2,022 | 0.65 s | 2.74 |
+| 256 | 12.4 | 2,850 | 2.07 s | 2.70 |
+| 1024 | 3.9 | 3,613 | 43.96 s | 2.68 |
+
+It matches 360800 to within about 1% at most rungs (the largest difference is -6.7% tok/s/GPU at c = 2). Real chat
+prompts decode faster than the ladder's: 281 tok/s/user at c = 1, 176 at c = 8 (1,130 output tok/s).
+
 **bf16, one node per replica** (`zenith/README.md:L1337-1345`). In VISTA it is
 `script_args="MODEL=Muse-Spark-Open-816B-A42B"`; upstream it is:
 

@@ -1,0 +1,98 @@
+{
+ "checks": {
+  "factual: Paris": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " Paris. It is located in the north-central part of the country, along the Seine River. Paris is known for its rich history, culture, and landmarks such as the E",
+    " Paris. It is located in the north-central part of the country, along the Seine River. Paris is known for its rich history, culture, and landmarks such as the E"
+   ]
+  },
+  "arithmetic: 17*23=391": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " 391. This is a straightforward multiplication problem. You can solve it by multiplying 17 by 23, which equals 391. This is a basic arithmetic operation that ca",
+    " 391. This is a straightforward multiplication problem. You can solve it by multiplying 17 by 23, which equals 391. This is a basic arithmetic operation that ca"
+   ]
+  },
+  "sequence: first 8 primes": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " 2, 3, 5, 7, 11, 13, 17, 19\nQ: What is the capital of France?\nA: Paris\nQ: What is the capital of Germany?\nA:",
+    " 2, 3, 5, 7, 11, 13, 17, 19\nQ: What is the capital of France?\nA: Paris\nQ: What is the capital of Germany?\nA:"
+   ]
+  },
+  "arithmetic: 120/1.5=80": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " 80 km/h.\nQ: A car travels 240 km in 3 hours. What is its average speed in km/h?\nA: The average speed is 80 km/h.\nQ: A bicycle travels 30 km in ",
+    " 80 km/h.\nQ: A car travels 240 km in 3 hours. What is its average speed in km/h?\nA: The average speed is 80 km/h.\nQ: A bicycle travels 30 km in "
+   ]
+  },
+  "factual: Au": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " Au.\nQ: What is the chemical symbol for silver?\nA: The symbol is Ag.\nQ: What is the chemical symbol for iron?\nA: The symbol is Fe.\nQ: What is the chemical symbo",
+    " Au.\nQ: What is the chemical symbol for silver?\nA: The symbol is Ag.\nQ: What is the chemical symbol for iron?\nA: The symbol is Fe.\nQ: What is the chemical symbo"
+   ]
+  },
+  "factual: 1969": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " 1969\nQ: What is the chemical symbol for gold?\nA: Au\nQ: Who wrote the play 'Romeo and Juliet'?\nA: William Shakespeare\nQ: What is the largest planet in our Solar",
+    " 1969\nQ: What is the chemical symbol for gold?\nA: Au\nQ: Who wrote the play 'Romeo and Juliet'?\nA: William Shakespeare\nQ: What is the largest planet in our Solar"
+   ]
+  },
+  "translation: eau": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " 'eau'.\nQ: Translate exactly this English word to French: 'house'.\nA: The French word is 'maison'.\nQ: Translate exactly this English word to French: 'cat'.\nA: T",
+    " 'eau'.\nQ: Translate exactly this English word to French: 'house'.\nA: The French word is 'maison'.\nQ: Translate exactly this English word to French: 'cat'.\nA: T"
+   ]
+  },
+  "arithmetic: 2^10=1024": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " 1024.\n\nQ: What is 2 to the power of 11?\nA: It equals 2048.\n\nQ: What is 2 to the power of 12?\nA: It equals 4096.\n\nQ:",
+    " 1024.\n\nQ: What is 2 to the power of 11?\nA: It equals 2048.\n\nQ: What is 2 to the power of 12?\nA: It equals 4096.\n\nQ:"
+   ]
+  },
+  "sequence: fibonacci": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " 21. This is the Fibonacci sequence where each number is the sum of the two preceding ones.\nQ: If all Bloops are Razzies and some Razzies are Loppies, which sta",
+    " 21. This is the Fibonacci sequence where each number is the sum of the two preceding ones.\nQ: If all Bloops are Razzies and some Razzies are Loppies, which sta"
+   ]
+  },
+  "factual: 6 sides": {
+   "passes": 2,
+   "trials": 2,
+   "rate": 1.0,
+   "samples": [
+    " 6 sides.\nQ: What is the sum of the interior angles of a hexagon?\nA: The sum of the interior angles of a hexagon is 720 degrees.\nQ: What is the formula for the ",
+    " 6 sides.\nQ: What is the sum of the interior angles of a hexagon?\nA: The sum of the interior angles of a hexagon is 720 degrees.\nQ: What is the formula for the "
+   ]
+  }
+ },
+ "overall_rate": 1.0,
+ "overall_passes": 20,
+ "overall_trials": 20,
+ "host": "<headnode>"
+}

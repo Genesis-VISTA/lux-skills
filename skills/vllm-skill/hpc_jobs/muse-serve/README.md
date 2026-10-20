@@ -9,8 +9,9 @@ which explains how to read the results and use the endpoint. Inkling and Mistral
 Supported clusters: Lux only (Slurm over SSH; the user is asked to log in through the hub once per session).
 
 Nodes: 1 (exclusive, 8 GPUs). Muse serves one endpoint per node; more users take more 1-node replicas.
-Default time: 2:00:00. Start-up takes about 10-15 min after the job starts. In zenith's 1-node MXFP4 run, vLLM went
-from launch to serving in ~8.5 min, 4 of them reading weights. A serve job runs until its time limit (at most
+Default time: 2:00:00. Start-up takes about 10-15 min after the job starts: 12 min in the Lux run (job 361678,
+including loading the 58 GB image). In zenith's 1-node MXFP4 run, vLLM went from launch to serving in ~8.5 min, 4 of
+them reading weights. A serve job runs until its time limit (at most
 4:00:00 through VISTA), so Slurm reports TIMEOUT: that is the normal end of a serve job.
 
 The checkpoint and the image are read in place from the shared Genesis-Hackathon package (`cluster_defaults.json`):
@@ -74,5 +75,7 @@ In the job's output directory, refreshed every minute while the job runs:
 - `server.log`: vLLM's log (`lux: tuned defaults for Muse-...` gives the settings used); read `summary.txt` instead.
 - `correctness.txt`, `state/`: probe output, the container logs.
 
-A healthy MXFP4 start: `UP`, correctness 10/10, then `SERVING`; gsm8k ~0.976 (zenith job 360800). On a HIP
+A healthy MXFP4 start: `UP`, correctness 10/10, then `SERVING`; gsm8k ~0.976 (zenith job 360800; 0.972 on
+Lux, job 361678). Expect a GPU KV cache of about 12.5M tokens, one user at ~185 tok/s on 8k prompts (~280 on chat
+prompts) and ~2,850 total tok/s/GPU at 256 users (`../../results/muse_lux_mxfp4_1node_2026-10-20/`). On a HIP
 out-of-memory error in the DSpark speculator followed by HTTP 500s (seen once with bf16 at c = 128), resubmit.

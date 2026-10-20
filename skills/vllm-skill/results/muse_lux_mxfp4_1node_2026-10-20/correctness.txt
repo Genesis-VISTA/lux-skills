@@ -1,0 +1,13 @@
+probing http://<headnode>:8000 (Muse-Spark-Open-816B-A42B-Quark-MXFP4), 2 trials/check
+  [ok  ] factual: Paris                   2/2
+  [ok  ] arithmetic: 17*23=391            2/2
+  [ok  ] sequence: first 8 primes         2/2
+  [ok  ] arithmetic: 120/1.5=80           2/2
+  [ok  ] factual: Au                      2/2
+  [ok  ] factual: 1969                    2/2
+  [ok  ] translation: eau                 2/2
+  [ok  ] arithmetic: 2^10=1024            2/2
+  [ok  ] sequence: fibonacci              2/2
+  [ok  ] factual: 6 sides                 2/2
+  overall: 20/20 = 100.0%
+wrote <out>/correctness.json

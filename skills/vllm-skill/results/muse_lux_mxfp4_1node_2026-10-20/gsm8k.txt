@@ -1,0 +1,1 @@
+{"model": "Muse-Spark-Open-816B-A42B-Quark-MXFP4", "n": 250, "accuracy": 0.972, "wall_s": 35.9, "errors": 0, "truncated": 0, "effort": "low"}

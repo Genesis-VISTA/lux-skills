@@ -1,0 +1,23 @@
+=== 2026-10-20T17:03:17Z ladder c=1 num_prompts=16 warmups=2
+xalt_compute_sha1: Error mmapping the executable: No such device
+c=1 total=1619 out=180 per_gpu_total=202 tpot_med=5.4ms intvty=184.55 ttft_med=264ms completed=16 accept_len=3.90 clean
+=== 2026-10-20T17:05:03Z ladder c=2 num_prompts=16 warmups=4
+c=2 total=2460 out=273 per_gpu_total=307 tpot_med=7.2ms intvty=138.89 ttft_med=315ms completed=16 accept_len=3.34 clean
+=== 2026-10-20T17:06:23Z ladder c=4 num_prompts=32 warmups=8
+c=4 total=3426 out=381 per_gpu_total=428 tpot_med=8.6ms intvty=116.09 ttft_med=331ms completed=32 accept_len=2.73 clean
+=== 2026-10-20T17:09:01Z ladder c=8 num_prompts=64 warmups=16
+c=8 total=6590 out=732 per_gpu_total=824 tpot_med=9.8ms intvty=101.88 ttft_med=337ms completed=64 accept_len=2.81 clean
+=== 2026-10-20T17:11:01Z ladder c=16 num_prompts=64 warmups=32
+c=16 total=9635 out=1071 per_gpu_total=1204 tpot_med=12.3ms intvty=81.14 ttft_med=360ms completed=64 accept_len=2.77 clean
+=== 2026-10-20T17:12:41Z ladder c=32 num_prompts=96 warmups=64
+c=32 total=13614 out=1513 per_gpu_total=1702 tpot_med=16.7ms intvty=59.73 ttft_med=575ms completed=96 accept_len=2.65 clean
+=== 2026-10-20T17:14:40Z ladder c=64 num_prompts=192 warmups=128
+c=64 total=16179 out=1798 per_gpu_total=2022 tpot_med=27.3ms intvty=36.69 ttft_med=648ms completed=192 accept_len=2.74 clean
+=== 2026-10-20T17:17:42Z ladder c=128 num_prompts=384 warmups=256
+c=128 total=19381 out=2153 per_gpu_total=2423 tpot_med=45.8ms intvty=21.84 ttft_med=981ms completed=384 accept_len=2.77 clean
+=== 2026-10-20T17:22:41Z ladder c=256 num_prompts=768 warmups=512
+c=256 total=22804 out=2534 per_gpu_total=2850 tpot_med=80.9ms intvty=12.36 ttft_med=2068ms completed=768 accept_len=2.70 clean
+=== 2026-10-20T17:32:00Z ladder c=512 num_prompts=1536 warmups=1024
+c=512 total=25896 out=2877 per_gpu_total=3237 tpot_med=169.4ms intvty=5.90 ttft_med=1330ms completed=1536 accept_len=2.64 clean
+=== 2026-10-20T17:47:32Z ladder c=1024 num_prompts=3072 warmups=1024
+c=1024 total=28904 out=3212 per_gpu_total=3613 tpot_med=258.5ms intvty=3.87 ttft_med=43958ms completed=3072 accept_len=2.68 clean

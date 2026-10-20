@@ -1,0 +1,12 @@
+== <out>/ladder
+  c=    1  x=  184.55 tok/s/user  y=     202 tok/s/GPU  TTFT=  0.26 s  accept=3.90  clean
+  c=    2  x=  138.89 tok/s/user  y=     307 tok/s/GPU  TTFT=  0.32 s  accept=3.34  clean
+  c=    4  x=  116.09 tok/s/user  y=     428 tok/s/GPU  TTFT=  0.33 s  accept=2.73  clean
+  c=    8  x=  101.88 tok/s/user  y=     824 tok/s/GPU  TTFT=  0.34 s  accept=2.81  clean
+  c=   16  x=   81.14 tok/s/user  y=   1,204 tok/s/GPU  TTFT=  0.36 s  accept=2.77  clean
+  c=   32  x=   59.73 tok/s/user  y=   1,702 tok/s/GPU  TTFT=  0.58 s  accept=2.65  clean
+  c=   64  x=   36.69 tok/s/user  y=   2,022 tok/s/GPU  TTFT=  0.65 s  accept=2.74  clean
+  c=  128  x=   21.84 tok/s/user  y=   2,423 tok/s/GPU  TTFT=  0.98 s  accept=2.77  clean
+  c=  256  x=   12.36 tok/s/user  y=   2,850 tok/s/GPU  TTFT=  2.07 s  accept=2.70  clean
+  c=  512  x=    5.90 tok/s/user  y=   3,237 tok/s/GPU  TTFT=  1.33 s  accept=2.64  clean
+  c= 1024  x=    3.87 tok/s/user  y=   3,613 tok/s/GPU  TTFT= 43.96 s  accept=2.68  clean

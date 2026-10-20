@@ -154,7 +154,7 @@ unanswered replies. Within noise:
 | `  README.md`, `summarize.sh` | The job's description for the agent; the summary it writes. |
 | `  lux-inference/` | The engine: launchers, patches, RCCL-ANP plugin, tuned kernels, bench clients, upstream docs. Its `README.md` lists what was renamed from Zenith. |
 | `hpc_jobs/muse-serve/` | The Muse Spark Open job (same file set; 1 node, `BUILD_IMAGE=1`); its `lux-inference/` is the Zenith v0.1.9 engine. |
-| `results/` | The upstream shipping-gate results (scores only), kept out of the job folder so VISTA does not upload them. |
+| `results/` | The upstream shipping-gate results (scores only) and the Muse run on Lux, kept out of the job folder so VISTA does not upload them. |
 | `env.lux.sh` | Site settings for running by hand. All values overridable via env before sourcing. |
 | `scripts/setup.sh` | Preflight only (the job's `setup_lux.sh`, plus account and python); `--verify` adds the image sha256 (~5 min). |
 | `scripts/serve.sh` | Submit a server: `[nodes] [KEY=VAL ...]` (any `LUX_*` knob); `SBATCH_ARGS` passes extra sbatch flags. |
@@ -291,6 +291,20 @@ user through [MUSE_SPARK.md](MUSE_SPARK.md) §3** (Meta's access form, the proxy
 download <dir> bf16`), then submit with `MODELPATH=<dir>`. Requests take `reasoning_effort` `low|medium|high|xhigh`
 (default `xhigh`). Healthy: correctness 10/10, gsm8k ~0.976 (MXFP4) / ~0.984 (bf16). Limits and ROCm notes are in
 MUSE_SPARK.md.
+
+**Measured on Lux** (MXFP4, 1 node, DSpark; job 361678, 2026-10-20, zenith's sbatch with the same settings; raw data
+in `results/muse_lux_mxfp4_1node_2026-10-20/`): UP after 12 min, KV cache 12.5M tokens, probe 20/20, gsm8k 0.972,
+curve score 72.23 (zenith's 360800: 71.96). 8k-token prompts / 1k out, all rungs clean:
+
+| concurrency | tok/s/user | total tok/s/GPU | median TTFT |
+|---|---|---|---|
+| 1 | 184.6 | 202 | 0.26 s |
+| 16 | 81.1 | 1,204 | 0.36 s |
+| 128 | 21.8 | 2,423 | 0.98 s |
+| 256 | 12.4 | 2,850 | 2.07 s |
+| 1024 | 3.9 | 3,613 | 44 s (KV cache full) |
+
+Chat prompts at c = 1 decode at 281 tok/s. Above 256 users, prefer more 1-node replicas: TTFT climbs to 44 s at 1024.
 
 ## Verify after any change
 
