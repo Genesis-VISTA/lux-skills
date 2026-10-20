@@ -1,0 +1,17 @@
+model Mistral-Large-Instruct-2411, 4.47 chars/token, lengths [32000, 128000, 256000, 512000, 1040000], depths [0.1, 0.5, 0.9]
+   32000 depth 0.10: PASS  prompt 31211  ttft 1.86 s  prefill 16804 tok/s  decode 87.9 tok/s  answer 'saffron-463450'
+   32000 depth 0.50: PASS  prompt 31380  ttft 1.85 s  prefill 16960 tok/s  decode 87.8 tok/s  answer 'saffron-108284'
+   32000 depth 0.90: PASS  prompt 31625  ttft 1.86 s  prefill 16962 tok/s  decode 87.8 tok/s  answer 'indigo-579342'
+  128000 depth 0.10: PASS  prompt 127898  ttft 10.7 s  prefill 11955 tok/s  decode 77.6 tok/s  answer 'indigo-283337'
+  128000 depth 0.50: PASS  prompt 127792  ttft 10.19 s  prefill 12547 tok/s  decode 77.4 tok/s  answer 'cobalt-308077'
+  128000 depth 0.90: PASS  prompt 127162  ttft 10.15 s  prefill 12525 tok/s  decode 78.0 tok/s  answer 'cobalt-863613'
+  256000 depth 0.10: PASS  prompt 255692  ttft 27.82 s  prefill 9193 tok/s  decode 66.8 tok/s  answer 'violet-131806'
+  256000 depth 0.50: PASS  prompt 255766  ttft 27.87 s  prefill 9179 tok/s  decode 66.8 tok/s  answer 'cobalt-445469'
+  256000 depth 0.90: PASS  prompt 255641  ttft 27.86 s  prefill 9176 tok/s  decode 66.8 tok/s  answer 'indigo-438413'
+  512000 depth 0.10: PASS  prompt 511857  ttft 86.15 s  prefill 5941 tok/s  decode 52.6 tok/s  answer 'The access code for the Zenith archive is saffron-881347.'
+  512000 depth 0.50: PASS  prompt 511742  ttft 86.14 s  prefill 5941 tok/s  decode 52.4 tok/s  answer 'The access code for the Zenith archive is indigo-503560.'
+  512000 depth 0.90: PASS  prompt 511579  ttft 86.12 s  prefill 5940 tok/s  decode 52.4 tok/s  answer 'The access code for the Zenith archive is violet-707426.'
+ 1040000 depth 0.10: PASS  prompt 1039870  ttft 302.87 s  prefill 3433 tok/s  decode 35.2 tok/s  answer 'The access code for the Zenith archive is violet-377242.'
+ 1040000 depth 0.50: PASS  prompt 1039596  ttft 302.75 s  prefill 3434 tok/s  decode 35.2 tok/s  answer 'The access code for the Zenith archive is indigo-284974.'
+ 1040000 depth 0.90: PASS  prompt 1039736  ttft 302.83 s  prefill 3433 tok/s  decode 35.1 tok/s  answer 'The access code for the Zenith archive is saffron-497540.'
+{"model": "Mistral-Large-Instruct-2411", "passed": 15, "cells": 15, "max_prompt_tokens_passed": 1039870}

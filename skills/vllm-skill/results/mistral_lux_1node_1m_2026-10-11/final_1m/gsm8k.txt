@@ -1,0 +1,1 @@
+{"model": "Mistral-Large-Instruct-2411", "n": 250, "accuracy": 0.976, "wall_s": 24.3, "errors": 0, "truncated": 0, "effort": ""}

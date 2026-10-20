@@ -1,0 +1,3 @@
+fb3a3a18dfff5a24f5cb6650624a783d744d634817d6b0a4225a1ac1630c4193  vllm/distributed/device_communicators/cuda_communicator.py
+f98f9c8384cd57876b50dbe206a0eaced4437e48624e07dc2510c0e7c3f3720c  vllm/models/inkling/amd/ops/fa4_rel_attention.py
+1cee47802ed7b555da591e3cec782667a02e61260aabb12a5badf7a2c61d91f6  vllm/models/inkling/amd/ops/fa4_rel_attention.py

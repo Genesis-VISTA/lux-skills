@@ -1,0 +1,66 @@
+Lux Skills
+
+Skills for running AI workloads on OLCF Lux.
+Contact: Junqi Yin <yinj@ornl.gov>
+
+
+------------------------------------------------------------------------
+Content with separate licensing
+------------------------------------------------------------------------
+
+Portions of this repository are separately licensed, either because they
+were sourced from upstream projects or because the subtree maintains its
+own license. Where a LICENSE or LICENSE.txt file is present in a
+subdirectory, that file is the authoritative license for the contents of
+that subdirectory and any of its descendants, and it supersedes the root
+LICENSE for that subtree.
+
+Known subtrees with separate licensing at the time of this writing:
+
+  skills/primus-skill/              Sourced from github.com/jqyin/lux-primus-skill.
+                                    Includes an Apache-2.0 LICENSE at
+                                    skills/primus-skill/LICENSE, which is
+                                    authoritative for the skill's own code.
+                                    See skills/ATTRIBUTION.md.
+
+  skills/vllm-skill/                Sourced from github.com/jqyin/lux-vllm-skill.
+                                    Includes an Apache-2.0 LICENSE at
+                                    skills/vllm-skill/LICENSE, which is
+                                    authoritative for the skill's own code.
+                                    See skills/ATTRIBUTION.md.
+
+  skills/vllm-skill/hpc_jobs/inkling-serve/lux-inference/
+                                    Engine files adapted from AMD's Zenith
+                                    inference package; AMD's terms apply and
+                                    copyright stays with AMD and its
+                                    contributors. vLLM patches follow vLLM's
+                                    Apache-2.0 where they carry an SPDX header.
+                                    docker/patches/anp/ carries its own RCCL
+                                    (BSD-style) and libionic (Linux-OpenIB)
+                                    licence files. See that directory's
+                                    README.md, section "Licensing".
+
+  skills/vllm-skill/hpc_jobs/muse-serve/lux-inference/
+                                    Engine files ported from AMD's Zenith
+                                    v0.1.9 (github.com/jbelofamd/zenith),
+                                    MIT: LICENSE-zenith in that directory
+                                    (Copyright (c) 2026 The Zenith authors).
+                                    The vLLM git bundle in docker/vllm_src/
+                                    and the patches follow vLLM's Apache-2.0
+                                    where they carry an SPDX header. See that
+                                    directory's README.md, "Licensing".
+
+  Models, datasets and container images used by the skills are not in
+  this repository. They keep their own licences (for example Mistral-
+  Large-Instruct-2411 under the Mistral Research Licence, GPQA Diamond
+  under CC BY 4.0 with a request not to publish its questions); see each
+  skill's SKILL.md, section "License and acknowledgments".
+
+
+This list is informational and may not be exhaustive. Always check for
+a LICENSE file in any subdirectory before assuming the root license
+applies.
+
+This material was prepared as an account of work sponsored by an agency of the United States Government.  Neither the United States Government nor the United States Department of Energy, nor the Contractor, nor any or their employees, nor any jurisdiction or organization that has cooperated in the development of these materials, makes any warranty, express or implied, or assumes any legal liability or responsibility for the accuracy, completeness, or usefulness or any information, apparatus, product, software, or process disclosed, or represents that its use would not infringe privately owned rights.
+
+Reference herein to any specific commercial product, process, or service by trade name, trademark, manufacturer, or otherwise does not necessarily constitute or imply its endorsement, recommendation, or favoring by the United States Government or any agency thereof. The views and opinions of authors expressed herein do not necessarily state or reflect those of the United States Government or any agency thereof.

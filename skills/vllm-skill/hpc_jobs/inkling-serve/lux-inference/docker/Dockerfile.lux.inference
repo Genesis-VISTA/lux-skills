@@ -1,0 +1,1141 @@
+#
+# { podman build --format docker -f Dockerfile.lux.inference -t inference_image && podman save -o inference_image.tar inference_image; } 2>&1 | tee build.log
+#
+# build container image for large-scale training/inference on ROCm
+# targetting MI250X/MI300A/MI355X (gfx90a/gfx942/gfx950), with GPU-GPU RDMA over
+# aws-ofi/libfabric/RCCL on either HPE Slingshot (cxi) or AMD Pollara RoCE (verbs)
+#
+# Do not edit TRAIN_ARCHS/ROCM_TARGET_FAMILY here to switch cards -- both are
+# ARGs and build_image.sh passes the matching pair via --build-arg:
+#   ./build_image.sh gfx950   (MI355X)
+#   ./build_image.sh gfx942   (MI300A)
+#   ./build_image.sh gfx90a   (MI250X)
+#
+# Jon Belof, AMD 5/30/2026
+#
+
+# rocm pytorch base image
+# fully qualified: this host has no unqualified-search-registries configured in
+# /etc/containers/registries.conf, so a bare "rocm/pytorch:..." short name fails
+# to resolve at STEP 1
+ARG TRAIN_BASE_IMAGE="docker.io/rocm/pytorch:rocm7.14_ubuntu26.04_py3.14_pytorch_release_2.12.0"
+
+# ensure that the packages installed by apt are those that were frozen as of current build date
+# improves static reproducibility of the image build process
+# format = date to "freeze" (YYYYMMDDTHHMMSSZ)
+ARG TRAIN_BASE_SNAPSHOT_ID="20260813T000000Z"
+
+# single stage build for now
+FROM ${TRAIN_BASE_IMAGE} AS builder
+
+# Target GPU arch. One arch per image: every kernel below (flash-attention,
+# AITER, vLLM) compiles for exactly this list, and a multi-arch list multiplies
+# the build time of the slowest steps. build_image.sh overrides this.
+#   gfx90a = MI250X, gfx942 = MI300A, gfx950 = MI355X
+ARG TRAIN_ARCHS="gfx942"
+
+# ROCm 7.14 no longer ships /opt/rocm-x.y.z. The SDK is delivered as python
+# wheels under /opt/venv/.../site-packages:
+#   _rocm_sdk_core       -> hip/hsa/comgr/llvm runtime + the few headers it owns
+#   _rocm_sdk_libraries  -> librccl/librocblas/libhipblaslt/libMIOpen/... (.so.N only)
+# neither ships the math-library headers (rccl.h, hipblas.h, ...), the devel
+# .so symlinks, or the lib/cmake/* configs that our source builds need. Those
+# live in the separate `rocm-sdk-devel` wheel, which is NOT installed in the
+# base image. We install it below and then symlink its expanded tree back to
+# $ROCM_HOME so every -I$ROCM_HOME/include / -L$ROCM_HOME/lib below still works.
+#
+# the devel wheel is target-family specific, and the family name is an index
+# path at https://rocm.nightlies.amd.com/v2/ rather than the arch string:
+#   gfx950 (MI355X) -> gfx950-dcgpu
+#   gfx942 (MI300A) -> gfx94X-dcgpu
+#   gfx90a (MI250X) -> gfx90a        (NOT gfx90X-dcgpu: that family's newest
+#                                     rocm-sdk-devel is 7.12.0a, older than the
+#                                     ROCM_DEVEL_VERSION pinned below)
+# build_image.sh passes the right one; see the case statement there.
+ARG ROCM_TARGET_FAMILY="gfx94X-dcgpu"
+
+# The base image pins rocm 7.14.0, but the nightly index only publishes dated
+# alphas. This is the newest devel build available; its SONAMEs (librccl.so.1,
+# librocblas.so.5, libhipblaslt.so.1) match the runtime wheels in the image.
+ARG ROCM_DEVEL_VERSION="7.14.0a20260612"
+ARG ROCM_DEVEL_INDEX="https://rocm.nightlies.amd.com/v2"
+
+# commit hashes and repo urls
+#
+# cassini-headers, the cxi-driver uapi headers and libcxi must come from the
+# SAME SHS release as the host's cxi kernel driver, or an older one. The cxi
+# ioctl ABI is append-only from SHS 12.0 through 14.0.x but not into 15.0:
+# shs-cxi-driver 3af91c0 reordered struct cxi_lni_alloc_cmd, so a libcxi built
+# from main passes a 13.1 driver svc_id=0 and every LNI alloc fails with
+# "cxip_alloc_lni ... -22". Set ZENITH_SHS_VERSION to the OLDEST SHS among the
+# sites this image has to run on (tuolumne: 13.1.0; check rzvernal with
+# `rpm -q kmod-cray-cxi-driver`). An image built at X runs on kernels X..14.0.x.
+# The *_HASH args override the tag; leave them empty to use the release tag.
+ARG ZENITH_SHS_VERSION="13.1.0"
+# release/shs-13.1.0: headers 2f6e60a, driver a1d91b2, libcxi 9d46021
+ARG CXI_HEADERS_HASH=""
+ARG CXI_HEADERS_REPO="https://github.com/HewlettPackard/shs-cassini-headers.git"
+
+ARG CXI_DRIVER_HASH=""
+ARG CXI_DRIVER_REPO="https://github.com/HewlettPackard/shs-cxi-driver.git"
+
+ARG CXI_LIBCXI_HASH=""
+ARG CXI_LIBCXI_REPO="https://github.com/HewlettPackard/shs-libcxi.git"
+
+ARG FABRIC_HASH="b1ecc7853b306279954164766fac341082524ee2"
+ARG FABRIC_REPO="https://github.com/ofiwg/libfabric.git"
+
+# RCCL source revision, used only if the build block below is enabled. The
+# stock RCCL from the base image (2.30.4) is what we ship.
+#
+# Do NOT change this hoping to fix the Lux RoCE fabric. RCCL 2.27.7 (tag
+# rocm-7.2.2, the version on the working Lux hosts) was built here and tested:
+# it fails *identically* to 2.30.4. The RCCL version is not the variable --
+# the missing piece was AMD's RCCL-ANP net plugin, which is staged from
+# /opt/rocm-7.2.2 further down. See RESULTS.md, "it is not a size threshold
+# and not the RCCL version".
+ARG RCCL_HASH="96a25b5fd6f73fba58c7d83eb57cf19a50230aa4"
+ARG RCCL_REPO="https://github.com/ROCm/rccl.git"
+
+ARG OFI_HASH="396ce3546bbb17b2106141126651aee6da21f0c0"
+ARG OFI_REPO="https://github.com/aws/aws-ofi-nccl.git"
+
+#ARG MORI_HASH="2d02c6a9"
+#ARG MORI_REPO="https://github.com/ROCm/mori.git"
+
+ARG FA_HASH="145b1010051dbfd4bdc41a0ae55d495b08d7a458"
+ARG FA_REPO="https://github.com/Dao-AILab/flash-attention.git"
+
+# AITER v0.1.22.post1 (2026-09-17), moved up from an Aug 12 commit. This tag's
+# release notes include the "MXFP4 MoE OOB fix", and it is the version vLLM
+# main's Dockerfile.rocm_base pins, so it is what vLLM's ROCm backends are
+# actually tested against.
+ARG AITER_HASH="b4d9154d125e09efbe098d986e40fea3549c1244"
+ARG AITER_REPO="https://github.com/ROCm/aiter.git"
+
+# vLLM bc0f47cd0 (2026-09-17), up from 59d1af5 (2026-08-14).
+#
+# "Newer is fine" used to be written here. It is not -- measured, not assumed.
+# Upstream main 1ea7c63f4 (294 commits ahead, built as job 46646) is
+# numerically clean, passing the semantic correctness gate 30/30 against this
+# pin, but measured slower per token on MI355X, at concurrency 1 as well as
+# under load -- a real per-step cost somewhere in that range rather than a
+# benchmarking artifact.
+#
+# So treat bc0f47cd0 as the pin, not the floor. Anyone moving it should re-run
+# the c=1..512 curve and expect to justify the result, and should bisect the
+# range if a specific newer feature is actually needed.
+ARG VLLM_HASH="bc0f47cd03d6ae99f9f217f096684423bb4ebc2b"
+ARG VLLM_REPO="https://github.com/vllm-project/vllm.git"
+
+# set env variables needed for rocm/hip/torch/nccl
+ENV ROCM_VERS="7.14.0"
+ENV ROCM_HOME="/opt/rocm-${ROCM_VERS}"
+ENV ROCM_PATH="${ROCM_HOME}"
+ENV HIP_PATH="${ROCM_HOME}"
+# python in this base image is 3.14, not 3.12
+ENV PYTHON_VERS="3.14"
+ENV SITE_PACKAGES="/opt/venv/lib/python${PYTHON_VERS}/site-packages"
+ENV PYTORCH_ROCM_ARCH="${TRAIN_ARCHS}"
+ENV BNB_ROCM_ARCH="${TRAIN_ARCHS}"
+ENV HIP_FORCE_DEV_KERNARG=1
+# HSA_XNACK is deliberately not set here: it is per arch (1 on the MI300A APU,
+# where host and device share HBM; 0 on a discrete MI355X / MI250X, where it
+# forces the XNACK code object variant for no benefit), so run_container.sh
+# sets it for the detected GPU.
+ENV HSA_OVERRIDE_CPU_AFFINITY_DEBUG=0
+ENV HSA_ENABLE_SCRATCH_ASYNC_RECLAIM=0
+
+# make sure pip doesn't fail on ssl error
+ENV PIP_TRUSTED_HOST="rocm.nightlies.amd.com download.pytorch.org pypi.org files.pythonhosted.org github.com"
+
+# ---------------------------------------------------------------------------
+# libfabric / OFI
+#
+# NOTE: FI_PROVIDER is deliberately NOT baked in here. This image runs on two
+# very different fabrics:
+#   * MI300A / Tuolumne  -> HPE Slingshot, /dev/cxi*, provider "cxi"
+#   * MI250X / RZVernal  -> HPE Slingshot, /dev/cxi*, provider "cxi"
+#   * MI355X / Lux       -> AMD Pollara RoCE, /dev/infiniband/uverbs*, provider "verbs"
+# Hardcoding FI_PROVIDER=cxi made libfabric return zero usable providers on the
+# RoCE site, which silently dropped RCCL onto TCP sockets. run_container.sh now
+# probes the host and exports the right FI_PROVIDER at run time.
+#
+# The FI_CXI_* knobs below are inert when the cxi provider is not loaded, so
+# they are safe to leave in the image for the Slingshot site.
+# ---------------------------------------------------------------------------
+# VNI=1 is what works on tuolumne, SLINGSHOT_VNIS not set on that host
+ENV FI_CXI_DEFAULT_VNI=1
+ENV SLINGSHOT_VNIS=1
+ENV SLINGSHOT_SVC_IDS=1
+ENV FI_OFI_RXM_USE_SRX=1
+ENV FI_CXI_DISABLE_HOST_REGISTER=1
+ENV FI_CXI_OPTIMIZED_GETS=1
+ENV FI_CXI_OPTIMIZED_MRS=0
+ENV FI_CXI_DEFAULT_CQ_SIZE=131072
+ENV FI_CXI_DEFAULT_TX_SIZE=256
+ENV FI_CXI_RDZV_PROTO=alt_read
+ENV FI_CXI_RDZV_THRESHOLD=2048
+ENV FI_CXI_RDZV_GET_MIN=2049
+# Plain bytes: libfabric reads this as a size_t and takes no unit suffix, so
+# the old "2MB" became a 2-byte buffer. That broke the rdzv_threshold check
+# (which falls back to the default) and hung RCCL GDR send/recv on tioga MI250X.
+# PP2 hung whenever the message size grew on a connection; PP>=3 hung
+# outright. Root-caused 2026-10-06; see MI250X_PORTABILITY.md §8.
+ENV FI_CXI_OFLOW_BUF_SIZE=2097152
+ENV FI_CXI_ATS=0
+ENV FI_CXI_ODP=0
+#ENV FI_CXI_RX_MATCH_MODE=hybrid
+ENV FI_CXI_RX_MATCH_MODE=software
+ENV FI_CXI_XPMEM=0
+ENV FI_HMEM_ROCR_ENABLE=1
+ENV FI_HMEM_CUDA_USE_X_PROXIES=0
+ENV FI_HMEM_ROCR_USE_DMABUF=1
+ENV FI_SHM_XPMEM=0
+ENV FI_MR_CACHE_MONITOR=rocr
+# OFI_NCCL_PLATFORM=cray is a Slingshot-only tuning profile; exported at run
+# time by run_container.sh only when the cxi provider is actually present.
+#
+# OFI_NCCL_PROTOCOL is deliberately NOT baked in, for the same reason as
+# FI_PROVIDER above: it is fabric-specific, and the wrong value here silently
+# costs you the whole fabric.
+#
+# This used to be `ENV OFI_NCCL_PROTOCOL=rdma`. That is aws-ofi-nccl's
+# EFA-oriented RDMA protocol. On the Lux Pollara/ionic RoCE fabric, libfabric
+# correctly selects `verbs;ofi_rxm`, which does not advertise the capabilities
+# that protocol needs, so endpoint allocation fails:
+#
+#   NET/OFI Using transport protocol RDMA (user set)
+#   NET/OFI Couldn't allocate endpoint. RC: -95, ERROR: Operation not supported
+#   NET/OFI Initializing rail 0 failed
+#   Failed to initialize NET plugin Libfabric
+#
+# RCCL then falls back to NET/Socket -- i.e. TCP -- *without failing*, which is
+# how every multi-node measurement on Lux before 2026-09-23 came to be taken
+# over TCP at ~73 Gbps on a fabric that does 2.2 Tbps. Letting the plugin pick
+# its own protocol, or bypassing it with NCCL_NET_PLUGIN=none, gets
+# `Assigned NET plugin IB to comm` instead. Slingshot sites are unaffected
+# either way: they run the cxi provider, not verbs.
+#
+# See RESULTS.md, "Follow-up (2026-09-23)", for the measurements.
+
+# ---------------------------------------------------------------------------
+# RCCL tuning
+#
+# IMPORTANT: NCCL_P2P_DISABLE and NCCL_IB_DISABLE used to be set to 1 here.
+# Those two are the single biggest reason inference was slow / hanging:
+#   * NCCL_P2P_DISABLE=1 turns off intra-node XGMI peer-to-peer, so every
+#     tensor-parallel all-reduce between the 8 GPUs on a node is staged
+#     through host memory. On an MI355X node that is ~1-2 orders of magnitude
+#     off of the Infinity Fabric bandwidth and it dominates decode latency.
+#   * NCCL_IB_DISABLE=1 turns off the verbs path, which on the Pollara RoCE
+#     site is the *only* high speed inter-node transport. Combined with
+#     FI_PROVIDER=cxi (no cxi device present) this left plain TCP.
+# P2P now defaults to enabled. NCCL_IB_DISABLE is per fabric, so it is not set
+# here: run_container.sh sets 0 on RoCE and 1 on Slingshot / ethernet. Both can
+# still be turned off for debugging via the ZENITH_DISABLE_P2P /
+# ZENITH_DISABLE_IB escape hatches.
+# ---------------------------------------------------------------------------
+ENV NCCL_DMABUF_ENABLE=1
+# 112 channels is tuned for the Slingshot/MI300A site and badly over-subscribes
+# an 8-GPU MI355X node; left unset so RCCL autotunes per platform.
+ENV NCCL_TUNER_PLUGIN=/opt/aws-ofi-rccl/lib/libnccl-ofi-tuner.so
+ENV NCCL_NET_PLUGIN_PATH=/opt/aws-ofi-rccl/lib
+# GPUDirect RDMA. Kept at 3 as the image-wide default because it is right on
+# Slingshot/cxi, where it has always been on. With the RCCL-ANP plugin on RoCE,
+# GDR alone hangs every Simple-protocol receive (all-reduce >= 96 MiB, all
+# send/recv) because ANP's GDR flush (a loopback RDMA READ) never completes on
+# ionic, so run_container.sh's roce branch adds NCCL_GDR_FLUSH_DISABLE=1 to this
+# level (root-caused and validated 2026-10-04), and passes the level only when
+# ZENITH_NET_GDR_LEVEL overrides it (0 = host-staged). See the long comment there.
+# Do not change this line for RoCE -- it would regress the MI300A path, which
+# is a different fabric with a different plugin.
+ENV NCCL_NET_GDR_LEVEL=3
+ENV NCCL_COMM_BLOCKING=0
+ENV NCCL_CROSS_TP_TIMEOUT=1200
+ENV NCCL_P2P_DISABLE=0
+ENV NCCL_TIMEOUT=3600000
+ENV NCCL_IGNORE_CPU_AFFINITY=1
+ENV DISTRIBUTED_TIMEOUT=7200
+
+# ray settings
+# run_container.sh sets HIP/ROCR/CUDA_VISIBLE_DEVICES for the node; Ray must
+# not narrow them per worker.
+ENV RAY_EXPERIMENTAL_NOSET_HIP_VISIBLE_DEVICES=1
+ENV RAY_EXPERIMENTAL_NOSET_ROCR_VISIBLE_DEVICES=1
+ENV RAY_EXPERIMENTAL_NO_SET_CUDA_VISIBLE_DEVICES=1
+ENV RAY_system_config='{"state_api_timeout_s":60,"num_heartbeats_timeout":600,"health_check_timeout_ms":60000}'
+# Cap the idle worker pool. ray start passes --num_prestart_python_workers=<CPUs>
+# to the raylet (see ray/_private/services.py), so when the first driver connects
+# the raylet prestarts one python worker per --num-cpus -- 248 of them on a
+# 256-thread node. Each is a fresh python that imports ray off a cold
+# fuse-overlayfs layer, and the resulting thundering herd starves the driver's own
+# RegisterClient handshake on the raylet IPC socket: the raylet logs a wall of
+# "Some workers of the worker process(N) have not registered within the timeout",
+# and the driver sits in ray.init() -> CoreWorkerProcess::Initialize ->
+# RegisterClient indefinitely. The cluster is fine -- a second driver connects in
+# under a second -- so this only bites the *first* connection on a cold container,
+# which is exactly the health check. These are inference workloads: actors are
+# long-lived and sized by the placement group, so a large idle pool buys nothing.
+#
+# RAY_prestart_worker_first_driver=false turns the burst off entirely;
+# RAY_num_workers_soft_limit bounds the pool the raylet will keep alive after
+# that, so an ordinary task fan-out still gets workers, just on demand
+# (run_container.sh: ZENITH_RAY_MAX_IDLE_WORKERS overrides the 16).
+ENV RAY_prestart_worker_first_driver=false
+ENV RAY_num_workers_soft_limit=16
+ENV RAY_memory_usage_threshold=0.99
+ENV RAY_gcs_rpc_server_reconnect_timeout_s=600
+ENV RAY_num_heartbeats_timeout=600
+ENV RAY_TRAIN_WORKER_NOT_READY_TIMEOUT_S=1200
+ENV RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+ENV RAY_LOG_LEVEL=error
+ENV RAY_STATE_LOG_LEVEL=error
+ENV RAY_TRAIN_ENABLE_STATE_TRACKING=0
+ENV RAY_TRAIN_ENABLE_PLACEMENT_GROUP_CLEANER=0
+ENV RAY_RAYLET_LOG_LEVEL=error
+ENV RAY_DEDUP_LOGS=1
+ENV RAY_CHDIR_TO_TRIAL_DIR=0
+ENV RAY_IGNORE_UNHANDLED_ERRORS=1
+ENV RAY_PRINT_ALL_WORKER_LOGS=0
+
+# pytorch settings
+ENV TORCH_BLAS_PREFER_HIPBLASLT=1
+ENV TORCH_NCCL_BLOCKING_WAIT=0
+ENV TORCH_NCCL_ASYNC_ERROR_HANDLING=1
+ENV PYTORCH_TUNABLEOP_ENABLED=0
+ENV TORCHAO_SKIP_CPP_EXT=1
+
+# turn off axolotl telemetery
+ENV AXOLOTL_DO_NOT_TRACK=1
+ENV DO_NOT_TRACK=1
+ENV ACCELERATE_DISABLE_RICH=1
+ENV AXOLOTL_USE_KERNELS=1
+ENV PYTHONWARNINGS="ignore"
+
+# misc python library configs
+ENV CURL_CA_BUNDLE=""
+ENV PYTHONHTTPSVERIFY=0
+ENV ACCELERATE_SKIP_KERNEL_CHECK=1
+ENV ACCELERATE_USE_FLASH_ATTENTION_2=true
+ENV TRANSFORMERS_OFFLINE=1
+ENV TRANSFORMERS_VERBOSITY="error"
+ENV TRANSFORMERS_OK_TO_USE_HUB_KERNELS=0
+ENV HF_HUB_OFFLINE=1
+ENV TORCHAO_SKIP_VERSION_CHECK=1
+ENV TRL_SKIP_VERSION_CHECK=1
+ENV KERNELS_OFFLINE=1
+ENV KERNELS_VERBOSITY="error"
+ENV NUMEXPR_MAX_THREADS=96
+ENV TRITON_OFFLINE=1
+# JIT caches in the container's own /tmp, not on the shared model mount
+ENV TRITON_CACHE_DIR=/tmp/.triton_cache
+ENV TORCH_EXTENSIONS_DIR=/tmp/.torch_extensions
+ENV HF_HOME=/tmp/.cache/huggingface
+
+# runtime shared lib path
+# $ROCM_HOME/lib is the symlink farm created below; the underlying .so.N files
+# physically live in the _rocm_sdk_core / _rocm_sdk_libraries wheels, so those
+# are listed explicitly as well.
+ENV LD_LIBRARY_PATH=${SITE_PACKAGES}/torch/lib:/opt/aws-ofi-rccl/lib:/opt/libfabric/lib:/opt/libcxi/lib:$ROCM_HOME/lib:${SITE_PACKAGES}/_rocm_sdk_core/lib:${SITE_PACKAGES}/_rocm_sdk_libraries/lib:/usr/local/lib:/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu
+
+# have to remove _apt user or else run into uid problems with apt-get on rootless podman
+# these are various dependencies needed for what follows
+# NOTE: hsa-rocr-dev is dropped -- it does not exist on ubuntu 26.04 and ROCm
+# 7.14 supplies hsa.h / libhsa-runtime64.so via the rocm-sdk wheels instead.
+RUN cp /etc/passwd /etc/passwd.orig \
+    && sed "/^_apt/d" /etc/passwd > /etc/passwd.new \
+    && mv /etc/passwd.new /etc/passwd \
+    && apt-get update -o "Acquire::https::Verify-Peer=false" --snapshot "$TRAIN_BASE_SNAPSHOT_ID" \
+    && apt-get install -o "Acquire::https::Verify-Peer=false" -y --no-install-recommends --snapshot "$TRAIN_BASE_SNAPSHOT_ID" autoconf libtool mpich libmpich-dev libconfig-dev libuv1 libuv1-dev fuse libfuse-dev libyaml-dev libnl-3-dev libnl-genl-3-dev udev lm-sensors libsensors-dev cmake rocm-cmake libibverbs-dev libpci-dev libcurl4-openssl-dev libjson-c-dev libhwloc-dev vim libnuma-dev \
+    # rdma-core + the userspace verbs providers. Needed on any RoCE site (the
+    # MI355X/Pollara cluster presents 8x ionic_N HCAs via libionic-rdmav34.so);
+    # without ibverbs-providers in the image RCCL silently falls back to TCP
+    # sockets for inter-node traffic. ibverbs-utils gives us ibv_devinfo for
+    # the health checks. Harmless on the Slingshot/cxi sites.
+    rdma-core ibverbs-providers ibverbs-utils librdmacm1 librdmacm-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# ---------------------------------------------------------------------------
+# reconstruct /opt/rocm-7.14.0 from the rocm-sdk python wheels
+#
+# 1. install rocm-sdk-devel. It ships a single `_devel.tar` payload that, when
+#    expanded, produces a conventional ROCm tree (bin/ include/ lib/ share/ +
+#    lib/cmake/{hip,rccl,hipblaslt,rocblas,miopen,...}) whose files are relative
+#    symlinks back into the already-installed runtime wheels
+# 2. devel tarball links to a *target-specific* package name derived from
+#    ROCM_TARGET_FAMILY (_rocm_sdk_libraries_gfx950_dcgpu,
+#    _rocm_sdk_libraries_gfx94X_dcgpu, _rocm_sdk_libraries_gfx90a), but this
+#    base image installs the generic _rocm_sdk_libraries. Bridge the two with
+#    one compat symlink built from the family name with '-' -> '_',
+#    otherwise ~1000 devel symlinks (librccl.so, librocblas.so, ...) dangle
+# 3. `rocm-sdk init` expands the tarball and hardlinks per-arch device files in
+# 4. point /opt/rocm-7.14.0 (and /opt/rocm) at the expanded tree so that every
+#    -I$ROCM_HOME/include and -L$ROCM_HOME/lib in this Dockerfile resolves
+# ---------------------------------------------------------------------------
+RUN pip install --root-user-action=ignore --no-cache-dir --no-deps \
+        --index-url "${ROCM_DEVEL_INDEX}/${ROCM_TARGET_FAMILY}/" \
+        "rocm-sdk-devel==${ROCM_DEVEL_VERSION}" \
+    && ln -sfn "${SITE_PACKAGES}/_rocm_sdk_libraries" \
+               "${SITE_PACKAGES}/_rocm_sdk_libraries_$(echo ${ROCM_TARGET_FAMILY} | tr '-' '_')" \
+    && rocm-sdk init --quiet \
+    && ROCM_DEVEL_ROOT="$(rocm-sdk path --root)" \
+    && ln -sfn "$ROCM_DEVEL_ROOT" "$ROCM_HOME" \
+    && ln -sfn "$ROCM_HOME" /opt/rocm \
+    # rccl.h is installed as include/rccl/rccl.h; some builds expect nccl.h
+    # alongside it (the aws-ofi plugin includes <rccl/rccl.h> and <nccl_net.h>)
+    && ln -sf rccl.h "$ROCM_HOME/include/rccl/nccl.h" \
+    #
+    # Collapse every library the rocm-sdk wheels ship TWICE -- once in
+    # _rocm_sdk_devel (what $ROCM_HOME points at) and once in _rocm_sdk_core
+    # (what LD_LIBRARY_PATH and torch's DT_NEEDEDs resolve to).
+    #
+    # The two copies are byte-identical but are separate files with separate
+    # inodes, so glibc cannot dedup them: a process that reaches one by
+    # $ROCM_HOME/lib/<name> and the other by absolute path (ctypes dlopen,
+    # DT_NEEDED, or an env var naming a full path) maps BOTH. Each mapping
+    # then runs its own library init against a process-global registry, and
+    # what happens next depends on the library:
+    #
+    #   libamd_smi     -- each copy keeps its own state; whichever calls
+    #                     amdsmi_init() second enumerates 0 devices, so
+    #                     torch.cuda.device_count()==0 while is_available()
+    #                     is True, and vLLM says "Failed to infer device
+    #                     type". Import-order dependent: `import ray` pulls
+    #                     amdsmi in first and papers over it, so bare
+    #                     `import torch` fails while ray health checks pass.
+    #   libamd_comgr   -- embeds a full LLVM whose cl::opt registry aborts the
+    #                     process: "Option 'spirv-expand-step' registered more
+    #                     than once" / "LLVM ERROR: inconsistency in registered
+    #                     CommandLine options". SIGABRT (134), no traceback,
+    #                     on a bare `import vllm`.
+    #   librocprofiler -- "ROCPROFILER_REGISTER_LIBRARY is already set to
+    #                     <devel path>, not overriding with <core path>" and a
+    #                     glog F-level Check failure. This one is inherited
+    #                     through the environment, so it kills *subprocesses*:
+    #                     AITER's JIT shells out to gen_instances_cktile.py,
+    #                     the child aborts, and AITER reports the generic
+    #                     "failed jit build
+    #                     [module_gemm_a8w8_blockscale_bpreshuffle_cktile]"
+    #                     with no mention of rocprofiler at all.
+    #
+    # Three separate crashes, three libraries, one bug. There are 24 such
+    # duplicated libraries in this image, so fix the class rather than wait
+    # for the next one: replace every duplicated name in the devel tree with a
+    # SYMLINK to the core copy.
+    #
+    # It must be a symlink, and the replacement must be unconditional.
+    # `rocm-sdk init` already hardlinks these: immediately after it runs, the
+    # devel and core copies share one inode with a link count of 4, and at
+    # that instant there is nothing to fix -- an inode-equality guard here
+    # finds zero work to do and the build reports "deduplicated 0".
+    #
+    # But podman does not preserve hardlinks across layer boundaries. The
+    # commit writes each layer as a tar, the links are broken on extract, and
+    # the *shipped image* has two independent files with link count 1 and
+    # distinct inodes -- which is exactly the state glibc cannot dedup. So the
+    # damage happens after this RUN, in the layer commit, and the only defense
+    # is to leave a symlink behind, since a symlink survives the round-trip as
+    # a symlink.
+    #
+    # Verified byte-identical first: the loop refuses to link anything whose
+    # contents differ, so a future SDK that genuinely ships different devel
+    # and runtime builds fails the build loudly instead of being flattened.
+    # Walk the whole lib tree, not just lib/*.so.* -- the sysdeps bundle
+    # (lib/rocm_sysdeps/lib/librocm_sysdeps_*.so.*) is doubled the same way,
+    # and a flat glob silently misses it. Matched on the path RELATIVE to each
+    # tree root so devel and core entries line up at any depth.
+    && ROCM_DEDUP=0 \
+    && for f in $(cd "$ROCM_DEVEL_ROOT/lib" && find . -name '*.so.*' -type f | sed 's|^\./||'); do \
+         d="$ROCM_DEVEL_ROOT/lib/$f"; \
+         c="${SITE_PACKAGES}/_rocm_sdk_core/lib/$f"; \
+         [ -L "$d" ] && continue; \
+         [ -f "$c" ] || continue; \
+         cmp -s "$d" "$c" || { echo "REFUSING: $f differs between devel and core"; exit 1; }; \
+         ln -sf "$c" "$d"; \
+         ROCM_DEDUP=$((ROCM_DEDUP+1)); \
+       done \
+    # Second pass by SONAME: devel ships some libraries under their full
+    # version (libhsa-runtime64.so.1.21.0, with the unversioned .so pointing
+    # at it) where core ships only the soname (libhsa-runtime64.so.1), so the
+    # same-path match above never pairs them. libfabric's ROCR hmem dlopens
+    # exactly that unversioned name; mapping it next to HIP's core copy gives
+    # the process two HSA runtimes, libfabric's cannot see HIP allocations,
+    # and every GPU-buffer registration on cxi fails with EFAULT.
+    # The unversioned names are walked here too (-name '*.so'): `rocm-sdk init`
+    # leaves lib/libhsa-runtime64.so as one more hardlink of the same inode, not
+    # a symlink to the versioned file, so pairing only *.so.* fixed .so.1 and
+    # .so.1.21.0 but left exactly the name libfabric opens as a separate file.
+    # Its SONAME (libhsa-runtime64.so.1) is what pairs it with core.
+    && for f in $(cd "$ROCM_DEVEL_ROOT/lib" && find . \( -name '*.so' -o -name '*.so.*' \) -type f | sed 's|^\./||'); do \
+         d="$ROCM_DEVEL_ROOT/lib/$f"; \
+         s="$(readelf -d "$d" 2>/dev/null | sed -n 's/.*(SONAME).*\[\(.*\)\]/\1/p')"; \
+         [ -n "$s" ] || continue; \
+         c="${SITE_PACKAGES}/_rocm_sdk_core/lib/$(dirname "$f")/$s"; \
+         [ -f "$c" ] || continue; \
+         cmp -s "$d" "$c" || { echo "REFUSING: $f differs from core $s"; exit 1; }; \
+         ln -sf "$c" "$d"; \
+         ROCM_DEDUP=$((ROCM_DEDUP+1)); \
+       done \
+    && { test "$(readlink -f "$ROCM_HOME/lib/libhsa-runtime64.so")" \
+            = "$(readlink -f "${SITE_PACKAGES}/_rocm_sdk_core/lib/libhsa-runtime64.so.1")" \
+         || { echo "libhsa-runtime64.so resolves to $(readlink -f "$ROCM_HOME/lib/libhsa-runtime64.so"), not the core copy"; exit 1; }; } \
+    && echo "deduplicated ${ROCM_DEDUP} doubled ROCm libraries -> _rocm_sdk_core" \
+    && [ "${ROCM_DEDUP}" -gt 0 ] \
+       || { echo "expected to deduplicate ROCm libraries but found none"; exit 1; } \
+    # The unversioned and fully-versioned aliases are separate dirents that the
+    # loop above does not cover (it only walks *.so.*). Point the ones we know
+    # are reached by name at the same core copy.
+    && ln -sf "${SITE_PACKAGES}/_rocm_sdk_core/lib/libamd_smi.so.26" \
+              "$ROCM_HOME/lib/libamd_smi.so" \
+    && ln -sf "${SITE_PACKAGES}/_rocm_sdk_core/lib/libamd_comgr.so.3" \
+              "$ROCM_HOME/lib/libamd_comgr.so" \
+    && ln -sf "${SITE_PACKAGES}/_rocm_sdk_core/lib/libamd_comgr.so.3" \
+              "$ROCM_HOME/lib/libamd_comgr.so.3.3.0" \
+    # sanity check: fail the build here rather than 200 lines later
+    && test -f "$ROCM_HOME/include/rccl/rccl.h" \
+    && test -f "$ROCM_HOME/include/hip/hip_runtime.h" \
+    && test -f "$ROCM_HOME/include/hsa/hsa.h" \
+    && test -e "$ROCM_HOME/lib/librccl.so" \
+    && test -e "$ROCM_HOME/lib/libamdhip64.so" \
+    && test -d "$ROCM_HOME/lib/cmake/hip" \
+    && test -x "$ROCM_HOME/bin/hipcc" \
+    && echo "ROCm devel tree OK at $ROCM_HOME -> $ROCM_DEVEL_ROOT"
+
+# ---------------------------------------------------------------------------
+# kpack shadowing
+#
+# The kpack loader expands torch_@GFXARCH@.kpack most specific first
+# (gfx90a:sramecc+:xnack-, gfx90a:sramecc+, gfx90a:xnack-, gfx90a) and stops at
+# the first archive that *exists*, not the first that holds the kernel. The
+# amd-torch-device-gfx90a wheel ships torch_gfx90a:xnack+.kpack and
+# torch_gfx90a:xnack-.kpack holding only libtorch_rocshmem.so's kernels, beside
+# the full torch_gfx90a.kpack -- so on an MI250X every libtorch_hip kernel
+# launch fails with hipErrorInvalidImage ("kpack_load_code_object failed with
+# error: 5"; tioga job f615jbVtGRYK). Drop feature-qualified archives that
+# shadow a generic one. That loses the rocshmem kernels for gfx90a, which vLLM
+# does not use; gfx942/gfx950 ship no such archives, so this is a no-op there.
+# ---------------------------------------------------------------------------
+RUN find "${SITE_PACKAGES}" -path '*/.kpack/*:*.kpack' | while read -r k; do \
+        if [ -e "${k%%:*}.kpack" ]; then echo "removing shadowing kpack ${k}"; rm -f "${k}"; fi; \
+    done
+
+# ---------------------------------------------------------------------------
+# target-arch check, before hours of compiling for it
+#
+# The base image is AMD's multi-arch ("npi.amdgpu_family=device-all") build:
+# torch/ and _rocm_sdk_libraries/ hold host code, and the device code for each
+# arch is a separate kpack file (torch/.kpack/torch_<arch>.kpack,
+# _rocm_sdk_libraries/.kpack/rccl_lib_<arch>.kpack) installed from its own
+# amd-torch-device-<arch> / rocm-sdk-device-<arch> wheel. So:
+#   * torch.cuda.get_arch_list() is the *compile-time* list. It is necessary
+#     but says nothing about whether that arch's device wheel is installed.
+#   * librccl.so.1 itself may carry no code objects at all; they are in the
+#     kpack next to it. Accept either form: the amdgcn triple embedded in the
+#     librccl that torch actually maps, or a non-empty rccl kpack for the arch.
+# Without this, a base image that lacks the arch builds a perfectly good image
+# that dies at the first kernel launch on the target machine -- and for gfx90a
+# the MI300A build host cannot run that kernel to find out.
+# ---------------------------------------------------------------------------
+RUN python -c "import os, re, glob, ctypes, torch; \
+      sp = os.environ['SITE_PACKAGES']; \
+      archs = [a for a in re.split('[;, ]+', '${TRAIN_ARCHS}') if a]; \
+      tl = torch.cuda.get_arch_list() or (torch._C._cuda_getArchFlags() or '').split(); \
+      print('torch', torch.__version__, 'arch list:', tl); \
+      ctypes.CDLL('librccl.so.1'); \
+      rccl = sorted({os.path.realpath(l.split()[-1]) for l in open('/proc/self/maps') if 'librccl.so' in l}); \
+      assert rccl, 'librccl.so.1 is not mapped after import torch'; \
+      lib = rccl[0]; print('librccl:', lib); \
+      blob = open(lib, 'rb').read(); \
+      kdirs = sorted({os.path.join(os.path.dirname(os.path.dirname(lib)), '.kpack'), sp + '/_rocm_sdk_libraries/.kpack'}); \
+      print('rccl kpacks present:', sorted(os.path.basename(k) for d in kdirs for k in glob.glob(d + '/rccl*.kpack'))); \
+      bad = []; \
+      [bad.append(f'{a}: not in torch arch list {tl}') for a in archs if a not in [t.split(':')[0] for t in tl]]; \
+      [bad.append(f'{a}: torch device code missing (no torch/.kpack/torch_{a}.kpack; amd-torch-device-{a} not installed)') \
+        for a in archs if os.path.isdir(sp + '/torch/.kpack') and not glob.glob(sp + f'/torch/.kpack/torch_{a}*.kpack')]; \
+      [bad.append(f'{a}: librccl has no amdgcn-amd-amdhsa--{a} code object and no rccl kpack for it in {kdirs}') \
+        for a in archs if f'amdgcn-amd-amdhsa--{a}'.encode() not in blob \
+        and not [k for d in kdirs for k in glob.glob(d + f'/rccl*_{a}.kpack') if os.path.getsize(k) > 0]]; \
+      print('target arch check', archs, 'FAILED' if bad else 'OK (torch arch list, torch device code, rccl code objects)'); \
+      assert not bad, 'BASE IMAGE DOES NOT SUPPORT TRAIN_ARCHS=${TRAIN_ARCHS}: ' + '; '.join(bad) \
+        + ' -- pick a base image built for this arch (TRAIN_BASE_IMAGE) rather than building on.'"
+
+# the arch, for `podman image inspect`; run_container.sh checks the image's
+# PYTORCH_ROCM_ARCH (same value) against the node's GPU at container start
+LABEL zenith.gpu_arch="${TRAIN_ARCHS}"
+
+# make the SDK compilers/tools resolvable as $ROCM_HOME/bin/* and on PATH
+ENV PATH="${ROCM_HOME}/bin:${ROCM_HOME}/llvm/bin:${PATH}"
+
+# operate here for our building
+WORKDIR /tmp
+
+# for some reason, this ubuntu image is missing ROCm torchao :(
+RUN pip install --root-user-action=ignore --no-deps --pre torchao --index-url https://download.pytorch.org/whl/nightly/rocm7.14
+
+# cxi headers
+RUN git clone "$CXI_HEADERS_REPO" \
+    && cd shs-cassini-headers \
+    && git checkout "${CXI_HEADERS_HASH:-release/shs-${ZENITH_SHS_VERSION}}" \
+    && cp -r include/* /usr/include \
+    && cp -r share/cassini-headers /usr/share/
+
+# build cxi driver
+RUN git clone "$CXI_DRIVER_REPO" \
+    && cd shs-cxi-driver \
+    && git checkout "${CXI_DRIVER_HASH:-release/shs-${ZENITH_SHS_VERSION}}" \
+    && cp -r include/* /usr/include
+
+# build libcxi
+# pkg_CFLAGS override drops only -Werror: libcxi 13.1.0 predates upstream's
+# warning fixes (951dd60, c8e3f7d) and the base image's GCC is newer than HPE's.
+RUN git clone "$CXI_LIBCXI_REPO" \
+    && cd shs-libcxi \
+    && git checkout "${CXI_LIBCXI_HASH:-release/shs-${ZENITH_SHS_VERSION}}" \
+    && mkdir /usr/include/libcxi \
+    && cp -r include/* /usr/include/libcxi/ \
+    && ./autogen.sh \
+    && LIBUV_CFLAGS="-L/usr/lib/x86_64-linux-gnu" LIBFUSE_CFLAGS="-D_FILE_OFFSET_BITS=64 -I/usr/include/" ./configure --prefix=/opt/libcxi \
+    && make -j $(nproc) install pkg_CFLAGS="-Wall" \
+    && echo "${ZENITH_SHS_VERSION}" > /opt/libcxi/SHS_VERSION \
+    && grep -A2 'struct cxi_lni_alloc_cmd {' /usr/include/uapi/ethernet/cxi-abi.h
+
+LABEL zenith.shs_version="${ZENITH_SHS_VERSION}"
+
+# install libfabric
+#
+# Note for anyone chasing a RoCE/verbs problem here: the verbs provider is
+# enabled by *default*, so there is no --enable-verbs flag to add. This was
+# briefly "fixed" on 2026-09-22 on the strength of a strings(1) grep for
+# "verbs" in libfabric.so.1 coming up empty -- which is not a valid way to ask
+# what providers a build offers. Ask the library instead: `fi_info -l` in the
+# running container lists verbs, and `fi_info -p "verbs;ofi_rxm"` resolves on
+# ionic_0 with FI_EP_RDM. There is also only one libfabric in the image (the
+# rm below sees to that), and the aws-ofi plugin links this one. See
+# RESULTS.md, "Fabric finding (2026-09-22)", for the real root cause.
+RUN rm -f /usr/lib/x86_64-linux-gnu/libfabric*
+RUN git clone "$FABRIC_REPO" \
+    && cd libfabric \
+    && git checkout "$FABRIC_HASH" \
+    && ./autogen.sh \
+    && LDFLAGS="-L/opt/libcxi/lib -L$ROCM_HOME/lib -Wl,-rpath,/opt/libcxi/lib" \
+    CPPFLAGS="-I/opt/libcxi/include -I$ROCM_HOME/include" \
+    ./configure --prefix=/opt/libfabric --with-rocr="$ROCM_HOME" \
+          --enable-cxi --enable-mrail --enable-rxm \
+    && make -j $(nproc) install
+
+# install RCCL
+#RUN git clone "$RCCL_REPO" \
+#    && cd rccl \
+#    && git checkout "$RCCL_HASH" \
+#    && cp -r ./src/include/* /opt/$ROCM_HOME/include/ \
+#    && mkdir build \
+#    && cd build \
+#    && CXX=$ROCM_HOME/bin/hipcc cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$ROCM_HOME -DGPU_TARGETS="$TRAIN_ARCHS" ..
+#    && make -j $(nproc) install
+#    && cd $ROCM_HOME/include/rccl \
+#    && ln -sf rccl.h nccl.h \
+#    && ln -sf rccl.h nccl_common.h \
+#    && ln -sf rccl_net.h nccl_net.h
+#
+# Working version of the above, kept commented: we ship the base image's RCCL.
+#
+# This was briefly enabled on 2026-09-23 to build RCCL 2.27.7 and test whether
+# the version was the cause of the Lux RoCE failure. It is not -- 2.27.7 fails
+# identically -- so the block is off again and we stay on stock 2.30.4, which
+# is one less thing diverging from the MI355X/MI300A Inkling build. Re-enable
+# only to bisect an actual RCCL regression, not for this bug.
+#
+# Two things to know if you do enable it. It adds ~25 min (the device-code LTO
+# link is single-threaded), and RCCL <2.28 does not export ncclCommResume /
+# ncclCommSuspend / ncclCommMemStats / ncclCommDump, which PyTorch 2.12 links
+# against -- `import torch` then dies with `undefined symbol: ncclCommResume`.
+# patches/ainic/rccl_compat_shim.cc stubs those four for diagnostics; a real
+# old-RCCL image needs a torch built against it.
+#
+# Differences from the commented draft above, all of which were bugs:
+#   * `/opt/$ROCM_HOME/include` double-prefixes (ROCM_HOME is already /opt/...)
+#   * missing `\` after the cmake and `make install` lines
+#   * the `cp -r ./src/include/*` step is unnecessary; `make install` installs
+#     the headers itself
+#
+# Verify after building:
+#   strings $ROCM_HOME/lib/librccl.so.1 | grep "RCCL version"
+#RUN git clone "$RCCL_REPO" \
+#    && cd rccl \
+#    && git checkout "$RCCL_HASH" \
+#    && mkdir -p build \
+#    && cd build \
+#    && CXX=$ROCM_HOME/bin/hipcc cmake -DCMAKE_BUILD_TYPE=Release \
+#          -DCMAKE_INSTALL_PREFIX=$ROCM_HOME -DGPU_TARGETS="$TRAIN_ARCHS" \
+#          -DBUILD_TESTS=OFF .. \
+#    && make -j $(nproc) install \
+#    && cd $ROCM_HOME/include/rccl \
+#    && ln -sf rccl.h nccl.h \
+#    && ln -sf rccl_net.h nccl_net.h \
+#    && cd / && rm -rf /rccl
+
+# install AWS OFI (needs access to libfabric and rccl builds)
+RUN git clone "$OFI_REPO" \
+    && cd aws-ofi-nccl \
+    && git checkout "$OFI_HASH" \
+    && ./autogen.sh \
+    && ./configure --prefix=/opt/aws-ofi-rccl --with-libfabric=/opt/libfabric --with-rocm=$ROCM_HOME \
+    CPPFLAGS="-I$ROCM_HOME/include -I$ROCM_HOME/include/rccl -I/usr/include/x86_64-linux-gnu/mpich" \
+    LDFLAGS="-L$ROCM_HOME/lib -L/opt/libfabric/lib -L/opt/libcxi/lib" \
+    && make -j $(nproc) install \
+    && ln -sf /opt/aws-ofi-rccl/lib/librccl-net.so /opt/aws-ofi-rccl/lib/libnccl-net.so
+
+# install MORI
+#RUN git clone ${MORI_REPO} \
+#    && cd mori \
+#    && git checkout ${MORI_HASH} \
+#    && git submodule update --init --recursive \
+#    && pip install --no-cache-dir wheel setuptools_scm \
+#    && pip wheel . --wheel-dir=dist --no-deps --no-build-isolation \
+#    && pip install --root-user-action=ignore --no-cache-dir dist/*.whl
+
+# build flash attention 2
+RUN git clone ${FA_REPO} \
+    && cd flash-attention \
+    && git checkout ${FA_HASH} \
+    && git submodule update --init \
+    && GPU_ARCHS=$(echo ${TRAIN_ARCHS} | sed -e 's/;gfx1[0-9]\{3\}//g') python setup.py bdist_wheel --dist-dir=dist \
+    && pip install --root-user-action=ignore --no-cache-dir dist/*.whl
+
+# build AITER
+#
+# gfx90a note: this builds and installs cleanly on CDNA2 -- setup.py's arch
+# validation (aiter/jit/core.py validate_and_update_archs) lists gfx90a as
+# allowed, and the CK/asm pre-build block that would reject it lives behind
+# PREBUILD_KERNELS, which we never set, so the JIT-only wheel is what gets
+# built. It is however *inert* at run time on CDNA2: vLLM gates every AITER
+# entry point on is_aiter_found_and_supported() -> get_cdna_version() > 2, so
+# VLLM_ROCM_USE_AITER=1 is a no-op there and the MoE oracle falls back to
+# TRITON on its own. Keep the build anyway so one Dockerfile serves all three
+# targets.
+RUN git clone --recursive ${AITER_REPO} \
+    && cd aiter \
+    && git checkout ${AITER_HASH} \
+    && git submodule update --init --recursive \
+    && pip install -r requirements.txt
+RUN pip install pyyaml && cd aiter \
+    && AITER_USE_SYSTEM_TRITON=1 GPU_ARCHS=${TRAIN_ARCHS} python setup.py bdist_wheel --dist-dir=dist \
+    && pip install --root-user-action=ignore --no-cache-dir dist/*.whl
+
+# install our frozen axolotl dependencies + ray.train
+#COPY requirements.txt .
+
+# dynamically constrain pip to the currently installed ROCm-specific ones in pytorch image
+#RUN pip freeze | grep -iE "^(torch|torchvision|torchaudio|triton|flash-attn|xformers|deepspeed)==|rocm" > /tmp/constraints.txt && \
+#    pip install -r requirements.txt \
+#    -c /tmp/constraints.txt \
+#    --root-user-action=ignore \
+#    --no-cache-dir \
+#    --extra-index-url https://download.pytorch.org/whl/rocm7.14
+
+# install ray
+#   [default] -> dashboard + state API that the launcher's readiness check uses
+#   [train]   -> ray.train.torch.TorchTrainer, which ray_health_rccl.py and
+#                ray_health_overall.py both import. Plain "ray" does not ship
+#                it, so the health checks died with ModuleNotFoundError before
+#                vllm was ever reached.
+RUN pip install --root-user-action=ignore --no-cache-dir \
+        "ray[default,train]==2.56.1" amdsmi \
+    && python -c "import ray; from ray.train.torch import TorchTrainer; \
+        print('ray', ray.__version__, 'with train OK')"
+
+# build the latest vllm src and install
+#
+# VLLM_TARGET_DEVICE=rocm is set explicitly rather than relying on setup.py's
+# torch.version.hip autodetect: the build runs with no GPU visible (podman build
+# has no --device), and a stray import ordering issue there silently produces a
+# CPU-only wheel that then fails at serve time with "no platform detected".
+RUN git clone "$VLLM_REPO" \
+    && cd vllm \
+    && git checkout "$VLLM_HASH" \
+    # make sure vllm install doesn't overwrite the ROCm-specific torch libs in this image
+    && sed -i -E '/^(torch|torchvision|torchaudio)==/d' requirements/rocm.txt \
+    # tensorizer is uninstalled below anyway and its pin drags in a conflicting
+    # torch; drop it before the resolver ever sees it
+    && sed -i -E '/^tensorizer==/d' requirements/rocm.txt \
+    # mooncake-transfer-engine-rocm arrived in requirements/rocm.txt with
+    # e47356c63 (2026-09-02, #55002) and is published as wheels ONLY -- no
+    # sdist, and only cp310-cp313. This image is Python 3.14, so there is no
+    # artifact pip can install and --ignore-requires-python cannot help: the
+    # failure is "no matching distribution", not a metadata mismatch. It is a
+    # KV-offload/disaggregated-prefill transport we do not use (nothing in the
+    # vllm tree imports it outside of comments in config/ec_transfer.py and
+    # v1/simple_kv_offload/manager.py), so drop it rather than pin Python back.
+    # Revisit if a cp314 wheel appears or if we ever want KV offloading.
+    && sed -i -E '/^mooncake-transfer-engine-rocm/d' requirements/rocm.txt \
+    && pip install --root-user-action=ignore --no-cache-dir --ignore-requires-python -r requirements/rocm.txt \
+    && python setup.py clean --all \
+    # fixes bug in vllm v0.27.1
+    #&& python -c "txt = open('setup.py').read(); txt = txt.replace('\nsetup(', '\next_modules=[e for e in ext_modules if \'_C_stable_libtorch\' not in e.name]\nsetup('); open('setup.py', 'w').write(txt)" \
+    #&& python -c "import re; f=open('CMakeLists.txt', 'r+'); txt=f.read(); txt=re.sub(r'define_extension_target\(\s*(_moe)?_C_stable_libtorch.*?WITH_SOABI\)', '', txt, flags=re.DOTALL); txt=re.sub(r'target_compile_definitions\(\s*(_moe)?_C_stable_libtorch.*?\)', '', txt, flags=re.DOTALL); f.seek(0); f.write(txt); f.truncate()" \
+    #&& MAX_JOBS=2 python setup.py bdist_wheel --dist-dir=dist \
+    && VLLM_TARGET_DEVICE=rocm PYTORCH_ROCM_ARCH="${TRAIN_ARCHS}" \
+       python setup.py bdist_wheel --dist-dir=dist \
+    && pip install --root-user-action=ignore --no-cache-dir dist/*.whl \
+    # stop this puking message for something not needed.
+    #
+    # The `|| true` is scoped to just this uninstall with { ...; } -- written
+    # bare, it binds to the whole && chain above it, so ANY earlier failure
+    # (the clone, the requirements install, the wheel build) exits 0 and the
+    # build sails on without vllm installed. That is not hypothetical: the
+    # mooncake requirement above failed exactly this way and the first thing
+    # to notice was the patch step, five layers later, reporting the
+    # misleading "vllm is not installed; run this inside the container".
+    && { pip uninstall -y tensorizer || true; } \
+    # fail loudly and here if the wheel did not actually land
+    && python -c "import importlib.util as u; \
+      assert u.find_spec('vllm') is not None, 'vllm wheel did not install'"
+
+# ---------------------------------------------------------------------------
+# ROCm fixups against the installed vllm tree
+#
+# Each script in patches/ repairs one place where vLLM's ROCm support is wrong
+# in a way that only shows up at run time, usually minutes into a job:
+#
+#   rocm_aiter_ray_env_refresh.py  AITER toggles are snapshotted at import time,
+#                                  so a Ray actor never sees the driver's
+#                                  VLLM_ROCM_USE_AITER=1 and the MoE layer
+#                                  raises "AITER MoE is not enabled" even though
+#                                  it is. Hits every multinode run.
+#   spec_decode_drafter_pp_guard.py  vLLM builds the spec-decode drafter only
+#                                  on the last PP rank but reads self.drafter
+#                                  on every rank, so with MTP and PP>1 the
+#                                  other ranks die at startup with "no
+#                                  attribute 'drafter'". No-op at PP=1.
+#   spec_decode_pp_broadcast_width.py  With PP + async scheduling + MTP, the
+#                                  last stage's sampled-token broadcast asserts
+#                                  width 1 and the engine dies on the first
+#                                  decode step. Broadcasts the last *accepted*
+#                                  token per request (simply widening the
+#                                  broadcast would silently corrupt output).
+#   moe_backend_aiter_mxfp4_activation_aliases.py  Adds aiter_mxfp4_mxfp4 to
+#                                  the --kernel-config moe_backend choices so
+#                                  an MXFP4 MoE can be asked to run W4A4. Opt-in;
+#                                  nothing selects it by default.
+#   nixl_block_major_alignment_slack.py  NIXL's block-major KV check is an
+#                                  exact size equality that fails when the
+#                                  pool is rounded up for alignment, so
+#                                  disaggregated prefill dies at KV
+#                                  registration.
+#   inkling_split_kv_empty_row_guard.py  A padded CUDA-graph decode slot
+#                                  (cache_seqlens 0) makes Inkling's split-KV
+#                                  stage 2 store 0/0 = NaN; fused_moe_kernel
+#                                  then faults on a host address once 3+
+#                                  requests decode concurrently.
+#   inkling_attn_output_zero_init.py  The same padded slot under the
+#                                  single-pass decode kernel is never written
+#                                  and keeps torch.empty graph-pool garbage;
+#                                  NaN there faults fused_moe_kernel the same
+#                                  way. Both patches are needed.
+#   inkling_mtp_pp_embed_share.py  With PP>1 the V2 runner leaves InklingMTP's
+#                                  embed_tokens None (it never shares the
+#                                  target's), and the last PP rank dies at
+#                                  startup. No-op at PP=1.
+#   pp_broadcast_deferred_recv.py  V2 runner, PP>1: the earlier PP ranks'
+#                                  sampled-token recv, posted right after the
+#                                  forward, spun beside the next forward and
+#                                  slowed it to ~40% on gfx90a, serializing
+#                                  the stages (CUDA graphs lost to eager).
+#                                  Posted at consume time instead. No-op at
+#                                  PP=1.
+#   inkling_single_pass_kv_bounds.py  Inkling's single-pass attention (MTP
+#                                  verify, prefill) walks only the KV tiles
+#                                  in the sliding window / causal range;
+#                                  ~12x on local layers at 8k. Bit-identical.
+#   inkling_verify_split_kv.py     MTP verify (2-4 query tokens) on global
+#                                  layers: splits the KV scan across programs
+#                                  and merges the partials; 655 -> 46 us at
+#                                  B=1. INKLING_VERIFY_SPLIT_KV=0 disables.
+#   inkling_gate_fp32_splitk.py    Router bf16 x bf16 -> fp32 GEMM at T <= 64
+#                                  as a split-K Triton kernel (58-206 -> 8-16
+#                                  us). Default on only on gfx90a;
+#                                  INKLING_GATE_SPLITK=1/0 forces it.
+#   inkling_sconv_rsag_blocks.py   Inkling's sconv RS/AG run on dim-0 slabs
+#                                  ((T,tp,C) -> (tp,T,C)) instead of dim -1,
+#                                  replacing three strided element transposes
+#                                  per site with row copies (286 -> 226 us
+#                                  per site at T=512, TP8).
+#   inkling_sconv_zero_copy.py     Removes most remaining copies around the
+#                                  sconv RS/AG and the residual add + RMSNorm
+#                                  (13-18% per site). INKLING_SCONV_ZC=0 off.
+#   inkling_sconv_zero_copy_ca.py  Sconv RS/AG through vLLM's custom
+#                                  all-reduce buffers for T <=
+#                                  INKLING_SCONV_CA_RSAG_MAX_T (default 0 =
+#                                  off); 53 -> 30 us per site at T=4. Needs
+#                                  vllm_custom_ar_gfx90a.py on gfx90a.
+#   inkling_draft_tp_argmax.py     MTP drafter argmax over vocab shards
+#                                  instead of gathering full logits.
+#                                  Bit-exact. INKLING_DRAFT_TP_ARGMAX=0 off.
+#   inkling_mtp_input_proj_tp.py   MTP drafter's replicated input projection
+#                                  split across TP ranks by tokens for T >=
+#                                  INKLING_MTP_INPUT_PROJ_TP (default 512).
+#   vllm_custom_ar_gfx90a.py       Lifts vLLM's gfx94/95-only gate on the
+#                                  ROCm custom all-reduce for MI250X when
+#                                  VLLM_ROCM_CUSTOM_AR_GFX90A=1 (default 0).
+#   inkling_moe_sink_fused_sum.py  At prefill sizes, Inkling's sink-expert
+#                                  output is added inside the routed
+#                                  moe_sum (and written rank-major for the
+#                                  zero-copy sconv) instead of a second
+#                                  pass. Bit-exact. Needs
+#                                  rocm_triton_moe_sum.py.
+#   rocm_triton_moe_output_alias.py  On ROCm, TritonExperts writes straight
+#                                  into the caller's output buffer, as on
+#                                  CUDA (~110 us copy saved at M=8192).
+#   rocm_triton_moe_sum.py         Triton moe_sum for M >= 1024 on ROCm
+#                                  (491 -> 399 us at M=8192), with an
+#                                  optional fused addend. Bit-exact.
+#   rocm_triton_moe_w2_config.py   A tuned config entry may give GEMM2 its
+#                                  own tiles ("w2" overlay) or the
+#                                  A-stationary GEMM2 kernel ("ASTAT").
+#                                  Entries without "w2" are unchanged.
+#   rocm_triton_moe_g1act.py       A tuned config entry may carry a "g1act"
+#                                  overlay: GEMM1 runs with SiLU-and-mul in
+#                                  its epilogue (no cache1 round trip).
+#                                  Bit-exact. Entries without it unchanged.
+#   inkling_gate_select_rows.py    Inkling router top-k as a row-blocked
+#                                  one-wavefront kernel (211 -> 37 us at
+#                                  T=8192). Bit-identical.
+#   inkling_mixed_flat_grid.py     Inkling attention for mixed prefill +
+#                                  decode steps on a flat grid of the
+#                                  (request, query block) pairs that exist
+#                                  (-30 ms per mixed step). Bit-identical.
+#   inkling_prefill_attn_bq16.py   Inkling prefill attention (chunks of 2048+
+#                                  queries) with 16-query programs: global
+#                                  layer 3.0 -> 1.2 ms per 7.6k prompt.
+#                                  Bit-identical.
+#   inkling_compute_logits_local.py  Gives Inkling compute_logits_local so
+#                                  --enable-batch-sharded-sampling runs
+#                                  (sample step 7.4 -> 4.1 ms at 256 reqs).
+#                                  Inert without the flag.
+#   pp_balanced_decode_split.py    PP > 1: equal decode micro-batches once
+#                                  nothing waits. Inert unless
+#                                  ZENITH_PP_DECODE_BALANCE_MIN is set.
+#   rocm_triton_moe_w2_sum_prefill.py  16-warp A-stationary GEMM2 above 8k
+#                                  tokens, vectorized moe_sum. Bit-identical.
+#   inkling_gate_token_parallel.py Router GEMM split across TP ranks by tokens
+#                                  at T >= 4096. Within 1 ulp.
+#   rocm_moe_align_triton.py       moe_align_block_size as Triton at T >= 4096.
+#   inkling_sconv_zero_copy_sres.py  Channel-sharded residual across the sconv
+#                                  RS/AG sites. Bit-identical.
+#   inkling_rel_proj_mfma16.py     Relative-logits projection on 16x16 MFMA
+#                                  (gfx90a). Bit-identical.
+#   inkling_sconv_zero_copy_xrsag.py  Sconv RS/AG at T <= 256 as HIP IPC
+#                                  kernels (TP8, gfx90a); builds a small
+#                                  extension at apply time. Bit-identical.
+#   rocm_inkling_decode_tgemm.py   Triton GEMMs for decode-sized Inkling
+#                                  projections. Off unless INKLING_DEC_TGEMM.
+#   rocm_inkling_dense_rocblas.py  Inkling dense prefill GEMMs (T >= 2048) as
+#                                  fixed rocBLAS solutions (gfx90a). Within
+#                                  1 ulp.
+#   rocm_inkling_rel_attn_dec.py   Decode / MTP-verify attention skips
+#                                  unreachable relative-bias tiles. Off unless
+#                                  INKLING_DEC_ATTN=1. Bit-identical.
+#   rocm_triton_moe_zdec_join.py   Decode MoE join (sink add + RS slabs) in the
+#                                  routed moe_sum. Off unless
+#                                  INKLING_DEC_MOE_JOIN=1. Bit-identical.
+#
+#   zz_hl_overlay.py               Not applied here: it is a container-start
+#                                  step that run_container.sh runs on gfx950
+#                                  only, after the other patches. Run at build
+#                                  time it would hash-check the overlay against
+#                                  files the patches above have just changed
+#                                  and fail the build on every arch.
+#
+# The loop applies them in alphabetical order, which several later patches
+# rely on (see README §8).
+#
+# gfx950: this loop has no arch gate, so a gfx950 image built from this tree
+# bakes in every patch above, including the 25 MI250X ones that
+# run_container.sh skips on gfx950 (GFX950_SKIP_PATCHES there). Three of them
+# edit fa4_rel_attention.py, one of the files zz_hl_overlay replaces; the
+# overlay's copy is merged onto that patched file and BASE.sha256 lists it, so
+# such an image serves with the default ZENITH_HL_OVERLAY=1 (checked with
+# inference_image_gfx950_v8_20261011: the rewrite runs on gfx950). If a vLLM
+# bump or a patch edit changes the file again, the check fails; serve with
+# ZENITH_HL_OVERLAY=partial or 0 until the overlay is merged again. Revalidate
+# the other MI250X patches on MI355X before relying on such an image. The
+# shipped gfx950 image (zenith_v6) predates them.
+#
+# See each patch's docstring for the full analysis. They are idempotent, and
+# --check makes the build fail loudly if a vLLM bump moves the target code
+# rather than silently shipping an unpatched image.
+# ---------------------------------------------------------------------------
+COPY patches/ /opt/zenith_patches/
+RUN for p in /opt/zenith_patches/*.py; do \
+        [ "${p##*/}" = zz_hl_overlay.py ] && continue; \
+        echo "applying $p" && python "$p" && python "$p" --check || exit 1; \
+    done
+
+# ---------------------------------------------------------------------------
+# AMD RCCL-ANP net plugin for the Pollara/ionic RoCE NICs
+#
+# build_image.sh stages these out of the *host's* ROCm 7.2.2 (the plugin is not
+# in the ROCm 7.14 base image). Without it RCCL uses its generic IB transport,
+# which on these NICs completes one collective per communicator and then fails
+# with `ibv_poll_cq() -> -5`. run_container.sh points NCCL_NET_PLUGIN here and
+# prepends this directory to LD_LIBRARY_PATH so the rdma-core 50 libionic that
+# the plugin needs wins over the image's own rdma-core 61 -- for the plugin
+# only; nothing else in the image sees it.
+#
+# Absent on a build host without ROCm 7.2.2. That is not fatal at build time:
+# run_container.sh checks and falls back. See RESULTS.md.
+RUN if [ -d /opt/zenith_patches/anp ]; then \
+        mkdir -p /opt/zenith && cp -a /opt/zenith_patches/anp /opt/zenith/anp \
+        && echo "RCCL-ANP staged at /opt/zenith/anp"; \
+    else \
+        echo "WARNING: no RCCL-ANP plugin in this image; multi-node RoCE will" \
+        && echo "WARNING: fall back to generic IB and fail after one collective."; \
+    fi
+
+# ---------------------------------------------------------------------------
+# build-time sanity checks
+#
+# these are the failures that previously only showed up 10 minutes into a
+# multi-node job. Fail the build instead.
+#   * the C extension must actually be importable and be the ROCm build
+#   * the aws-ofi RCCL net plugin must have resolved all of its symbols,
+#     otherwise RCCL loads it, fails, and silently drops back to sockets
+#   * Inkling must be in the model registry (it lives in the newer
+#     vllm.models.* layout, not vllm.model_executor.models)
+#   * the installed amd-aiter must be the pinned release line (>= 0.1.20),
+#     not an older copy
+# ---------------------------------------------------------------------------
+RUN python -c "import vllm, torch, sys; \
+      assert torch.version.hip is not None, 'torch is not a ROCm build'; \
+      import vllm._C; \
+      print('vllm', vllm.__version__, 'torch', torch.__version__, 'hip', torch.version.hip)" \
+    && python -c "from vllm.model_executor.models.registry import ModelRegistry as R; \
+      a=R.get_supported_archs(); \
+      assert 'InklingForConditionalGeneration' in a, 'Inkling not registered'; \
+      assert 'GptOssForCausalLM' in a, 'gpt-oss not registered'; \
+      print('model registry OK')" \
+    `# AITER >= 0.1.20: the pinned release line, not an older amd-aiter.` \
+    `#` \
+    `# Read the version from distribution metadata, NOT from the module:` \
+    `#   * the distribution is named "amd-aiter", not "aiter"` \
+    `#   * the aiter module exposes no __version__ at all, so a getattr` \
+    `#     default turns every version into the same unusable answer` \
+    `#   * importing aiter JIT-builds module_aiter_core and shells out to` \
+    `#     rocminfo, which cannot work in a build container with no GPU` \
+    `# An earlier form of this check did all three and failed closed against a` \
+    `# perfectly good AITER. Compare tuples, so 0.1.9 < 0.1.20 as intended.` \
+    && python -c "import importlib.metadata as md; \
+      v = md.version('amd-aiter'); \
+      print('amd-aiter', v); \
+      parts = tuple(int(x) for x in v.split('.post')[0].split('.')[:3]); \
+      assert parts >= (0, 1, 20), \
+        f'aiter {v} < 0.1.20; expected the pinned AITER release'" \
+    && ldd /opt/aws-ofi-rccl/lib/libnccl-net.so | tee /tmp/ofi.ldd \
+    && ! grep -q "not found" /tmp/ofi.ldd \
+    && /opt/libfabric/bin/fi_info -l \
+    `# The amdsmi python wrapper dlopens $ROCM_PATH/lib/libamd_smi.so while the` \
+    `# dynamic loader resolves torch's DT_NEEDED libamd_smi.so.26 out of` \
+    `# _rocm_sdk_core (LD_LIBRARY_PATH). If the unversioned name still points at` \
+    `# the devel copy, a process that touches both maps two independent copies,` \
+    `# the second amdsmi_init() enumerates 0 devices, and` \
+    `# torch.cuda.device_count() returns 0 while is_available() is True --` \
+    `# which vLLM reports as "Failed to infer device type".` \
+    && python -c "import os; \
+      p=os.path.realpath('${ROCM_HOME}/lib/libamd_smi.so'); \
+      print('libamd_smi.so ->', p); \
+      assert '_rocm_sdk_core' in p, \
+        'libamd_smi.so must resolve into _rocm_sdk_core (the runtime copy), got '+p" \
+    `# and prove the actual symptom is gone: torch must agree with amdsmi about` \
+    `# how many mapped copies exist, in the import order that used to break.` \
+    && python -c "import torch, amdsmi; \
+      libs={l.split()[-1] for l in open('/proc/self/maps') if 'libamd_smi' in l}; \
+      print('mapped libamd_smi copies:', sorted(libs)); \
+      assert len(libs)==1, 'multiple libamd_smi copies mapped: '+repr(sorted(libs))" \
+    `# Same check for libamd_comgr, where a second mapped copy does not degrade` \
+    `# quietly -- comgr carries its own LLVM, whose global option registry` \
+    `# aborts the process on the second init ("Option 'spirv-expand-step'` \
+    `# registered more than once", SIGABRT, no traceback). The import above` \
+    `# already exercised this, since it is a bare import vllm that trips it,` \
+    `# but assert on the map explicitly so the failure names its own cause.` \
+    && python -c "import os; \
+      p=os.path.realpath('${ROCM_HOME}/lib/libamd_comgr.so.3'); \
+      print('libamd_comgr.so.3 ->', p); \
+      assert '_rocm_sdk_core' in p, \
+        'libamd_comgr.so.3 must resolve into _rocm_sdk_core, got '+p" \
+    && python -c "import vllm, torch; \
+      libs={l.split()[-1] for l in open('/proc/self/maps') if 'libamd_comgr' in l}; \
+      print('mapped libamd_comgr copies:', sorted(libs)); \
+      assert len(libs)<=1, 'multiple libamd_comgr copies mapped: '+repr(sorted(libs))" \
+    `# General form of the same check: after a real import, NO library may be` \
+    `# mapped from both _rocm_sdk_devel and _rocm_sdk_core. Keyed on basename,` \
+    `# so it catches the next doubled library without needing to know its name.` \
+    && python -c "import vllm, torch, os, collections; \
+      seen = collections.defaultdict(set); \
+      [seen[os.path.basename(p)].add('devel' if '_rocm_sdk_devel' in p else 'core') \
+        for p in (l.split()[-1] for l in open('/proc/self/maps')) \
+        if '_rocm_sdk_devel' in p or '_rocm_sdk_core' in p]; \
+      dual = {k: v for k, v in seen.items() if len(v) > 1}; \
+      print('ROCm libs mapped from both trees:', dual or 'none'); \
+      assert not dual, f'doubled ROCm libraries still mapped: {dual}'" \
+    `# And prove the subprocess path works: AITER's JIT shells out to this` \
+    `# generator with ROCPROFILER_REGISTER_LIBRARY inherited, which is how the` \
+    `# rocprofiler double-mapping killed a serve run after the weights had` \
+    `# already loaded (~15 min in, reported only as "failed jit build").` \
+    && mkdir -p /tmp/_jitcheck \
+    && ROCPROFILER_REGISTER_LIBRARY="$ROCM_HOME/lib/librocprofiler-sdk.so.1" \
+       python "${SITE_PACKAGES}/aiter_meta/csrc/ck_gemm_a8w8_blockscale/gen_instances_cktile.py" \
+         --working_path /tmp/_jitcheck/ --tune_file /tmp/_jitcheck/tuned.csv \
+    && test -f /tmp/_jitcheck/gemm_a8w8_blockscale_cktile_manifest.h \
+    && rm -rf /tmp/_jitcheck \
+    && echo "AITER codegen subprocess OK under ROCPROFILER_REGISTER_LIBRARY" \
+    && echo "=== zenith image build checks passed ==="
+
+# work space for execution
+WORKDIR /app
+
+# ---------------------------------------------------------------------------
+# runtime defaults
+#
+# The rest of the static runtime environment. These sit after the last RUN so
+# they cannot change the build: MAX_JOBS would cap the source builds above and
+# LD_PRELOAD would apply to every compiler. run_container.sh only passes what
+# it has to work out on the node (visible devices, HSA_XNACK, the fabric
+# settings) plus any ZENITH_* overrides, and it refuses an image without
+# ZENITH_IMAGE_ENV, i.e. one built before these defaults were baked in.
+# ---------------------------------------------------------------------------
+ENV ZENITH_IMAGE_ENV=1
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
+ENV OMP_NUM_THREADS=8
+# Cap the AITER JIT's ninja fan-out. On a node with a cold kernel cache AITER
+# compiles its extensions on first use, sizing the job count from
+# os.cpu_count()*0.8 -- 204 on a 256-thread node -- and it does that in *each*
+# of the 8 TP workers, which race the same build behind a lock file. hipcc
+# forks clang++, each opening the ROCm and torch header trees, and the fd
+# ceiling is reached mid-compile:
+#
+#   hipsparse.h:223:10: fatal error: cannot open file
+#     '.../internal/generic/hipsparse_spsm.h': Too many open files
+#
+# which becomes ModuleNotFoundError on the extension and aborts the worker.
+# Job 46885 died this way on a fresh node. It looks intermittent only because
+# a node whose cache is warm never rebuilds -- 46884 survived on nodes an
+# earlier job had already warmed.
+#
+# Raising the fd limit is the fix we cannot have: the compute nodes cap nofile
+# at a *hard* 131072, and podman as a non-root user cannot exceed a hard limit
+# -- '--ulimit nofile=1048576' fails the container outright with "error setting
+# rlimit type 7: operation not permitted". So bound the concurrency instead.
+#
+# 32 rather than something smaller because aiter only ever clamps MAX_JOBS
+# *down* (check_and_set_ninja_worker in aiter/jit/core.py takes the min against
+# its cores/memory estimate), so this is a ceiling and not a target; 8 workers
+# x 32 jobs is still 256-way parallel across the node during the one cold
+# build, and the build is not what dominates startup -- loading the checkpoint
+# is. run_container.sh: ZENITH_MAX_JOBS overrides it.
+ENV MAX_JOBS=32
+
+# user entry point
+CMD ["/bin/bash"]
+

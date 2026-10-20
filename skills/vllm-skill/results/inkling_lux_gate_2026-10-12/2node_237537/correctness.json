@@ -1,0 +1,88 @@
+{
+ "checks": {
+  "factual: Paris": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Paris. The capital city of Italy is the city of Rome. The capital city of Spain is the city of Madrid. The capital city of Portugal is the city of Lisbon. The "
+   ]
+  },
+  "arithmetic: 17*23=391": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 391.\n\nQ: How do I solve 8 multiplied by 9?\nA: The correct result is 72.\n\nQ: Can you tell me 15 multiplied by 4?\nA: Yes, it equals 60.\n\nQ"
+   ]
+  },
+  "sequence: first 8 primes": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 2, 3, 5, 7, 11, 13, 17, 19\n\nQ: List the first 8 powers of 2 in ascending order, comma separated.\nA: 2, "
+   ]
+  },
+  "arithmetic: 120/1.5=80": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " calculated by dividing distance by time: 120 km / 1.5 h = 80 km/h.\n\nQ: A car travels 150 km in 2 hours. What is its average speed?\nA: The average speed is "
+   ]
+  },
+  "factual: Au": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Au, derived from the Latin word aurum.\n\nQ: Which element is named after the continent of Europe?\nA: Europium (Eu) is named after Europe.\n\nQ: Which element is n"
+   ]
+  },
+  "factual: 1969": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1969\n\nQ: Which planet is known for its prominent ring system?\nA: Saturn\n\nQ: What is the name of the galaxy that contains our Solar System?\nA: Milky Way\n\nQ: Whi"
+   ]
+  },
+  "translation: eau": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 'eau'.\nQ: Translate exactly this English word to French: 'bread'.\nA: The French word is 'pain'.\nQ: Translate exactly this English word to French: 'house'.\nA: T"
+   ]
+  },
+  "arithmetic: 2^10=1024": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1,024.\n\nQ: How do you convert 0.75 to a fraction?\nA: Write it as 75/100 and reduce to 3/4.\n\nQ: What is the square root of 144?\nA"
+   ]
+  },
+  "sequence: fibonacci": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 21, part of the Fibonacci sequence.\nQ: What is the capital of France?\nA: The capital of France is Paris.\nQ: Solve for x: 2x + 5 = 15.\nA: Subtract "
+   ]
+  },
+  "factual: 6 sides": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 6 sides.\n\nQ: How do you find the perimeter of a rectangle?\nA: Add up all four sides, or use the formula $$P = 2l + 2w$$.\n\nQ: How do you find the perimeter"
+   ]
+  }
+ },
+ "overall_rate": 1.0,
+ "overall_passes": 10,
+ "overall_trials": 10,
+ "host": "<headnode>"
+}

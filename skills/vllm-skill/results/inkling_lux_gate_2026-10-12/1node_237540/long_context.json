@@ -1,0 +1,51 @@
+{
+ "model": "Inkling-MXFP4",
+ "chars_per_token": 4.839662501362433,
+ "results": [
+  {
+   "target": 32000,
+   "depth": 0.5,
+   "prompt_tokens": 31898,
+   "completion_tokens": 100,
+   "pass": true,
+   "code": "saffron-463450",
+   "ttft_s": 1.76,
+   "prefill_tok_s": 18156,
+   "decode_tok_s": 191.4,
+   "total_s": 2.3,
+   "error": null,
+   "answer": "saffron-463450",
+   "reasoning_chars": 403
+  },
+  {
+   "target": 128000,
+   "depth": 0.5,
+   "prompt_tokens": null,
+   "completion_tokens": null,
+   "pass": false,
+   "code": "saffron-108284",
+   "ttft_s": null,
+   "prefill_tok_s": null,
+   "decode_tok_s": null,
+   "total_s": 0.1,
+   "error": "HTTPError: HTTP Error 400: Bad Request",
+   "answer": "",
+   "reasoning_chars": 0
+  },
+  {
+   "target": 256000,
+   "depth": 0.5,
+   "prompt_tokens": null,
+   "completion_tokens": null,
+   "pass": false,
+   "code": "indigo-579342",
+   "ttft_s": null,
+   "prefill_tok_s": null,
+   "decode_tok_s": null,
+   "total_s": 0.3,
+   "error": "HTTPError: HTTP Error 400: Bad Request",
+   "answer": "",
+   "reasoning_chars": 0
+  }
+ ]
+}

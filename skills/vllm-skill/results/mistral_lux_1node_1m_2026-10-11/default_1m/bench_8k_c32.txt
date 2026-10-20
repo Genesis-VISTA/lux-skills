@@ -1,0 +1,22 @@
+endpoint     : http://<headnode>:8000
+model        : Mistral-Large-Instruct-2411
+concurrency  : 32
+prompt       : ~8000 tokens, natural text, chat API
+max_tokens   : 1024, temperature 0.7
+warmup       : 2 requests ...
+running      : timed run, 1 round(s) ...
+
+==============================================================
+  r10_final_8k_c32
+--------------------------------------------------------------
+  requests ok/failed  : 32/0
+  wall time           : 32.48 s
+  prompt tokens       : 256164
+  generated tokens    : 32768
+  OUTPUT THROUGHPUT   : 1008.8 tok/s   <-- decode
+  TOTAL  THROUGHPUT   : 8895.5 tok/s   (prompt+decode)
+  per-request decode  : 31.6 tok/s (median 31.6)
+  INTERACTIVITY       : 42.5 tok/s/user   (decode only, TTFT excluded)
+  TTFT mean/p50/max   : 7.78 / 7.40 / 13.46 s
+  repeated 8-grams    : 0.0% mean, 0.4% max   (output looping on itself)
+==============================================================

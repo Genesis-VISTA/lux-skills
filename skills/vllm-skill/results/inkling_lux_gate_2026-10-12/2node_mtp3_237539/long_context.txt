@@ -1,0 +1,17 @@
+model Inkling-MXFP4, 4.84 chars/token, lengths [32000, 128000, 256000, 512000, 1040000], depths [0.1, 0.5, 0.9]
+   32000 depth 0.10: PASS  prompt 31898  ttft 7.18 s  prefill 4440 tok/s  decode 219.6 tok/s  answer 'saffron-463450'
+   32000 depth 0.50: PASS  prompt 31891  ttft 0.98 s  prefill 32601 tok/s  decode 193.7 tok/s  answer 'saffron-108284'
+   32000 depth 0.90: PASS  prompt 31731  ttft 0.95 s  prefill 33429 tok/s  decode 176.4 tok/s  answer 'indigo-579342'
+  128000 depth 0.10: PASS  prompt 127674  ttft 3.34 s  prefill 38197 tok/s  decode 166.7 tok/s  answer 'indigo-283337'
+  128000 depth 0.50: PASS  prompt 127620  ttft 3.26 s  prefill 39134 tok/s  decode 149.2 tok/s  answer 'cobalt-308077'
+  128000 depth 0.90: PASS  prompt 127960  ttft 3.27 s  prefill 39106 tok/s  decode 138.5 tok/s  answer 'cobalt-863613'
+  256000 depth 0.10: PASS  prompt 255981  ttft 7.85 s  prefill 32624 tok/s  decode 132.8 tok/s  answer 'violet-131806'
+  256000 depth 0.50: PASS  prompt 255724  ttft 7.84 s  prefill 32611 tok/s  decode 150.3 tok/s  answer 'cobalt-445469'
+  256000 depth 0.90: PASS  prompt 255905  ttft 7.85 s  prefill 32614 tok/s  decode 132.2 tok/s  answer 'indigo-438413'
+  512000 depth 0.10: PASS  prompt 511718  ttft 22.44 s  prefill 22802 tok/s  decode 99.2 tok/s  answer 'saffron-881347'
+  512000 depth 0.50: PASS  prompt 511784  ttft 22.43 s  prefill 22814 tok/s  decode 96.5 tok/s  answer 'indigo-503560'
+  512000 depth 0.90: PASS  prompt 511754  ttft 22.45 s  prefill 22794 tok/s  decode 97.0 tok/s  answer 'violet-707426'
+ 1040000 depth 0.10: PASS  prompt 1039759  ttft 73.59 s  prefill 14129 tok/s  decode 62.0 tok/s  answer 'violet-377242'
+ 1040000 depth 0.50: PASS  prompt 1039797  ttft 73.59 s  prefill 14129 tok/s  decode 59.4 tok/s  answer 'indigo-284974'
+ 1040000 depth 0.90: PASS  prompt 1039735  ttft 73.57 s  prefill 14134 tok/s  decode 59.7 tok/s  answer 'saffron-497540'
+{"model": "Inkling-MXFP4", "passed": 15, "cells": 15, "max_prompt_tokens_passed": 1039797}

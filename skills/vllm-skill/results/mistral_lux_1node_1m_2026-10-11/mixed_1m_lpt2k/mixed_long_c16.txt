@@ -1,0 +1,1 @@
+model Mistral-Large-Instruct-2411, 4.47 chars/token, lengths [1040000], depths [0.5]

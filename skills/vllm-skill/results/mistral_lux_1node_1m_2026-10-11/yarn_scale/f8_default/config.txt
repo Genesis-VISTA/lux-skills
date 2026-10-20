@@ -1,0 +1,9 @@
+job=220265 tag=r11_f8 nodes=<headnode> tree=<package> steps= correctness gsm8k needle science  Sun Oct 11 04:22:46 PM EDT 2026
+ZENITH_DATASETSPATH=<datasets>
+ZENITH_GRAPHROOT=<bb>/containers/storage
+ZENITH_IMAGE_TAR=<images>/inference_image_gfx950.tar
+ZENITH_MODEL=Mistral-Large-Instruct-2411
+ZENITH_MODELPATH=<models>
+ZENITH_STARTUP_TRIES=120
+ZENITH_TMPDIR=<bb>/containers/tmp
+ZENITH_VLLM_EXTRA_ARGS=--tokenizer-mode mistral --attention-backend ROCM_AITER_FA --hf-overrides {"rope_scaling":{"rope_type":"yarn","original_max_position_embeddings":131072,"rope_theta":1000000.0,"factor":8.0}}

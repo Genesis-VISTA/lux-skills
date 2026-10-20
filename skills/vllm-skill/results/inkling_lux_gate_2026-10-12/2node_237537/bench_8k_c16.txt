@@ -1,0 +1,22 @@
+endpoint     : http://<headnode>:8000
+model        : Inkling-MXFP4
+concurrency  : 16
+prompt       : ~8000 tokens, natural text, chat API
+max_tokens   : 1024, temperature 0.7
+warmup       : 2 requests ...
+running      : timed run, 1 round(s) ...
+
+==============================================================
+  2n_8k_c16
+--------------------------------------------------------------
+  requests ok/failed  : 16/0
+  wall time           : 18.42 s
+  prompt tokens       : 119510
+  generated tokens    : 16384
+  OUTPUT THROUGHPUT   : 889.2 tok/s   <-- decode
+  TOTAL  THROUGHPUT   : 7375.6 tok/s   (prompt+decode)
+  per-request decode  : 55.6 tok/s (median 55.6)
+  INTERACTIVITY       : 61.2 tok/s/user   (decode only, TTFT excluded)
+  TTFT mean/p50/max   : 1.67 / 1.82 / 1.83 s
+  repeated 8-grams    : 0.6% mean, 3.6% max   (output looping on itself)
+==============================================================

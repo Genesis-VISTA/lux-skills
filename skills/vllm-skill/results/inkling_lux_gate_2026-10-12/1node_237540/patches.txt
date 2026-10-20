@@ -1,0 +1,41 @@
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/config/kernel.py
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/models/inkling/amd/attention.py
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/models/inkling/amd/model.py
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/models/inkling/amd/moe.py
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/models/inkling/amd/mtp.py
+      2 already patched: /opt/venv/lib/python3.14/site-packages/vllm/models/inkling/amd/ops/fa4_rel_attention.py
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/models/inkling/amd/ops/rel_attention_decode.py
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/models/inkling/nvidia/mtp.py
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/v1/executor/ray_executor_v2.py
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/v1/worker/gpu/pp_utils.py
+      1 already patched: /opt/venv/lib/python3.14/site-packages/vllm/v1/worker/gpu_model_runner.py
+      1 zenith: base_worker.py already tolerates allocator alignment slack; no change
+      1 zenith: gpu_model_runner.py already has the MTP-aware PP broadcast fix; no change
+      1 zenith: skipping /opt/zenith_patches/inkling_compute_logits_local.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_draft_tp_argmax.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_gate_select_rows.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_gate_token_parallel.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_mixed_flat_grid.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_moe_sink_fused_sum.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_mtp_input_proj_tp.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_prefill_attn_bq16.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_rel_proj_mfma16.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_sconv_zero_copy.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_sconv_zero_copy_ca.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_sconv_zero_copy_sres.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/inkling_sconv_zero_copy_xrsag.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/pp_balanced_decode_split.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_inkling_decode_tgemm.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_inkling_dense_rocblas.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_inkling_rel_attn_dec.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_moe_align_triton.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_triton_moe_g1act.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_triton_moe_output_alias.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_triton_moe_sum.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_triton_moe_w2_config.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_triton_moe_w2_sum_prefill.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/rocm_triton_moe_zdec_join.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zenith: skipping /opt/zenith_patches/vllm_custom_ar_gfx90a.py (MI250X patch, not validated on gfx950; ZENITH_GFX950_ALL_PATCHES=1 applies it)
+      1 zz_hl_overlay: 2 file(s) from the overlay
+      1 zz_hl_overlay: rewritten /opt/venv/lib/python3.14/site-packages/vllm/distributed/device_communicators/cuda_communicator.py (4b67604fdbdc)
+      1 zz_hl_overlay: rewritten /opt/venv/lib/python3.14/site-packages/vllm/models/inkling/amd/ops/fa4_rel_attention.py (220a9282d232)

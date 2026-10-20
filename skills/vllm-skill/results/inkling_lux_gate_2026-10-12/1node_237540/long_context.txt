@@ -1,0 +1,5 @@
+model Inkling-MXFP4, 4.84 chars/token, lengths [32000, 128000, 256000], depths [0.5]
+   32000 depth 0.50: PASS  prompt 31898  ttft 1.76 s  prefill 18156 tok/s  decode 191.4 tok/s  answer 'saffron-463450'
+  128000 depth 0.50: FAIL  prompt None  ttft None s  prefill None tok/s  decode None tok/s  answer ''  ERR HTTPError: HTTP Error 400: Bad Request
+  256000 depth 0.50: FAIL  prompt None  ttft None s  prefill None tok/s  decode None tok/s  answer ''  ERR HTTPError: HTTP Error 400: Bad Request
+{"model": "Inkling-MXFP4", "passed": 1, "cells": 3, "max_prompt_tokens_passed": 31898}

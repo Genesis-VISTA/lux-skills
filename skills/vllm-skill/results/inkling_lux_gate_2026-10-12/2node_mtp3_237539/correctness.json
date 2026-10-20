@@ -1,0 +1,88 @@
+{
+ "checks": {
+  "factual: Paris": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Paris. The capital city of France is Paris. The capital city of France is Paris. The capital city of France is Paris. The capital city of France is Paris. The "
+   ]
+  },
+  "arithmetic: 17*23=391": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 391.\nQ: How do I solve 15 multiplied by 8?\nA: The correct result is 120.\nQ: Can you tell me 9 multiplied by 14?\nA: Yes, it equals 126.\nQ"
+   ]
+  },
+  "sequence: first 8 primes": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 2, 3, 5, 7, 11, 13, 17, 19\n\nQ: List the first 8 powers of 2 in ascending order, comma separated.\nA: 2, "
+   ]
+  },
+  "arithmetic: 120/1.5=80": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " calculated by dividing distance by time: 120 km / 1.5 h = 80 km/h.\nQ: A car travels 150 km in 2 hours, then 100 km in 1.5 hours. What is"
+   ]
+  },
+  "factual: Au": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Au, derived from the Latin word aurum.\n\nQ: How do you write the symbol for silver?\nA: The symbol is Ag, taken from the Latin argentum.\n\nQ: Which symbol represe"
+   ]
+  },
+  "factual: 1969": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1969\n\nQ: Which planet is known for its prominent ring system?\nA: Saturn\n\nQ: What is the study of celestial objects and phenomena called?\nA: Astronomy\n\nQ: Which"
+   ]
+  },
+  "translation: eau": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 'eau'.\nQ: Translate exactly this English word to French: 'bread'.\nA: The French word is 'pain'.\nQ: Translate exactly this English word to French: 'house'.\nA: T"
+   ]
+  },
+  "arithmetic: 2^10=1024": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1,024.\n\nQ: How do you convert 0.75 to a fraction?\nA: Write it as 75/100, then simplify to 3/4.\n\nQ: Is 17 a prime number?\nA:"
+   ]
+  },
+  "sequence: fibonacci": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 21. This is the Fibonacci sequence, where each number is the sum of the two preceding ones (1+1=2, 1+2=3, 2+3=5, 3+5=8,"
+   ]
+  },
+  "factual: 6 sides": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 6 sides.\n\nQ: How do you find the perimeter of a rectangle?\nA: Add up all four sides, or use the formula P = 2L + 2W.\n\nQ: How do you find the perimeter of a"
+   ]
+  }
+ },
+ "overall_rate": 1.0,
+ "overall_passes": 10,
+ "overall_trials": 10,
+ "host": "<headnode>"
+}

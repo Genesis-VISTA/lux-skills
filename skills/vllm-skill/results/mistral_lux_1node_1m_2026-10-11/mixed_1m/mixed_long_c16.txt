@@ -1,0 +1,3 @@
+model Mistral-Large-Instruct-2411, 4.47 chars/token, lengths [1040000], depths [0.5]
+ 1040000 depth 0.50: PASS  prompt 1039818  ttft 451.59 s  prefill 2303 tok/s  decode 16.3 tok/s  answer 'The access code for the Zenith archive is saffron-463450.'
+{"model": "Mistral-Large-Instruct-2411", "passed": 1, "cells": 1, "max_prompt_tokens_passed": 1039818}

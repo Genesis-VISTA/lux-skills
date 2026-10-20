@@ -1,0 +1,11 @@
+model Mistral-Large-Instruct-2411, 4.47 chars/token, lengths [256000, 512000, 1040000], depths [0.1, 0.5, 0.9]
+  256000 depth 0.10: PASS  prompt 255606  ttft 28.34 s  prefill 9019 tok/s  decode 67.5 tok/s  answer 'The access code for the Zenith archive is saffron-463450.'
+  256000 depth 0.50: PASS  prompt 255912  ttft 27.89 s  prefill 9174 tok/s  decode 67.5 tok/s  answer 'The access code for the Zenith archive is saffron-108284.'
+  256000 depth 0.90: PASS  prompt 255840  ttft 27.84 s  prefill 9189 tok/s  decode 67.5 tok/s  answer 'The access code for the Zenith archive is indigo-579342.'
+  512000 depth 0.10: PASS  prompt 511826  ttft 86.13 s  prefill 5943 tok/s  decode 52.6 tok/s  answer 'The access code for the Zenith archive is indigo-283337.'
+  512000 depth 0.50: PASS  prompt 511848  ttft 86.2 s  prefill 5938 tok/s  decode 52.6 tok/s  answer 'The access code for the Zenith archive is cobalt-308077.'
+  512000 depth 0.90: FAIL  prompt 511971  ttft 86.32 s  prefill 5931 tok/s  decode 53.1 tok/s  answer '1. This objection will be fully examined in its proper place'
+ 1040000 depth 0.10: FAIL  prompt 1039913  ttft 303.26 s  prefill 3429 tok/s  decode 35.5 tok/s  answer ', and the the The, the, the and the The, and the the, and th'
+ 1040000 depth 0.50: FAIL  prompt 1039777  ttft 302.81 s  prefill 3434 tok/s  decode 35.5 tok/s  answer 'The The The, andamp; The The The, and, the, the The, the The'
+ 1040000 depth 0.90: FAIL  prompt 1039653  ttft 302.59 s  prefill 3436 tok/s  decode 35.5 tok/s  answer ', and the The, the The The The The The The The The The The T'
+{"model": "Mistral-Large-Instruct-2411", "passed": 5, "cells": 9, "max_prompt_tokens_passed": 511848}

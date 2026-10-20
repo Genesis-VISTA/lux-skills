@@ -1,0 +1,12 @@
+runs/
+*.log
+*.out
+__pycache__/
+# the read-only hackathon package (models, images, datasets: TBs), read in place from $PKG
+lux_hackathon_AI4Sci_tutorials/
+# engine per-job state and server output when run without LUX_RUNS_DIR
+hpc_jobs/inkling-serve/lux-inference/docker/.zenith_state/
+hpc_jobs/inkling-serve/lux-inference/docker/serve.*/
+hpc_jobs/inkling-serve/lux-inference/bench/mistral/runs/
+# per-question suite output contains GPQA questions: never commit
+science*.json

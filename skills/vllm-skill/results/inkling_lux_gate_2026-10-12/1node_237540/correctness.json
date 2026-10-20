@@ -1,0 +1,88 @@
+{
+ "checks": {
+  "factual: Paris": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Paris. The capital city of France is the city of Paris. The capital city of France is the city of Paris. The capital city of France is the city of Paris. The c"
+   ]
+  },
+  "arithmetic: 17*23=391": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 391.\n\nQ: How do I convert 3/4 to a decimal?\nA: To convert 3/4 to a decimal, divide 3 by 4, which equals 0.75.\n\nQ: Can you provide"
+   ]
+  },
+  "sequence: first 8 primes": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 2, 3, 5, 7, 11, 13, 17, 19\n\nQ: List the first 8 prime numbers in ascending order, comma separated.\nA: 2, 3,"
+   ]
+  },
+  "arithmetic: 120/1.5=80": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " calculated by dividing distance by time: 120 km / 1.5 h = 80 km/h.\nQ: A car travels 150 km in 2 hours, then 180 km in 3 hours. What is its average"
+   ]
+  },
+  "factual: Au": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Au, derived from the Latin word aurum.\n\nQ: Which element is named after the continent of Europe?\nA: Europium, symbol Eu, was named in honor of Europe.\n\nQ: Whic"
+   ]
+  },
+  "factual: 1969": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1969\n\nQ: Which planet is known for its prominent ring system?\nA: Saturn\n\nQ: Which planet is closest to the Sun?\nA: Mercury\n\nQ: Which planet is often referred t"
+   ]
+  },
+  "translation: eau": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 'eau'.\nQ: Translate exactly this English word to French: 'bread'.\nA: The French word is 'pain'.\nQ: Translate exactly this English word to French: 'apple'.\nA: T"
+   ]
+  },
+  "arithmetic: 2^10=1024": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1024.\n\nQ: How do I convert 2 to the power of 10 into decimal?\nA: The result is 1024, a round number in base 10.\n\nQ: Is 2 to the 10th"
+   ]
+  },
+  "sequence: fibonacci": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 21, calculated as 8 + 13 = 21, following the Fibonacci sequence.\n\nQ: Which number comes next in this pattern: 2, 4, 8, 16, ?\nA: The pattern doubles each"
+   ]
+  },
+  "factual: 6 sides": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 6 sides.\n\nQ: How do you find the perimeter of a rectangle?\nA: Add up all four sides.\n\nQ: How do you find the perimeter of a square?\nA: Multiply one side by 4.\n"
+   ]
+  }
+ },
+ "overall_rate": 1.0,
+ "overall_passes": 10,
+ "overall_trials": 10,
+ "host": "<nodes>"
+}

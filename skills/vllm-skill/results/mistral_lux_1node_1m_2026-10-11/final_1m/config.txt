@@ -1,0 +1,8 @@
+job=224645 tag=r16_pkg_final nodes=<headnode> tree=<package> steps= correctness tool gsm8k needle science  Sun Oct 11 18:16:10 EDT 2026
+ZENITH_DATASETSPATH=<datasets>
+ZENITH_GRAPHROOT=<bb>/containers/storage
+ZENITH_IMAGE_TAR=<images>/inference_image_gfx950.tar
+ZENITH_MODEL=Mistral-Large-Instruct-2411
+ZENITH_MODELPATH=<models>
+ZENITH_STARTUP_TRIES=120
+ZENITH_TMPDIR=<bb>/containers/tmp

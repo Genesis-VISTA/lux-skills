@@ -1,0 +1,9 @@
+job=222056 tag=r15_pkg_native nodes=<headnode> tree=<package> steps= correctness tool gsm8k science 8k  Sun Oct 11 05:18:59 PM EDT 2026
+ZENITH_DATASETSPATH=<datasets>
+ZENITH_GRAPHROOT=<bb>/containers/storage
+ZENITH_IMAGE_TAR=<images>/inference_image_gfx950.tar
+ZENITH_MAX_MODEL_LEN=131072
+ZENITH_MODEL=Mistral-Large-Instruct-2411
+ZENITH_MODELPATH=<models>
+ZENITH_STARTUP_TRIES=120
+ZENITH_TMPDIR=<bb>/containers/tmp

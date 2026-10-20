@@ -1,0 +1,12 @@
+model Mistral-Large-Instruct-2411, 4.47 chars/token, lengths [512000, 1040000], depths [0.1, 0.3, 0.5, 0.7, 0.9]
+  512000 depth 0.10: PASS  prompt 511780  ttft 87.29 s  prefill 5863 tok/s  decode 52.8 tok/s  answer 'The access code for the Zenith archive is saffron-463450.'
+  512000 depth 0.30: PASS  prompt 511831  ttft 86.91 s  prefill 5889 tok/s  decode 52.6 tok/s  answer 'The access code for the Zenith archive is saffron-108284.'
+  512000 depth 0.50: PASS  prompt 511882  ttft 86.93 s  prefill 5889 tok/s  decode 52.6 tok/s  answer 'The access code for the Zenith archive is indigo-579342.'
+  512000 depth 0.70: PASS  prompt 511826  ttft 86.95 s  prefill 5886 tok/s  decode 52.6 tok/s  answer 'The access code for the Zenith archive is indigo-283337.'
+  512000 depth 0.90: PASS  prompt 511848  ttft 86.94 s  prefill 5888 tok/s  decode 52.6 tok/s  answer 'The access code for the Zenith archive is cobalt-308077.'
+ 1040000 depth 0.10: PASS  prompt 1039582  ttft 305.16 s  prefill 3407 tok/s  decode 35.2 tok/s  answer 'The access code for the Zenith archive is cobalt-863613.'
+ 1040000 depth 0.30: FAIL  prompt 1039913  ttft 305.24 s  prefill 3407 tok/s  decode 35.6 tok/s  answer '1. This objection will be fully examined in its proper place'
+ 1040000 depth 0.50: PASS  prompt 1039777  ttft 305.16 s  prefill 3407 tok/s  decode 35.1 tok/s  answer 'The access code for the Zenith archive is cobalt-445469.'
+ 1040000 depth 0.70: PASS  prompt 1039653  ttft 305.26 s  prefill 3406 tok/s  decode 35.3 tok/s  answer 'The access code for the Zenith archive is indigo-438413.'
+ 1040000 depth 0.90: PASS  prompt 1039895  ttft 305.33 s  prefill 3406 tok/s  decode 35.3 tok/s  answer 'The access code for the Zenith archive is saffron-881347.'
+{"model": "Mistral-Large-Instruct-2411", "passed": 9, "cells": 10, "max_prompt_tokens_passed": 1039895}

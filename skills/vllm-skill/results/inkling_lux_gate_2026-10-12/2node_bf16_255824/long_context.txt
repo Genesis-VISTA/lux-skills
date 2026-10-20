@@ -1,0 +1,8 @@
+model Inkling-bf16, 4.84 chars/token, lengths [32000, 90000], depths [0.1, 0.5, 0.9]
+   32000 depth 0.10: PASS  prompt 31898  ttft 2.14 s  prefill 14932 tok/s  decode 61.5 tok/s  answer 'saffron-463450'
+   32000 depth 0.50: PASS  prompt 31891  ttft 0.89 s  prefill 35883 tok/s  decode 61.0 tok/s  answer 'saffron-108284'
+   32000 depth 0.90: PASS  prompt 31731  ttft 0.88 s  prefill 35918 tok/s  decode 61.3 tok/s  answer 'indigo-579342'
+   90000 depth 0.10: PASS  prompt 89866  ttft 2.24 s  prefill 40097 tok/s  decode 52.6 tok/s  answer 'indigo-283337'
+   90000 depth 0.50: PASS  prompt 89824  ttft 2.24 s  prefill 40103 tok/s  decode 52.7 tok/s  answer 'cobalt-308077'
+   90000 depth 0.90: PASS  prompt 89626  ttft 2.24 s  prefill 40026 tok/s  decode 52.5 tok/s  answer 'cobalt-863613'
+{"model": "Inkling-bf16", "passed": 6, "cells": 6, "max_prompt_tokens_passed": 89866}

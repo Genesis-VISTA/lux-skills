@@ -1,0 +1,19 @@
+{
+  "lux": {
+    "duration": 7200,
+    "resources": {
+      "node_count": 2,
+      "processes_per_node": 1,
+      "gpus_per_node": 8,
+      "exclusive_node_use": true
+    },
+    "iri": {
+      "partition": "batch",
+      "environment": {
+        "LUX_MODELPATH": "/lustre/orion/world-shared/stf218/junqi/Genesis-Hackathon/models",
+        "LUX_IMAGE_TAR": "/lustre/orion/world-shared/stf218/junqi/Genesis-Hackathon/containers/inference_image_gfx950_v8mi250_20261011.tar",
+        "LUX_DATASETSPATH": "/lustre/orion/world-shared/stf218/junqi/Genesis-Hackathon/datasets/benchmarks"
+      }
+    }
+  }
+}

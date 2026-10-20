@@ -1,0 +1,2263 @@
+{
+ "summary": {
+  "model": "Inkling-MXFP4",
+  "n": 250,
+  "accuracy": 0.976,
+  "wall_s": 23.4,
+  "errors": 0,
+  "truncated": 0,
+  "effort": "none"
+ },
+ "results": [
+  {
+   "i": 0,
+   "gold": "18",
+   "pred": "18",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.93,
+   "text": "Step 1: Start with the total number of eggs laid each day.\n16 eggs\n\nStep 2: Subtract the eggs Janet eats for breakfast.\n16 - 3 = 13 eggs remaining\n\nStep 3: Subtract the eggs used for baking muffins.\n13 - 4 = 9 eggs remaining\n\nStep 4: Calculate the revenue from selling the remaining eggs at $2 each.\n9 \u00d7 $2 = $18\n\nThe answer is 18."
+  },
+  {
+   "i": 1,
+   "gold": "3",
+   "pred": "3",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.98,
+   "text": "Step 1: Identify the blue fiber needed: 2 bolts.\nStep 2: Calculate the white fiber needed, which is half of the blue fiber: 2 \u00f7 2 = 1 bolt.\nStep 3: Add the blue and white fiber together: 2 + 1 = 3 bolts.\n\nThe answer is 3."
+  },
+  {
+   "i": 2,
+   "gold": "70000",
+   "pred": "70000",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.2,
+   "text": "Step 1: Determine the original value of the house.\nPurchase price = $80,000\n\nStep 2: Calculate the value increase.\nThe repairs increased the value by 150%, so:\nValue increase = $80,000 \u00d7 1.50 = $120,000\n\nStep 3: Find the new value of the house.\nNew value = $80,000 + $120,000 = $200,000\n\nStep 4: Calculate total costs.\nTotal costs = Purchase price + Repairs = $80,000 + $50,000 = $130,000\n\nStep 5: Calculate profit.\nProfit = New value - Total costs = $200,000 - $130,000 = $70,000\n\nThe answer is 70000."
+  },
+  {
+   "i": 3,
+   "gold": "540",
+   "pred": "540",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.34,
+   "text": "Step 1: Find the number of sprints James runs in one session.\n3 sprints per session.\n\nStep 2: Find the total number of sprints per week.\n3 sessions per week \u00d7 3 sprints = 9 sprints per week.\n\nStep 3: Find the distance of each sprint.\n60 meters per sprint.\n\nStep 4: Calculate the total meters run per week.\n9 sprints \u00d7 60 meters = 540 meters.\n\nThe answer is 540."
+  },
+  {
+   "i": 4,
+   "gold": "20",
+   "pred": "20",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.8,
+   "text": "Step 1: Calculate the total cups of feed each chicken gets per day.\n3 cups/chicken \u00d7 3 meals = 3 cups/chicken per day? Wait, the problem states she feeds each chicken three cups of mixed feed every day, divided into three meals.\nSo each chicken gets 3 cups total per day.\n\nStep 2: Calculate the total feed needed for the entire flock.\n20 chickens \u00d7 3 cups/chicken = 60 cups per day.\n\nStep 3: Add up the feed already given.\nMorning: 15 cups\nAfternoon: 25 cups\nTotal given so far: 15 + 25 = 40 cups.\n\nStep 4: Subtract to find the remaining feed for the final meal.\n60 cups (total needed) - 40 cups (already given) = 20 cups.\n\nThe answer is 20."
+  },
+  {
+   "i": 5,
+   "gold": "64",
+   "pred": "64",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.91,
+   "text": "Step 1: Identify the price pattern.\n- Odd-numbered glasses (1st, 3rd, 5th, ...) cost $5.\n- Even-numbered glasses (2nd, 4th, 6th, ...) cost 60% of $5 = $3.\n\nStep 2: Count how many of each Kylar buys for 16 glasses.\n- Full-price glasses: positions 1, 3, 5, 7, 9, 11, 13, 15 \u2192 8 glasses\n- Discounted glasses: positions 2, 4, 6, 8, 10, 12, 14, 16 \u2192 8 glasses\n\nStep 3: Calculate the cost for each group.\n- Full-price total: 8 \u00d7 $5 = $40\n- Discounted total: 8 \u00d7 $3 = $24\n\nStep 4: Add them together.\n- $40 + $24 = $64\n\nThe answer is 64."
+  },
+  {
+   "i": 6,
+   "gold": "260",
+   "pred": "260",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.14,
+   "text": "Step 1: Identify Seattle's sheep.\nSeattle has 20 sheep.\n\nStep 2: Calculate Charleston's sheep.\nCharleston has 4 times as many as Seattle:\n4 \u00d7 20 = 80 sheep.\n\nStep 3: Calculate Toulouse's sheep.\nToulouse has twice as many as Charleston:\n2 \u00d7 80 = 160 sheep.\n\nStep 4: Add them together.\n20 + 80 + 160 = 260.\n\nThe answer is 260."
+  },
+  {
+   "i": 7,
+   "gold": "160",
+   "pred": "160",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.56,
+   "text": "Step 1: Determine the point where the update occurs.\n40% of 200 GB = 0.40 \u00d7 200 = 80 GB.\n\nStep 2: Calculate the time for the first partial download.\nAt 2 GB/minute, downloading 80 GB takes:\n80 \u00f7 2 = 40 minutes.\n\nStep 3: Add the forced restart/update time.\nThe Windows update takes 20 minutes.\nSo far: 40 + 20 = 60 minutes.\n\nStep 4: Account for restarting from the beginning.\nCarla must now download the full 200 GB from scratch.\nTime for full download: 200 \u00f7 2 = 100 minutes.\n\nStep 5: Compute the total time.\nTotal = 40 minutes (first attempt) + 20 minutes (update) + 100 minutes (restart) = 160 minutes.\n\nThe answer is 160 minutes."
+  },
+  {
+   "i": 8,
+   "gold": "45",
+   "pred": "45",
+   "ok": true,
+   "finish": "stop",
+   "secs": 10.53,
+   "text": "Step 1: Find how far John drove away from home.\nHe drove 3 hours at 60 mph:\n3 \u00d7 60 = 180 miles from home.\n\nStep 2: Determine the time he actually drove during the 4-hour return attempt.\n- First 2 hours: standstill (0 miles)\n- Next 0.5 hour: 30 mph\n- Remaining time: 4 \u2212 2 \u2212 0.5 = 1.5 hours at 80 mph\n\nStep 3: Calculate the distance he traveled back toward home.\n- In 0.5 hour at 30 mph: 0.5 \u00d7 30 = 15 miles\n- In 1.5 hours at 80 mph: 1.5 \u00d7 80 = 120 miles\nTotal return distance: 15 + 120 = 135 miles\n\nStep 4: Find his final distance from home.\nHe was 180 miles away and came back 135 miles:\n180 \u2212 135 = 45 miles\n\nThe answer is 45."
+  },
+  {
+   "i": 9,
+   "gold": "460",
+   "pred": "460",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.9,
+   "text": "Step 1: Calculate Eliza's regular earnings for the first 40 hours.\n40 hours \u00d7 $10/hour = $400\n\nStep 2: Determine her overtime hourly rate.\n$10 \u00d7 1.2 = $12/hour\n\nStep 3: Calculate the overtime hours worked.\n45 total hours \u2212 40 regular hours = 5 overtime hours\n\nStep 4: Calculate her overtime earnings.\n5 hours \u00d7 $12/hour = $60\n\nStep 5: Add regular and overtime earnings together.\n$400 + $60 = $460\n\nThe answer is 460."
+  },
+  {
+   "i": 10,
+   "gold": "366",
+   "pred": "366",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.66,
+   "text": "Step 1: Calculate the downloads in the first month.\nFirst month = 60\n\nStep 2: Calculate the downloads in the second month.\nSecond month = 3 \u00d7 60 = 180\n\nStep 3: Calculate the downloads in the third month.\nThe second month's downloads are reduced by 30%, so the third month retains 70%.\nThird month = 180 \u00d7 (1 - 0.30) = 180 \u00d7 0.70 = 126\n\nStep 4: Add the three months together.\nTotal = 60 + 180 + 126 = 366\n\nThe answer is 366."
+  },
+  {
+   "i": 11,
+   "gold": "694",
+   "pred": "694",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.66,
+   "text": "Step 1: Calculate the cost of the donuts.\n3 dozen \u00d7 $68 per dozen = $204\n\nStep 2: Calculate the cost of the mini cupcakes.\n2 dozen \u00d7 $80 per dozen = $160\n\nStep 3: Calculate the cost of the mini cheesecakes.\n6 dozen \u00d7 $55 per dozen = $330\n\nStep 4: Add all the costs together.\n$204 + $160 + $330 = $694\n\nThe answer is 694."
+  },
+  {
+   "i": 12,
+   "gold": "13",
+   "pred": "12",
+   "ok": false,
+   "finish": "stop",
+   "secs": 16.19,
+   "text": "Step 1: Calculate the initial cost.\nThe tree costs $90 to plant, so Carlos starts with -$90.\n\nStep 2: Calculate the net profit per year.\nEach year the tree grows 7 lemons, sold at $1.5 each: 7 \u00d7 $1.5 = $10.50.\nThe yearly cost to maintain is $3.\nNet yearly profit: $10.50 - $3 = $7.50.\n\nStep 3: Determine the cumulative profit over time.\nYear 1: -$90 + $7.50 = -$82.50\nYear 2: -$82.50 + $7.50 = -$75.00\nYear 3: -$75.00 + $7.50 = -$67.50\nYear 4: -$67.50 + $7.50 = -$60.00\nYear 5: -$60.00 + $7.50 = -$52.50\nYear 6: -$52.50 + $7.50 = -$45.00\nYear 7: -$45.00 + $7.50 = -$37.50\nYear 8: -$37.50 + $7.50 = -$30.00\nYear 9: -$30.00 + $7.50 = -$22.50\nYear 10: -$22.50 + $7.50 = -$15.00\nYear 11: -$15.00 + $7.50 = -$7.50\nYear 12: -$7.50 + $7.50 = $0.00\n\nAfter 11 years he is still $7.50 in the red. After 12 years he has exactly broken even ($0), meaning he has recovered his initial investment and is no longer losing money.\n\nThe answer is 12."
+  },
+  {
+   "i": 13,
+   "gold": "18",
+   "pred": "18",
+   "ok": true,
+   "finish": "stop",
+   "secs": 11.3,
+   "text": "Let \\(N\\) be the number of vacuum cleaners Melanie started with.\n\n**Step 1:** She sold \\(\\frac{1}{3}\\) at the green house.  \nRemaining: \\(N - \\frac{N}{3} = \\frac{2N}{3}\\).\n\n**Step 2:** She sold 2 more at the red house.  \nRemaining: \\(\\frac{2N}{3} - 2\\).\n\n**Step 3:** She sold half of what was left at the orange house, leaving the other half.  \nThat remaining half equals 5:  \n\\[\n\\frac{1}{2}\\left(\\frac{2N}{3} - 2\\right) = 5\n\\]\n\n**Step 4:** Solve for \\(N\\).  \n\\[\n\\frac{2N}{3} - 2 = 10\n\\]  \n\\[\n\\frac{2N}{3} = 12\n\\]  \n\\[\n2N = 36 \\Rightarrow N = 18\n\\]\n\nCheck: Start with 18. Sell \\(\\frac{1}{3}\\) (6) \u2192 12 left. Sell 2 \u2192 10 left. Sell half (5) \u2192 5 left. \u2713\n\nThe answer is 18."
+  },
+  {
+   "i": 14,
+   "gold": "60",
+   "pred": "60",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.49,
+   "text": "Step 1: Calculate the number of students in contemporary dance.\n20% of 20 = 0.20 \u00d7 20 = 4 students.\n\nStep 2: Find the remaining students.\n20 \u2212 4 = 16 students.\n\nStep 3: Calculate the number of students in jazz dance.\n25% of 16 = 0.25 \u00d7 16 = 4 students.\n\nStep 4: Find the number of students in hip-hop dance.\n16 \u2212 4 = 12 students.\n\nStep 5: Calculate the percentage of the entire class in hip-hop.\n(12 / 20) \u00d7 100 = 60%.\n\nThe answer is 60."
+  },
+  {
+   "i": 15,
+   "gold": "125",
+   "pred": "125",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.54,
+   "text": "Step 1: Calculate the expected profit for the jewelry plan.\nInvestment = $5,000\nExpected increase = 2.5%\nProfit = $5,000 \u00d7 0.025 = $125\n\nStep 2: Calculate the expected profit for the electronic gadgets plan.\nInvestment = $8,000\nExpected increase = 1.2%\nProfit = $8,000 \u00d7 0.012 = $96\n\nStep 3: Compare the two profits to maximize return.\n$125 (jewelry) > $96 (gadgets)\n\nStep 4: Identify the maximum profit.\nThe merchant should choose the jewelry plan, yielding a profit of $125.\n\nThe answer is 125."
+  },
+  {
+   "i": 16,
+   "gold": "230",
+   "pred": "230",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.46,
+   "text": "Step 1: Identify the distance each train travels on the first day.\nBoth trains travel westward for 80 miles.\n\nStep 2: Identify the distance each train travels on the second day.\nBoth trains travel northward for 150 miles.\n\nStep 3: Add the distances from both days to find the total distance covered by each train.\nDay 1: 80 miles\nDay 2: 150 miles\nTotal: 80 + 150 = 230 miles\n\nThe answer is 230."
+  },
+  {
+   "i": 17,
+   "gold": "57500",
+   "pred": "57500",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.85,
+   "text": "Step 1: Calculate Jill's weekly earnings as a teacher.\n35 hours/week \u00d7 $20/hour = $700 per week\n\nStep 2: Calculate Jill's weekly earnings as a coach.\n15 hours/week \u00d7 $30/hour = $450 per week\n\nStep 3: Calculate her total weekly earnings.\n$700 + $450 = $1,150 per week\n\nStep 4: Calculate her annual salary over 50 weeks.\n$1,150/week \u00d7 50 weeks = $57,500\n\nThe answer is 57500."
+  },
+  {
+   "i": 18,
+   "gold": "7",
+   "pred": "7",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.6,
+   "text": "Step 1: Find the number of days in 4 weeks.\n4 weeks \u00d7 7 days/week = 28 days\n\nStep 2: Find the total number of eggs eaten.\n28 days \u00d7 3 eggs/day = 84 eggs\n\nStep 3: Convert eggs to dozens.\n84 eggs \u00f7 12 eggs/dozen = 7 dozen\n\nThe answer is 7."
+  },
+  {
+   "i": 19,
+   "gold": "6",
+   "pred": "6",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.3,
+   "text": "Step 1: Determine the total distance and desired average speed.\nThe trail is 12 miles long, and Marissa wants an average speed of 4 mph.\n\nStep 2: Calculate the total time needed for that average speed.\nTotal time = Total distance / Average speed = 12 miles / 4 mph = 3 hours.\n\nStep 3: Find the time she has already used.\nShe hiked for 1 hour + 1 hour = 2 hours.\n\nStep 4: Determine the remaining distance and remaining time.\nRemaining distance = 12 - 4 - 2 = 6 miles.\nRemaining time allowed = 3 - 2 = 1 hour.\n\nStep 5: Calculate the required speed for the remaining part.\nSpeed = Distance / Time = 6 miles / 1 hour = 6 mph.\n\nThe answer is 6."
+  },
+  {
+   "i": 20,
+   "gold": "15",
+   "pred": "15",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.74,
+   "text": "Step 1: Determine the actual amount of orange drink added.\nYou started with 10 liters but spilled 1 liter, so 10 \u2212 1 = 9 liters of orange drink are added.\n\nStep 2: Calculate the water in the orange drink.\nThe orange drink is 2/3 water, so:\n9 \u00d7 (2/3) = 6 liters of water.\n\nStep 3: Calculate the water in the pineapple drink.\nThe pineapple drink is 3/5 water, so:\n15 \u00d7 (3/5) = 9 liters of water.\n\nStep 4: Find the total volume of the mixture.\n9 liters (orange) + 15 liters (pineapple) = 24 liters.\n\nStep 5: Add the water from both drinks.\n6 + 9 = 15 liters of water.\n\nThe answer is 15."
+  },
+  {
+   "i": 21,
+   "gold": "14",
+   "pred": "14",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.13,
+   "text": "Step 1: Determine Raymond's current age.  \nSince Raymond was born 6 years before Samantha and Samantha is now 31:  \n31 + 6 = 37. Raymond is 37 years old.\n\nStep 2: Determine Raymond's age when his son was born.  \nRaymond had a son at age 23.\n\nStep 3: Calculate how many years ago that was.  \n37 \u2212 23 = 14.\n\nThe answer is 14."
+  },
+  {
+   "i": 22,
+   "gold": "7",
+   "pred": "7",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.14,
+   "text": "Step 1: Calculate DVDs sold to the first 3 customers.\n3 customers \u00d7 1 DVD = 3 DVDs\n\nStep 2: Calculate DVDs sold to the next 2 customers.\n2 customers \u00d7 2 DVDs = 4 DVDs\n\nStep 3: Calculate DVDs sold to the last 3 customers.\n3 customers \u00d7 0 DVDs = 0 DVDs\n\nStep 4: Add them together.\n3 + 4 + 0 = 7\n\nThe answer is 7."
+  },
+  {
+   "i": 23,
+   "gold": "8",
+   "pred": "8",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.9,
+   "text": "Step 1: Determine the total burning time.\nFrom 1:00 PM to 5:00 PM is 5 - 1 = 4 hours.\n\nStep 2: Calculate the total melt.\nThe candle melts 2 centimeters per hour, so in 4 hours it melts:\n4 hours \u00d7 2 cm/hour = 8 cm.\n\nThe answer is 8."
+  },
+  {
+   "i": 24,
+   "gold": "26",
+   "pred": "26",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.89,
+   "text": "Step 1: Understand that a 25% discount means Kyle paid 100% \u2212 25% = 75% of the original price.\n\nStep 2: Set up the equation. Let P be the original price.\n0.75 \u00d7 P = $19.50\n\nStep 3: Solve for P.\nP = $19.50 \u00f7 0.75\nP = $19.50 \u00f7 (3/4)\nP = $19.50 \u00d7 (4/3)\nP = $26.00\n\nThe answer is 26."
+  },
+  {
+   "i": 25,
+   "gold": "2",
+   "pred": "2",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.65,
+   "text": "Step 1: Calculate the cost of the chicken meal.\n1 \u00d7 $12 = $12\n\nStep 2: Calculate the cost of the milk.\n5 \u00d7 $3 = $15\n\nStep 3: Calculate the cost of the apples.\n4 \u00d7 $1.50 = $6\n\nStep 4: Add the known costs together.\n$12 + $15 + $6 = $33\n\nStep 5: Subtract this from the total paid to find the amount spent on pizza.\n$50 \u2212 $33 = $17\n\nStep 6: Divide the remaining amount by the cost per box of pizza.\n$17 \u00f7 $8.50 = 2\n\nThe answer is 2."
+  },
+  {
+   "i": 26,
+   "gold": "243",
+   "pred": "243",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.78,
+   "text": "Step 1: Calculate the cost of the shorts.\n3 pairs \u00d7 $16.50 = $49.50\n\nStep 2: Calculate the cost of the pants.\n3 pairs \u00d7 $22.50 = $67.50\n\nStep 3: Calculate the cost of the shoes.\n3 pairs \u00d7 $42 = $126\n\nStep 4: Add all the costs together.\n$49.50 + $67.50 + $126 = $243\n\nThe answer is 243."
+  },
+  {
+   "i": 27,
+   "gold": "16",
+   "pred": "16",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.85,
+   "text": "Step 1: Determine the total number of servings Cynthia eats in 60 days.\nSince she eats 1 serving per night:\n60 days \u00d7 1 serving/day = 60 servings\n\nStep 2: Determine how many cartons she needs.\nEach carton has 15 servings:\n60 servings \u00f7 15 servings/carton = 4 cartons\n\nStep 3: Calculate the total cost.\nEach carton costs $4.00:\n4 cartons \u00d7 $4.00/carton = $16.00\n\nThe answer is 16."
+  },
+  {
+   "i": 28,
+   "gold": "25",
+   "pred": "25",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.45,
+   "text": "Step 1: Identify the location of the first stop.\nHenry stopped after 20 miles, so the first stop is at mile 20.\n\nStep 2: Identify the location of the second stop.\nThe trip is 60 miles long. The second stop was 15 miles before the end, so:\n60 - 15 = 45. The second stop is at mile 45.\n\nStep 3: Calculate the distance between the two stops.\n45 - 20 = 25 miles.\n\nThe answer is 25."
+  },
+  {
+   "i": 29,
+   "gold": "104",
+   "pred": "104",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.45,
+   "text": "Step 1: Find the cost of the second pair of heels.\nThe first pair costs $33, and the second costs twice as much:\n2 \u00d7 $33 = $66.\n\nStep 2: Find the combined cost of both pairs of heels.\n$33 + $66 = $99.\n\nStep 3: Find the cost of the boots.\nThe two pairs together cost $5 less than the boots, so:\nBoots = $99 + $5 = $104.\n\nThe answer is 104."
+  },
+  {
+   "i": 30,
+   "gold": "109",
+   "pred": "109",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.89,
+   "text": "Step 1: Add the parts of the ratio.\n7 + 11 = 18 parts\n\nStep 2: Find the value of one part.\nTotal age = 162\nOne part = 162 \u00f7 18 = 9\n\nStep 3: Find Allen's current age.\nAllen's ratio part = 11\nAllen's current age = 11 \u00d7 9 = 99\n\nStep 4: Add 10 years.\nAllen's age in 10 years = 99 + 10 = 109\n\nThe answer is 109."
+  },
+  {
+   "i": 31,
+   "gold": "80",
+   "pred": "80",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.54,
+   "text": "Step 1: Identify the first guess.\nFriend 1 guesses 80 jelly beans.\n\nStep 2: Calculate the second guess.\nHalf of 80 is 40.  \n20 more than that is 40 + 20 = 60.\n\nStep 3: Calculate the third guess.\n25% more than 80 is 80 + (0.25 \u00d7 80) = 80 + 20 = 100.\n\nStep 4: Find the average of the three guesses.\nSum: 80 + 60 + 100 = 240  \nAverage: 240 \u00f7 3 = 80\n\nThe answer is 80."
+  },
+  {
+   "i": 32,
+   "gold": "35",
+   "pred": "35",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.02,
+   "text": "Step 1: Calculate the daily care time per dog.\nEach dog takes 0.5 hours per day.\n\nStep 2: Calculate the total daily care time for all 10 dogs.\n10 dogs \u00d7 0.5 hours/dog = 5 hours per day.\n\nStep 3: Calculate the total weekly care time (7 days in a week).\n5 hours/day \u00d7 7 days = 35 hours per week.\n\nThe answer is 35."
+  },
+  {
+   "i": 33,
+   "gold": "70",
+   "pred": "70",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.17,
+   "text": "Step 1: Define the unknown. Let S be the number of silver coins.\n\nStep 2: Write the expression for gold coins. Since there are 30 more gold coins than silver coins, the number of gold coins is S + 30.\n\nStep 3: Set up the total equation. The total number of coins is 110:\nS + (S + 30) = 110\n\nStep 4: Solve for S.\n2S + 30 = 110\n2S = 80\nS = 40\n\nSo there are 40 silver coins.\n\nStep 5: Find the number of gold coins.\nGold coins = 40 + 30 = 70\n\nCheck: 70 + 40 = 110, which matches the total.\n\nThe answer is 70."
+  },
+  {
+   "i": 34,
+   "gold": "23",
+   "pred": "23",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.65,
+   "text": "Step 1: Find half of Raymond's jewels.\nRaymond has 40 jewels, so half is 40 / 2 = 20.\n\nStep 2: Find Aaron's jewels.\nAaron has 5 more than half of Raymond's jewels: 20 + 5 = 25.\n\nStep 3: Find Siobhan's jewels.\nSiobhan has 2 fewer jewels than Aaron: 25 - 2 = 23.\n\nThe answer is 23."
+  },
+  {
+   "i": 35,
+   "gold": "9",
+   "pred": "9",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.45,
+   "text": "Step 1: Identify the points scored in the first 20 minutes.\nMike scored 4 points.\n\nStep 2: Calculate the points scored in the second 20 minutes.\nHe scored 25% more than in the first period.\n25% of 4 = 0.25 \u00d7 4 = 1\nPoints in second period = 4 + 1 = 5\n\nStep 3: Add both periods together.\nTotal points = 4 + 5 = 9\n\nThe answer is 9."
+  },
+  {
+   "i": 36,
+   "gold": "75",
+   "pred": "75",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.02,
+   "text": "Step 1: Find the total number of yogurts Terry eats in 30 days.\n2 yogurts/day \u00d7 30 days = 60 yogurts\n\nStep 2: Determine the price per yogurt.\n$5.00 \u00f7 4 yogurts = $1.25 per yogurt\n\nStep 3: Calculate the total cost for 60 yogurts.\n60 yogurts \u00d7 $1.25/yogurt = $75.00\n\nThe answer is 75."
+  },
+  {
+   "i": 37,
+   "gold": "2",
+   "pred": "2",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.88,
+   "text": "Step 1: Calculate the total money John earned from selling Lego sets.\n13 sets \u00d7 $15 each = $195\n\nStep 2: Calculate the total money he spent on video games.\n8 games \u00d7 $20 each = $160\n\nStep 3: Add the leftover money to find his total available funds.\n$160 + $5 = $165\n\nStep 4: Determine how many Lego sets he actually sold.\n$165 \u00f7 $15 per set = 11 sets sold\n\nStep 5: Subtract the number sold from the original amount.\n13 - 11 = 2\n\nThe answer is 2."
+  },
+  {
+   "i": 38,
+   "gold": "10",
+   "pred": "10",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.17,
+   "text": "Step 1: Determine the running time on the first day.\nThe first day he runs 3 hours.\n\nStep 2: Determine the running time on the other two days.\nHalf as much as 3 hours is 3 / 2 = 1.5 hours each day.\n\nStep 3: Calculate the total running time for the week.\nDay 1: 3 hours\nDay 2: 1.5 hours\nDay 3: 1.5 hours\nTotal time = 3 + 1.5 + 1.5 = 6 hours.\n\nStep 4: Calculate the average speed.\nHe runs 60 miles in 6 hours.\nSpeed = 60 miles / 6 hours = 10 miles per hour.\n\nThe answer is 10."
+  },
+  {
+   "i": 39,
+   "gold": "18",
+   "pred": "18",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.66,
+   "text": "Step 1: Determine Dana's running speed.\nShe skips at half her running speed, and she skips at 3 mph.\nRunning speed = 3 \u00d7 2 = 6 mph.\n\nStep 2: Determine Dana's walking speed.\nShe runs four times faster than she walks.\nWalking speed = 6 \u00f7 4 = 1.5 mph.\n\nStep 3: Calculate the time spent on each activity.\nTotal time = 6 hours.\nRunning time = (1/3) \u00d7 6 = 2 hours.\nWalking time = (2/3) \u00d7 6 = 4 hours.\n\nStep 4: Calculate the distance for each part.\nDistance running = 6 mph \u00d7 2 hours = 12 miles.\nDistance walking = 1.5 mph \u00d7 4 hours = 6 miles.\n\nStep 5: Add the distances.\nTotal distance = 12 + 6 = 18 miles.\n\nThe answer is 18."
+  },
+  {
+   "i": 40,
+   "gold": "8",
+   "pred": "8",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.02,
+   "text": "Step 1: Identify Suzy's iPhone age.\nSuzy's iPhone is 1 year old.\n\nStep 2: Find Ben's iPhone age.\nBen's iPhone is two times older than Suzy's: 1 \u00d7 2 = 2 years old.\n\nStep 3: Find Brandon's iPhone age.\nBrandon's iPhone is four times as old as Ben's: 2 \u00d7 4 = 8 years old.\n\nThe answer is 8."
+  },
+  {
+   "i": 41,
+   "gold": "200",
+   "pred": "200",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.9,
+   "text": "Step 1: Determine Polly's throwing distance without the sapphire gemstone.\nThe problem states she can throw the javelin 400 feet without it.\n\nStep 2: Calculate her throwing distance while holding the gemstone.\nThe gemstone lets her throw three times farther:\n3 \u00d7 400 feet = 1,200 feet.\n\nStep 3: Identify the reach of the dragon's flames.\nThe dragon can breathe fire up to 1,000 feet.\n\nStep 4: Find how far outside that reach she can stand and still hit the dragon.\nShe needs to be within 1,200 feet to hit him, and more than 1,000 feet away to be safe from the flames.\nThe distance outside the flame reach is:\n1,200 feet \u2212 1,000 feet = 200 feet.\n\nThe answer is 200."
+  },
+  {
+   "i": 42,
+   "gold": "26",
+   "pred": "26",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.03,
+   "text": "Step 1: Find the total number of pieces Grandma Jones baked.\nShe baked 5 pies and cut each into 8 pieces:\n5 \u00d7 8 = 40 pieces\n\nStep 2: Subtract the remaining pieces from the total.\n40 pieces - 14 remaining pieces = 26 pieces taken\n\nThe answer is 26."
+  },
+  {
+   "i": 43,
+   "gold": "48",
+   "pred": "48",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.48,
+   "text": "Step 1: Determine remaining calories.\n2000 (target) \u2212 1800 (consumed) = 200 calories remaining.\n\nStep 2: Find calories per serving.\nThe bag lists 250 calories per serving.\n\nStep 3: Calculate the fraction of a serving allowed.\n200 \u00f7 250 = 0.8 servings.\n\nStep 4: Determine grams per serving.\n300 g \u00f7 5 servings = 60 g per serving.\n\nStep 5: Calculate grams for 0.8 servings.\n0.8 \u00d7 60 g = 48 g.\n\nThe answer is 48."
+  },
+  {
+   "i": 44,
+   "gold": "20",
+   "pred": "20",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.53,
+   "text": "Step 1: Determine the beeswax needed.  \nSince 1 pound makes 10 candles, 20 candles require 20 \u00f7 10 = 2 pounds.\n\nStep 2: Calculate supply costs.  \nEach pound plus wicks costs $10.00, so 2 pounds cost 2 \u00d7 $10.00 = $20.00.\n\nStep 3: Calculate revenue.  \nSelling 20 candles at $2.00 each gives 20 \u00d7 $2.00 = $40.00.\n\nStep 4: Compute net profit.  \nProfit = Revenue \u2212 Cost = $40.00 \u2212 $20.00 = $20.00.\n\nThe answer is 20."
+  },
+  {
+   "i": 45,
+   "gold": "104",
+   "pred": "104",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.76,
+   "text": "Step 1: Find the number of articles Meredith wrote on Monday.\nMonday = 5 articles.\n\nStep 2: Find the number of articles she wrote on Tuesday.\nTuesday = 5 + (2/5) \u00d7 5 = 5 + 2 = 7 articles.\n\nStep 3: Find the number of articles she wrote on Wednesday.\nWednesday = 2 \u00d7 7 = 14 articles.\n\nStep 4: Calculate the total number of articles over the three days.\nTotal articles = 5 + 7 + 14 = 26 articles.\n\nStep 5: Calculate the total hours spent, given each article takes 4 hours.\nTotal hours = 26 \u00d7 4 = 104 hours.\n\nThe answer is 104."
+  },
+  {
+   "i": 46,
+   "gold": "163",
+   "pred": "163",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.84,
+   "text": "Step 1: Determine how many post-it notes Candice used at work plus what she had left.\nShe placed 220 notes on cups and had 23 remaining, so she used/kept:\n220 + 23 = 243 post-it notes.\n\nStep 2: Subtract the 80 she started with to find how many came from the package.\n243 - 80 = 163.\n\nThe answer is 163."
+  },
+  {
+   "i": 47,
+   "gold": "800",
+   "pred": "800",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.88,
+   "text": "Step 1: Find the number of blue ties.\nBlue ties cost $40 each and he spent $200, so:\n200 \u00f7 40 = 5 blue ties.\n\nStep 2: Find the number of red ties.\nHe buys twice as many red ties as blue ties:\n2 \u00d7 5 = 10 red ties.\n\nStep 3: Find the cost per red tie.\nRed ties cost 50% more than blue ties:\n40 \u00d7 1.5 = $60 each.\n\nStep 4: Calculate spending on red ties.\n10 \u00d7 60 = $600.\n\nStep 5: Calculate total spending.\nBlue ties: $200\nRed ties: $600\nTotal: 200 + 600 = $800.\n\nThe answer is 800."
+  },
+  {
+   "i": 48,
+   "gold": "8",
+   "pred": "8",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.99,
+   "text": "Step 1: Convert the total length of the wire to inches.\nSince 1 foot = 12 inches, 4 feet = 4 \u00d7 12 = 48 inches.\n\nStep 2: Divide the total length by the length of each piece.\n48 inches \u00f7 6 inches per piece = 8 pieces.\n\nThe answer is 8."
+  },
+  {
+   "i": 49,
+   "gold": "30",
+   "pred": "30",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.89,
+   "text": "Step 1: Find the total number of units in the building.\n15 floors \u00d7 8 units per floor = 120 units\n\nStep 2: Determine the fraction of units that are unoccupied.\nIf 3/4 are occupied, then 1 - 3/4 = 1/4 are unoccupied.\n\nStep 3: Calculate the number of unoccupied units.\n120 \u00d7 1/4 = 30\n\nThe answer is 30."
+  },
+  {
+   "i": 50,
+   "gold": "294",
+   "pred": "294",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.84,
+   "text": "Step 1: Calculate the total number of eggs produced in one week.\n252 eggs/day \u00d7 7 days = 1,764 eggs\n\nStep 2: Convert the weekly egg total into dozens.\n1,764 eggs \u00f7 12 eggs/dozen = 147 dozen\n\nStep 3: Calculate the revenue by multiplying dozens sold by the price per dozen.\n147 dozen \u00d7 $2/dozen = $294\n\nThe answer is 294."
+  },
+  {
+   "i": 51,
+   "gold": "5",
+   "pred": "5",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.89,
+   "text": "Step 1: Determine the duration of the first trip.\nTom sails from 1 PM to 4 PM, which is 4 \u2212 1 = 3 hours.\n\nStep 2: Calculate the distance traveled.\nAt 10 miles per hour for 3 hours:\nDistance = 10 \u00d7 3 = 30 miles.\n\nStep 3: Calculate the return time.\nHe travels back the same 30 miles at 6 mph:\nTime = 30 \u00f7 6 = 5 hours.\n\nThe answer is 5."
+  },
+  {
+   "i": 52,
+   "gold": "15",
+   "pred": "15",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.24,
+   "text": "Step 1: Calculate the weight removed by taking out the comic books.\n30 comic books \u00d7 1/4 pound = 30/4 = 7.5 pounds.\n\nStep 2: Determine the remaining weight that must be removed.\n15 pounds - 7.5 pounds = 7.5 pounds.\n\nStep 3: Calculate how many toys are needed to remove the remaining weight.\nEach toy weighs 1/2 pound, so:\n7.5 pounds \u00f7 1/2 pound/toy = 7.5 \u00d7 2 = 15 toys.\n\nThe answer is 15."
+  },
+  {
+   "i": 53,
+   "gold": "40",
+   "pred": "40",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.84,
+   "text": "Step 1: Calculate Thursday's revenue.\nTruck tires: 6 \u00d7 $60 = $360\nCar tires: 4 \u00d7 $40 = $160\nTotal Thursday: $360 + $160 = $520\n\nStep 2: Calculate Friday's revenue.\nTruck tires: 0 \u00d7 $60 = $0\nCar tires: 12 \u00d7 $40 = $480\nTotal Friday: $480\n\nStep 3: Identify the day with higher revenue.\nThursday ($520) > Friday ($480)\n\nStep 4: Find the difference.\n$520 \u2212 $480 = $40\n\nThe answer is 40."
+  },
+  {
+   "i": 54,
+   "gold": "40",
+   "pred": "40",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.0,
+   "text": "Step 1: Identify the number of adopted kittens.\nThe sisters adopted 7 kittens.\n\nStep 2: Determine Patchy's kittens.\nPatchy had thrice the number of adopted kittens: 3 \u00d7 7 = 21 kittens.\n\nStep 3: Identify Trixie's kittens.\nTrixie had 12 kittens.\n\nStep 4: Add all the kittens together.\nAdopted: 7\nPatchy: 21\nTrixie: 12\nTotal: 7 + 21 + 12 = 40\n\nThe answer is 40."
+  },
+  {
+   "i": 55,
+   "gold": "14",
+   "pred": "14",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.59,
+   "text": "Step 1: Start with the total number of lollipops Jean has: 30.\nStep 2: Subtract the 2 lollipops Jean eats: 30 - 2 = 28 remaining lollipops.\nStep 3: Divide the remaining lollipops by the number per bag: 28 \u00f7 2 = 14.\n\nThe answer is 14."
+  },
+  {
+   "i": 56,
+   "gold": "3",
+   "pred": "3",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.71,
+   "text": "Step 1: Find the cost of one movie trip.\nTicket: $7\nPopcorn: $7\nTotal per trip: $7 + $7 = $14\n\nStep 2: Divide Peter's total money by the cost per trip.\n$42 \u00f7 $14 = 3\n\nThe answer is 3."
+  },
+  {
+   "i": 57,
+   "gold": "83",
+   "pred": "83",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.24,
+   "text": "Step 1: Determine the remaining weight capacity for the boxes.\nThe bridge can carry 5000 pounds, and the truck with the driver weighs 3755 pounds.\n5000 - 3755 = 1245 pounds available for boxes.\n\nStep 2: Divide the available weight by the weight of one box.\nEach box weighs 15 pounds.\n1245 \u00f7 15 = 83 exactly.\n\nStep 3: Verify the total weight.\n83 boxes \u00d7 15 pounds = 1245 pounds.\nTotal truck weight = 3755 + 1245 = 5000 pounds, which equals but does not exceed the limit. (84 boxes would be 1260 pounds, giving 5015 pounds total, which exceeds the limit.)\n\nThe answer is 83."
+  },
+  {
+   "i": 58,
+   "gold": "57",
+   "pred": "57",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.44,
+   "text": "Step 1: Start with the grocery bill.\n$40.00\n\nStep 2: Add the 25% vendor fee.\n25% of $40.00 = $10.00\n$40.00 + $10.00 = $50.00\n\nStep 3: Add the delivery fee.\n$50.00 + $3.00 = $53.00\n\nStep 4: Add the tip.\n$53.00 + $4.00 = $57.00\n\nThe answer is 57."
+  },
+  {
+   "i": 59,
+   "gold": "187",
+   "pred": "187",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.58,
+   "text": "Step 1: Calculate the number of raspberries in the clusters.\nThere are 6 clusters with 20 fruit each: 6 \u00d7 20 = 120.\n\nStep 2: Add the scattered individual fruit.\nThere are 67 individual raspberries scattered across the bush.\n\nStep 3: Find the total.\n120 + 67 = 187.\n\nThe answer is 187."
+  },
+  {
+   "i": 60,
+   "gold": "17",
+   "pred": "17",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.64,
+   "text": "Step 1: Identify the total number of oranges.\nTotal = 25\n\nStep 2: Calculate the number of unripe oranges (20% of 25).\n20% of 25 = 0.20 \u00d7 25 = 5\n\nStep 3: List all the oranges that are not good.\n- Bad: 1\n- Unripe: 5\n- Sour: 2\nTotal not good = 1 + 5 + 2 = 8\n\nStep 4: Subtract the bad/unripe/sour oranges from the total to find the good ones.\nGood oranges = 25 \u2212 8 = 17\n\nThe answer is 17."
+  },
+  {
+   "i": 61,
+   "gold": "1430",
+   "pred": "1430",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.65,
+   "text": "Step 1: Add the material and jeweler costs.\n$500 + $800 = $1,300\n\nStep 2: Calculate the insurance cost (10% of $1,300).\n0.10 \u00d7 $1,300 = $130\n\nStep 3: Add the insurance to the previous total.\n$1,300 + $130 = $1,430\n\nThe answer is 1430."
+  },
+  {
+   "i": 62,
+   "gold": "25000",
+   "pred": "25000",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.72,
+   "text": "Step 1: Identify the full pension after 40 years.\nFull pension = $50,000/year.\n\nStep 2: Determine the entitlement rate.\nStarting after 20 years, she earns 5% of the pension value per year of service.\n\nStep 3: Calculate the number of years she is entitled.\nShe works 30 years, and entitlement begins after 20 years, so:\n30 \u2212 20 = 10 years of entitlement.\n\nStep 4: Compute the total percentage of the pension she receives.\n10 years \u00d7 5% per year = 50%.\n\nStep 5: Calculate her annual pension.\n50% of $50,000 = 0.50 \u00d7 $50,000 = $25,000.\n\nThe answer is 25000."
+  },
+  {
+   "i": 63,
+   "gold": "1596",
+   "pred": "1596",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.33,
+   "text": "Step 1: Identify the monthly charge.\nThe service charges $140 per month.\n\nStep 2: Calculate the cost for the first half of the year (6 months).\n6 months \u00d7 $140 = $840\n\nStep 3: Determine the reduced monthly charge for the second half.\n10% less than $140 is:\n$140 \u00d7 (1 - 0.10) = $140 \u00d7 0.90 = $126 per month\n\nStep 4: Calculate the cost for the second half of the year (6 months).\n6 months \u00d7 $126 = $756\n\nStep 5: Add both halves together for the total yearly cost.\n$840 + $756 = $1,596\n\nThe answer is 1596."
+  },
+  {
+   "i": 64,
+   "gold": "300",
+   "pred": "300",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.63,
+   "text": "Step 1: Determine Sophia's fuel efficiency.\nShe drove 100 miles and used 4 gallons, so her car gets:\n100 miles \u00f7 4 gallons = 25 miles per gallon.\n\nStep 2: Determine the total range on a full tank.\nThe tank holds 12 gallons, so:\n12 gallons \u00d7 25 miles/gallon = 300 miles.\n\nThe answer is 300."
+  },
+  {
+   "i": 65,
+   "gold": "36",
+   "pred": "36",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.84,
+   "text": "Step 1: Find the time Jim spends reading each session.\nHe reads for half as long as he watches TV: 2 hours \u00f7 2 = 1 hour.\n\nStep 2: Find the total time per session.\nTV + reading = 2 hours + 1 hour = 3 hours.\n\nStep 3: Find the weekly total.\nHe does this 3 times a week: 3 hours \u00d7 3 = 9 hours per week.\n\nStep 4: Find the total for 4 weeks.\n9 hours/week \u00d7 4 weeks = 36 hours.\n\nThe answer is 36."
+  },
+  {
+   "i": 66,
+   "gold": "48",
+   "pred": "48",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.07,
+   "text": "Step 1: Count the teams.\nThere are 4 schools, and each school sends 1 girls\u2019 team and 1 boys\u2019 team.\n4 \u00d7 2 = 8 teams.\n\nStep 2: Count the players.\nEach team has 5 players.\n8 teams \u00d7 5 players = 40 players.\n\nStep 3: Count the coaches.\nEach school sends 1 coach for each of its 2 teams.\n4 schools \u00d7 2 coaches = 8 coaches.\n\nStep 4: Add everyone together.\n40 players + 8 coaches = 48 people.\n\nThe answer is 48."
+  },
+  {
+   "i": 67,
+   "gold": "595",
+   "pred": "595",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.63,
+   "text": "Step 1: Identify the number of diamonds.\nThere are 175 diamonds.\n\nStep 2: Calculate the number of rubies.\nRubies are 35 fewer than diamonds:\n175 - 35 = 140 rubies.\n\nStep 3: Calculate the number of emeralds.\nEmeralds are twice the number of rubies:\n140 \u00d7 2 = 280 emeralds.\n\nStep 4: Add all the gems together.\n175 + 140 + 280 = 595\n\nThe answer is 595."
+  },
+  {
+   "i": 68,
+   "gold": "36",
+   "pred": "36",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.21,
+   "text": "Step 1: Find the number of boys.\nThere are twice as many boys as girls, and there are 60 girls.\n60 \u00d7 2 = 120 boys.\n\nStep 2: Find the total number of students.\n120 boys + 60 girls = 180 students.\n\nStep 3: Find the number of teachers.\nThere are 5 students per teacher.\n180 \u00f7 5 = 36 teachers.\n\nThe answer is 36."
+  },
+  {
+   "i": 69,
+   "gold": "60",
+   "pred": "60",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.14,
+   "text": "Step 1: Calculate the total allowance Bailey received.\nShe gets $5 per week for 8 weeks:\n5 \u00d7 8 = $40\n\nStep 2: Subtract the allowance from her final total to find the starting amount.\n100 \u2212 40 = $60\n\nThe answer is 60."
+  },
+  {
+   "i": 70,
+   "gold": "7425",
+   "pred": "7425",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.81,
+   "text": "Step 1: Calculate the number of weekday classes.\nJudy teaches 5 classes per day for 5 weekdays (Monday\u2013Friday):\n5 \u00d7 5 = 25 classes\n\nStep 2: Add the Saturday classes.\n25 + 8 = 33 classes per week\n\nStep 3: Find the total number of students.\n33 classes \u00d7 15 students per class = 495 students\n\nStep 4: Calculate total revenue.\n495 students \u00d7 $15.00 per student = $7,425\n\nThe answer is 7425."
+  },
+  {
+   "i": 71,
+   "gold": "60",
+   "pred": "60",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.25,
+   "text": "Step 1: Identify the number of instructions in the first recipe.\nThe first recipe has 20 instructions.\n\nStep 2: Calculate the number of instructions in the second recipe.\nThe second recipe has twice as many instructions as the first:\n2 \u00d7 20 = 40 instructions.\n\nStep 3: Add the instructions from both recipes together.\n20 + 40 = 60.\n\nThe answer is 60."
+  },
+  {
+   "i": 72,
+   "gold": "221",
+   "pred": "221",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.56,
+   "text": "Step 1: Calculate the money raised from brownies.\n43 brownies \u00d7 $3 = $129\n\nStep 2: Calculate the money raised from cheesecake.\n23 slices \u00d7 $4 = $92\n\nStep 3: Add the two amounts together.\n$129 + $92 = $221\n\nThe answer is 221."
+  },
+  {
+   "i": 73,
+   "gold": "255",
+   "pred": "255",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.41,
+   "text": "Step 1: Find the total cost of the 5 cell phones.\n5 \u00d7 $150 = $750\n\nStep 2: Calculate the 2% interest per unit.\nInterest per unit = 2% of $150 = 0.02 \u00d7 $150 = $3\nTotal interest for 5 units = 5 \u00d7 $3 = $15\n\nStep 3: Find the total amount Shiela needs to pay.\nTotal = $750 + $15 = $765\n\nStep 4: Divide by 3 months to find the monthly payment.\nMonthly payment = $765 \u00f7 3 = $255\n\nThe answer is 255."
+  },
+  {
+   "i": 74,
+   "gold": "88",
+   "pred": "88",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.17,
+   "text": "Step 1: Round each flower price to the nearest dollar.\n- Marigolds: $2.74 \u2192 $3\n- Petunias: $1.87 \u2192 $2\n- Begonias: $2.12 \u2192 $2\n\nStep 2: Calculate revenue for each type.\n- Marigolds: 12 pots \u00d7 $3 = $36\n- Petunias: 9 pots \u00d7 $2 = $18\n- Begonias: 17 pots \u00d7 $2 = $34\n\nStep 3: Add them together.\n$36 + $18 + $34 = $88\n\nThe answer is 88."
+  },
+  {
+   "i": 75,
+   "gold": "60",
+   "pred": "60",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.09,
+   "text": "Step 1: Identify the square footage of the top level (level 4).\nLevel 4 = 16 sq ft.\n\nStep 2: Work downward using the rule that each level is double the one above it.\nLevel 3 = 16 \u00d7 2 = 32 sq ft\nLevel 2 = 32 \u00d7 2 = 64 sq ft\nLevel 1 = 64 \u00d7 2 = 128 sq ft\n\nStep 3: Calculate the total square footage.\nTotal = 128 + 64 + 32 + 16 = 240 sq ft\n\nStep 4: Compute the average over the 4 levels.\nAverage = 240 \u00f7 4 = 60\n\nThe answer is 60."
+  },
+  {
+   "i": 76,
+   "gold": "5",
+   "pred": "5",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.84,
+   "text": "Step 1: Determine the number of days in the first year.\nThe first year has 365 days.\n\nStep 2: Calculate the food needed for the first 180 days.\n180 days \u00d7 1 cup/day = 180 cups.\n\nStep 3: Calculate the food needed for the remaining days.\nRemaining days = 365 \u2212 180 = 185 days.\n185 days \u00d7 2 cups/day = 370 cups.\n\nStep 4: Find the total cups needed in the first year.\n180 cups + 370 cups = 550 cups.\n\nStep 5: Determine how many 110-cup bags are needed.\n550 \u00f7 110 = 5 exactly.\n\nSince Cecilia needs exactly 550 cups and each bag holds 110 cups, she will use 5 bags.\n\nThe answer is 5."
+  },
+  {
+   "i": 77,
+   "gold": "100",
+   "pred": "100",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.51,
+   "text": "Step 1: Identify Sarah's laundry.\nSarah does 400 pounds.\n\nStep 2: Calculate David's laundry.\nSarah does 4 times as much as David, so:\nDavid = 400 \u00f7 4 = 100 pounds.\n\nStep 3: Calculate Raymond's laundry.\nRaymond does half as much as Sarah, so:\nRaymond = 400 \u00f7 2 = 200 pounds.\n\nStep 4: Find the difference between Raymond and David.\nDifference = 200 \u2212 100 = 100 pounds.\n\nThe answer is 100."
+  },
+  {
+   "i": 78,
+   "gold": "6",
+   "pred": "6",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.42,
+   "text": "Step 1: Determine the unit price for each package.\n- Package of 3: $2.50 \u00f7 3 \u2248 $0.833 per flower\n- Package of 2: $1.00 \u00f7 2 = $0.50 per flower\n\nThe package of 2 is cheaper.\n\nStep 2: Calculate the cost of 18 flowers using the 3-pack.\n18 \u00f7 3 = 6 packages\n6 \u00d7 $2.50 = $15.00\n\nStep 3: Calculate the cost of 18 flowers using the 2-pack.\n18 \u00f7 2 = 9 packages\n9 \u00d7 $1.00 = $9.00\n\nStep 4: Find the savings.\n$15.00 \u2212 $9.00 = $6.00\n\nThe answer is 6."
+  },
+  {
+   "i": 79,
+   "gold": "70",
+   "pred": "70",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.28,
+   "text": "Step 1: Identify the original cost of the grooming, which is $100.\n\nStep 2: Calculate the discount amount by finding 30% of $100.\n30% of $100 = 0.30 \u00d7 $100 = $30.\n\nStep 3: Subtract the discount from the original price.\n$100 - $30 = $70.\n\nThe answer is 70."
+  },
+  {
+   "i": 80,
+   "gold": "10",
+   "pred": "10",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.27,
+   "text": "Step 1: Calculate the water each girl received.\n24 \u00f7 6 = 4 liters per girl.\n\nStep 2: Calculate the total water the two girls received.\n4 \u00d7 2 = 8 liters.\n\nStep 3: Add the water the boy received.\n8 + 6 = 14 liters used in total.\n\nStep 4: Subtract the used water from the original amount.\n24 \u2212 14 = 10 liters.\n\nThe answer is 10."
+  },
+  {
+   "i": 81,
+   "gold": "17",
+   "pred": "17",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.69,
+   "text": "Step 1: Start with Charlie's initial stickers.\nCharlie had 10 stickers.\n\nStep 2: Add the stickers he bought.\n10 + 21 = 31 stickers.\n\nStep 3: Add the stickers he got for his birthday.\n31 + 23 = 54 stickers.\n\nStep 4: Subtract the stickers he gave to his sister.\n54 - 9 = 45 stickers.\n\nStep 5: Subtract the stickers he used to decorate the card.\n45 - 28 = 17 stickers.\n\nThe answer is 17."
+  },
+  {
+   "i": 82,
+   "gold": "623",
+   "pred": "623",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.53,
+   "text": "Step 1: Identify Grace's weight.\nGrace weighs 125 pounds.\n\nStep 2: Calculate 4 times Grace's weight.\n4 \u00d7 125 = 500 pounds.\n\nStep 3: Subtract 2 pounds to find Alex's weight.\n500 \u2212 2 = 498 pounds.\n\nStep 4: Add Grace's and Alex's weights together.\n125 + 498 = 623 pounds.\n\nThe answer is 623."
+  },
+  {
+   "i": 83,
+   "gold": "600",
+   "pred": "600",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.22,
+   "text": "Step 1: Find the total number of rose bushes.\nDan plants 3 rose bushes.\n\nStep 2: Find the total number of roses.\nEach bush has 25 roses, so:\n3 \u00d7 25 = 75 roses\n\nStep 3: Find the total number of thorns.\nEach rose has 8 thorns, so:\n75 \u00d7 8 = 600 thorns\n\nThe answer is 600."
+  },
+  {
+   "i": 84,
+   "gold": "15",
+   "pred": "15",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.52,
+   "text": "Step 1: Define the unknown. Let L be the number of games lost.\n\nStep 2: Express wins in terms of losses. The team won 8 more than they lost, so wins W = L + 8.\n\nStep 3: Use the total games played. They played 22 games, so:\nW + L = 22\n\nStep 4: Substitute W = L + 8 into the total:\n(L + 8) + L = 22\n2L + 8 = 22\n\nStep 5: Solve for L:\n2L = 14\nL = 7\n\nStep 6: Find W:\nW = 7 + 8 = 15\n\nCheck: 15 + 7 = 22, and 15 is indeed 8 more than 7.\n\nThe answer is 15."
+  },
+  {
+   "i": 85,
+   "gold": "44",
+   "pred": "44",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.85,
+   "text": "Step 1: Determine how many years Gene has been vacationing.\nHe started at age 23 and is now 34, so he has vacationed for:\n34 \u2212 23 = 11 years (ages 23 through 33).\n\nStep 2: Calculate the number of vacations per year.\nHe takes 4 vacations each year.\n\nStep 3: Find the total number of shirts/blocks.\n11 years \u00d7 4 vacations/year = 44 blocks.\n\nThe answer is 44."
+  },
+  {
+   "i": 86,
+   "gold": "22",
+   "pred": "22",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.02,
+   "text": "Step 1: Identify the number of rings the first time.\nThe first alarm rang 4 times.\n\nStep 2: Calculate the rings for the second alarm.\nIt rang for three times as long as the first time:\n3 \u00d7 4 = 12 rings.\n\nStep 3: Calculate the rings for the third alarm.\nIt rang for half as long as the second time:\n12 \u00f7 2 = 6 rings.\n\nStep 4: Add all the rings together.\n4 + 12 + 6 = 22.\n\nThe answer is 22."
+  },
+  {
+   "i": 87,
+   "gold": "9360",
+   "pred": "9360",
+   "ok": true,
+   "finish": "stop",
+   "secs": 9.79,
+   "text": "Step 1: Determine Sylvie\u2019s initial monthly salary.\nThe company pays each employee $600 per month, so Sylvie\u2019s initial monthly salary is $600.\n\nStep 2: Compute her initial annual salary.\n$600/month \u00d7 12 months = $7,200 per year.\n\nStep 3: Understand the raise policy.\nAfter 5 years of service, an employee receives an increase of 10% of the initial salary every year.\n10% of the initial salary ($7,200) = $720 per year.\n\nStep 4: Determine when the raises apply.\nSylvie reached 5 years last December. The raises apply \u201cevery year\u201d thereafter. Over the next three years of service, she receives this $720 increase three times (once for each of the three years).\n\nStep 5: Calculate the total increase after three more years.\n3 years \u00d7 $720/year = $2,160.\n\nStep 6: Add the total increase to her initial annual salary.\n$7,200 + $2,160 = $9,360.\n\nThe answer is 9360."
+  },
+  {
+   "i": 88,
+   "gold": "8000",
+   "pred": "8000",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.48,
+   "text": "Step 1: Define the unknown. Let H be the number of copies Harald sold.\n\nStep 2: Express Marilyn's sales in terms of H. Marilyn sold 10H copies.\n\nStep 3: Set up the equation for the total. H + 10H = 88,000.\n\nStep 4: Combine like terms. 11H = 88,000.\n\nStep 5: Solve for H. H = 88,000 \u00f7 11 = 8,000.\n\nCheck: Marilyn sold 80,000, and 80,000 + 8,000 = 88,000. \u2713\n\nThe answer is 8000."
+  },
+  {
+   "i": 89,
+   "gold": "24",
+   "pred": "24",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.1,
+   "text": "Step 1: Determine the expected number of attendees.\nSince 1/4 of invited guests don't show up, 3/4 do show up.\n3/4 \u00d7 16 = 12 attendees.\n\nStep 2: Calculate the number of gift bags needed.\n0.75 gift bags per invited guest \u00d7 16 guests = 12 gift bags.\n\nStep 3: Calculate the total cost.\n12 gift bags \u00d7 $2 each = $24.\n\nThe answer is 24."
+  },
+  {
+   "i": 90,
+   "gold": "225",
+   "pred": "225",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.68,
+   "text": "Step 1: Determine how much potato salad a child eats.\nA child eats half as much as an adult, so 10 lbs / 2 = 5 lbs per child.\n\nStep 2: Calculate the total for the adults.\nThere are 20 adults, each eating 10 lbs: 20 \u00d7 10 = 200 lbs.\n\nStep 3: Calculate the total for the children.\nThere are 5 children, each eating 5 lbs: 5 \u00d7 5 = 25 lbs.\n\nStep 4: Add the amounts together.\n200 lbs + 25 lbs = 225 lbs.\n\nThe answer is 225."
+  },
+  {
+   "i": 91,
+   "gold": "28",
+   "pred": "28",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.1,
+   "text": "Step 1: Identify Cindy's pets.\nCindy has 4 pets.\n\nStep 2: Find Marcia's pets.\nMarcia has 2 more pets than Cindy: 4 + 2 = 6 pets.\n\nStep 3: Find Jan's pets.\nJan has three times the number of pets as Marcia: 3 \u00d7 6 = 18 pets.\n\nStep 4: Calculate the total.\n4 + 6 + 18 = 28.\n\nThe answer is 28."
+  },
+  {
+   "i": 92,
+   "gold": "4",
+   "pred": "4",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.44,
+   "text": "We are told James is 10 and is 1 year younger than Corey, so:\nCorey = 10 + 1 = 11.\n\nAmy is 2 years younger than Corey, so:\nAmy = 11 - 2 = 9.\n\nAmy is also 5 years older than Jackson, so:\nJackson = 9 - 5 = 4.\n\nThe answer is 4."
+  },
+  {
+   "i": 93,
+   "gold": "36",
+   "pred": "400",
+   "ok": false,
+   "finish": "stop",
+   "secs": 10.14,
+   "text": "Step 1: Determine Lee's old running time.\nThe problem states Lee used to be able to run 2 seconds faster than Gerald. Since Lee now runs in 38 seconds, Lee's old time was also 38 seconds (assuming Lee's speed hasn't changed).\n\nStep 2: Find Gerald's old running time.\nIf Lee's old time was 38 seconds and he was 2 seconds faster than Gerald, then Gerald's old time was:\n38 + 2 = 40 seconds.\n\nStep 3: Understand the improvement in Gerald's speed.\nGerald improved his speed by 10%. Since speed is inversely proportional to time for a fixed distance, a 10% increase in speed means his new speed is 1.10 times his old speed.\n\nStep 4: Calculate Gerald's new running time.\nIf speed becomes 1.10 times the original, the time becomes 1/1.10 times the original:\nNew time = 40 / 1.10 = 40 / (11/10) = 400/11 seconds.\n\nConverting to a decimal:\n400/11 \u2248 36.36 seconds.\n\nThe answer is 400/11."
+  },
+  {
+   "i": 94,
+   "gold": "348",
+   "pred": "348",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.04,
+   "text": "Step 1: Find the number of cats.\nThere are 2 cats for every dog, and there are 60 dogs.\nCats = 2 \u00d7 60 = 120.\n\nStep 2: Find the combined number of dogs and cats.\nDogs + Cats = 60 + 120 = 180.\n\nStep 3: Find the number of rabbits.\nRabbits are 12 less than the combined number of dogs and cats.\nRabbits = 180 \u2212 12 = 168.\n\nStep 4: Find the total number of pets.\nTotal = Dogs + Cats + Rabbits = 60 + 120 + 168 = 348.\n\nThe answer is 348."
+  },
+  {
+   "i": 95,
+   "gold": "40",
+   "pred": "40",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.75,
+   "text": "Step 1: Find the number of boys.\n2/5 of 200 = 80 boys.\n\nStep 2: Find the number of girls.\n200 - 80 = 120 girls.\n\nStep 3: Find the number of girls in the girl scouts.\n2/3 of 120 = 80 girls.\n\nStep 4: Find the number of girls not in the girl scouts.\n120 - 80 = 40 girls.\n\nThe answer is 40."
+  },
+  {
+   "i": 96,
+   "gold": "3",
+   "pred": "3",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.13,
+   "text": "Step 1: Identify how long Harry slept.\nHarry slept 9 hours.\n\nStep 2: Calculate how long James slept.\nJames slept 2/3 of Harry's time:\n2/3 \u00d7 9 = 6 hours.\n\nStep 3: Find the difference.\n9 \u2212 6 = 3 hours.\n\nThe answer is 3."
+  },
+  {
+   "i": 97,
+   "gold": "12",
+   "pred": "12",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.87,
+   "text": "Step 1: Determine the original volume of tomatoes before cooking.\nSince the tomatoes lose half their volume, the 32 ounces of sauce equals half of the original volume.\nOriginal volume = 32 \u00d7 2 = 64 ounces.\n\nStep 2: Find the number of 16-ounce cans used.\nNumber of cans = 64 \u00f7 16 = 4 cans.\n\nStep 3: Calculate the total number of tomatoes.\nEach can contains 3 tomatoes, so:\nTotal tomatoes = 4 \u00d7 3 = 12.\n\nThe answer is 12."
+  },
+  {
+   "i": 98,
+   "gold": "5",
+   "pred": "5",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.06,
+   "text": "Step 1: Determine how many cars had to drive through the traffic jam.\nOriginally there were 30 cars, and 5 took an exit, so:\n30 \u2212 5 = 25 cars drove through.\n\nStep 2: Subtract the cars that drove through in the second 15 minutes.\n20 cars drove through in the remaining 15 minutes, so:\n25 \u2212 20 = 5 cars drove through in the first 15 minutes.\n\nThe answer is 5."
+  },
+  {
+   "i": 99,
+   "gold": "58",
+   "pred": "58",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.85,
+   "text": "Step 1: Calculate the number of potted plants Mary already has.\nShe has 2 plants on each of 40 window ledges:\n40 \u00d7 2 = 80 plants.\n\nStep 2: Add the new plants she received.\n80 + 18 = 98 plants total.\n\nStep 3: Calculate how many she will give away.\nShe gives 1 plant from each of the 40 ledges:\n40 \u00d7 1 = 40 plants given away.\n\nStep 4: Subtract the given plants from her total.\n98 \u2212 40 = 58 plants remaining.\n\nThe answer is 58."
+  },
+  {
+   "i": 100,
+   "gold": "175",
+   "pred": "175",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.51,
+   "text": "Step 1: The first friend pressed the doorbell 20 times.\n\nStep 2: The second friend pressed 1/4 times more than the first friend.\n1/4 of 20 is 5, so 20 + 5 = 25 times.\n\nStep 3: The fourth friend pressed the doorbell 60 times.\n\nStep 4: The third friend pressed 10 times more than the fourth friend.\n60 + 10 = 70 times.\n\nStep 5: Add all the rings together.\n20 + 25 + 70 + 60 = 175.\n\nThe answer is 175."
+  },
+  {
+   "i": 101,
+   "gold": "6",
+   "pred": "6",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.82,
+   "text": "Step 1: Find the total number of pages Solo needs to read.\n4 + 20 + 7 + 8 = 39 pages.\n\nStep 2: Subtract the pages he already read on Monday.\n39 - 15 = 24 pages remaining.\n\nStep 3: Divide the remaining pages by the 4 days he has left.\n24 \u00f7 4 = 6 pages per day.\n\nThe answer is 6."
+  },
+  {
+   "i": 102,
+   "gold": "26",
+   "pred": "26",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.35,
+   "text": "Step 1: Count John's water glasses on a weekday.\n- Breakfast: 1\n- Lunch: 1\n- Dinner: 1\n- Before bed: 1\nThat is 4 glasses per weekday.\n\nStep 2: Multiply by the number of weekdays.\nThere are 5 weekdays (Monday\u2013Friday).\n5 \u00d7 4 = 20 glasses.\n\nStep 3: Count John's water glasses on a weekend day.\nHe still has water with breakfast, lunch, and before bed, but replaces dinner water with soda.\nThat is 3 glasses per weekend day.\n\nStep 4: Multiply by the number of weekend days.\nThere are 2 weekend days (Saturday and Sunday).\n2 \u00d7 3 = 6 glasses.\n\nStep 5: Add them together.\n20 + 6 = 26.\n\nThe answer is 26."
+  },
+  {
+   "i": 103,
+   "gold": "140",
+   "pred": "140",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.29,
+   "text": "Step 1: Determine how many 3-mile segments are in the 42-mile city.\n42 \u00f7 3 = 14 segments\n\nStep 2: Multiply the number of segments by the time per segment.\n14 \u00d7 10 minutes = 140 minutes\n\nThe answer is 140."
+  },
+  {
+   "i": 104,
+   "gold": "500",
+   "pred": "500",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.76,
+   "text": "Step 1: Calculate how many pieces Poppy placed.\nOne quarter of 1000 is 1000 \u00f7 4 = 250 pieces.\n\nStep 2: Find the remaining pieces after Poppy.\n1000 \u2212 250 = 750 pieces remain.\n\nStep 3: Calculate how many pieces her mom placed.\nHer mom placed one third of the remaining 750 pieces: 750 \u00f7 3 = 250 pieces.\n\nStep 4: Subtract the mom's pieces from the remaining amount.\n750 \u2212 250 = 500 pieces.\n\nThe answer is 500."
+  },
+  {
+   "i": 105,
+   "gold": "20",
+   "pred": "20",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.41,
+   "text": "Step 1: Identify the number of cookies Amir eats.\nAmir eats 5 cookies.\n\nStep 2: Calculate how many cookies Cody eats.\nCody eats three times as many as Amir: 3 \u00d7 5 = 15 cookies.\n\nStep 3: Add both amounts together.\n5 + 15 = 20.\n\nThe answer is 20."
+  },
+  {
+   "i": 106,
+   "gold": "72",
+   "pred": "72",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.0,
+   "text": "Step 1: Determine the inner dimensions of one box.  \nSince the walls are 1 inch thick, subtract 1 inch from each side (left/right, front/back, top/bottom).\n\n- Inner length: 5 \u2212 2 = 3 inches  \n- Inner width: 6 \u2212 2 = 4 inches  \n- Inner height: 4 \u2212 2 = 2 inches  \n\nStep 2: Calculate the inner volume of one box.  \nVolume = 3 \u00d7 4 \u00d7 2 = 24 cubic inches.\n\nStep 3: Multiply by the number of boxes.  \nTotal inner volume = 24 \u00d7 3 = 72 cubic inches.\n\nThe answer is 72."
+  },
+  {
+   "i": 107,
+   "gold": "3",
+   "pred": "3",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.72,
+   "text": "Step 1: Calculate the TV time for Monday and Tuesday.\nEach day he watched 1 hour, so 1 + 1 = 2 hours.\n\nStep 2: Calculate Thursday's TV time.\nHe watched a 1-hour episode and a 30-minute (0.5-hour) show, so 1 + 0.5 = 1.5 hours.\n\nStep 3: Calculate Friday's TV time.\nHe watched two 1-hour episodes, so 2 \u00d7 1 = 2 hours.\n\nStep 4: Add up the known days.\nMonday through Friday (excluding Wednesday) = 2 + 1.5 + 2 = 5.5 hours.\n\nStep 5: Find Wednesday's total TV time.\nTotal for the week is 7 hours, so Wednesday = 7 \u2212 5.5 = 1.5 hours.\n\nStep 6: Convert Wednesday's time to 30-minute episodes.\nEach episode is 30 minutes (0.5 hours). Number of episodes = 1.5 \u00f7 0.5 = 3.\n\nThe answer is 3."
+  },
+  {
+   "i": 108,
+   "gold": "50",
+   "pred": "50",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.51,
+   "text": "Let \\(x\\) be the number of cookies Henry baked last year.\n\n1. He wanted to make twice as many: \\(2x\\).\n2. He actually baked 15 more than intended: \\(2x + 15\\).\n3. He dropped 5, leaving him with 110:  \n   \\((2x + 15) - 5 = 110\\).\n\nNow solve:\n\\[\n2x + 10 = 110\n\\]\n\\[\n2x = 100\n\\]\n\\[\nx = 50\n\\]\n\nCheck: Last year 50. Goal was 100. He baked 115. After dropping 5 he has 110. \u2713\n\nThe answer is 50."
+  },
+  {
+   "i": 109,
+   "gold": "28",
+   "pred": "28",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.45,
+   "text": "Step 1: Calculate the total cost of 10 gallons of gas at $3.00 per gallon.\n10 \u00d7 $3.00 = $30.00\n\nStep 2: Calculate the total cashback reward.\nThe reward is $0.20 per gallon, so for 10 gallons:\n10 \u00d7 $0.20 = $2.00\n\nStep 3: Subtract the cashback from the original total to find the final cost.\n$30.00 - $2.00 = $28.00\n\nThe answer is 28."
+  },
+  {
+   "i": 110,
+   "gold": "45",
+   "pred": "45",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.97,
+   "text": "Step 1: Calculate the total number of roll-ups Beatrice ate.\nBeatrice's roll-up was 2 wide and 24 long:\n2 \u00d7 24 = 48\n\nStep 2: Calculate the total number of roll-ups Marcell ate.\nMarcell's roll-up was 3 wide and 14 long:\n3 \u00d7 14 = 42\n\nStep 3: Find the combined total they ate.\n48 + 42 = 90\n\nStep 4: Compute the average by dividing by the 2 people.\n90 \u00f7 2 = 45\n\nThe answer is 45."
+  },
+  {
+   "i": 111,
+   "gold": "16",
+   "pred": "16",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.33,
+   "text": "Step 1: Determine Julia\u2019s rowing speed.\nShe rows 20 feet in 16 seconds, so her speed is 20/16 = 1.25 feet per second.\n\nStep 2: Find the distance to shore.\nThe shore is 64 seconds away, so the distance is 1.25 ft/s \u00d7 64 s = 80 feet.\n\nStep 3: Calculate the total water taken on.\nThe boat takes on 2 liters for every 10 feet. For 80 feet:\n80 \u00f7 10 = 8 intervals\n8 \u00d7 2 liters = 16 liters.\n\nThe answer is 16."
+  },
+  {
+   "i": 112,
+   "gold": "24",
+   "pred": "24",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.24,
+   "text": "Step 1: Determine the total number of teachers.\nThere are 4 teachers.\n\nStep 2: Calculate the total number of lessons per day.\nEach teacher has 2 lessons per day, so:\n4 teachers \u00d7 2 lessons/teacher = 8 lessons per day.\n\nStep 3: Determine how many times the whiteboard is cleaned per lesson.\nThe whiteboard is cleaned 3 times per lesson.\n\nStep 4: Calculate the total number of cleanings per day.\n8 lessons \u00d7 3 cleanings/lesson = 24 cleanings.\n\nThe answer is 24."
+  },
+  {
+   "i": 113,
+   "gold": "25",
+   "pred": "25",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.9,
+   "text": "Step 1: Calculate the total number of flowers Ryan planted.\n2 flowers/day \u00d7 15 days = 30 flowers planted.\n\nStep 2: Subtract the flowers that did not grow.\n30 - 5 = 25 flowers that grew.\n\nThe answer is 25."
+  },
+  {
+   "i": 114,
+   "gold": "6",
+   "pred": "6",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.75,
+   "text": "Step 1: Find how many photographs Brittany's phone can hold.\nJamal's phone holds 1800 photographs, which is 6 times Brittany's capacity.\nBrittany's capacity = 1800 \u00f7 6 = 300 photographs.\n\nStep 2: Find the number of birds in Jamal's photograph.\nBrittany's capacity (300) is 50 times the number of birds.\nNumber of birds = 300 \u00f7 50 = 6.\n\nStep 3: Identify the number of ducks.\nThe photograph is of ducks, so the number of ducks equals the number of birds shown.\n\nThe answer is 6."
+  },
+  {
+   "i": 115,
+   "gold": "90",
+   "pred": "90",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.77,
+   "text": "Step 1: Determine the original cost of the lumber.\n- 10 boards of 2\u00d74\u00d710 at $10 each: 10 \u00d7 $10 = $100\n- 5 boards of 4\u00d74\u00d710 at $16 each: 5 \u00d7 $16 = $80\n- Total original cost: $100 + $80 = $180\n\nStep 2: Calculate the new selling prices after a 50% increase.\n- New price for 2\u00d74\u00d710: $10 \u00d7 1.5 = $15 each\n- New price for 4\u00d74\u00d710: $16 \u00d7 1.5 = $24 each\n\nStep 3: Calculate total revenue from selling all boards.\n- 10 boards at $15: 10 \u00d7 $15 = $150\n- 5 boards at $24: 5 \u00d7 $24 = $120\n- Total revenue: $150 + $120 = $270\n\nStep 4: Compute the profit.\n- Profit = Total revenue \u2212 Original cost\n- Profit = $270 \u2212 $180 = $90\n\nThe answer is 90."
+  },
+  {
+   "i": 116,
+   "gold": "42",
+   "pred": "42",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.83,
+   "text": "Step 1: Identify the parts of the ratio.\nThe ratio of teaspoons of sugar to cups of water is 7:13, so there are 7 parts sugar and 13 parts water.\n\nStep 2: Find the total number of parts.\n7 + 13 = 20 parts in total.\n\nStep 3: Determine the value of one part.\nThe total amount used is 120, so:\n120 \u00f7 20 = 6 per part.\n\nStep 4: Calculate the teaspoons of sugar.\nSugar corresponds to 7 parts:\n7 \u00d7 6 = 42.\n\nThe answer is 42."
+  },
+  {
+   "i": 117,
+   "gold": "360",
+   "pred": "360",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.95,
+   "text": "Step 1: Find the number of pairs bought per child.\nJohn buys 2 pairs for each child.\n\nStep 2: Find the total number of pairs for all 3 children.\n2 pairs/child \u00d7 3 children = 6 pairs.\n\nStep 3: Find the cost per pair.\nEach pair costs $60.\n\nStep 4: Calculate the total cost.\n6 pairs \u00d7 $60/pair = $360.\n\nThe answer is 360."
+  },
+  {
+   "i": 118,
+   "gold": "4",
+   "pred": "4",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.36,
+   "text": "Step 1: Calculate the number of vehicles imported on the first day.\nThere were 2 containers with 5 vehicles each:\n2 \u00d7 5 = 10 vehicles.\n\nStep 2: Determine how many vehicles arrived on the second day.\nThe total became 30 vehicles, so:\n30 \u2212 10 = 20 vehicles.\n\nStep 3: Calculate the number of containers imported on the second day.\nEach container holds 5 vehicles:\n20 \u00f7 5 = 4 containers.\n\nThe answer is 4."
+  },
+  {
+   "i": 119,
+   "gold": "95200",
+   "pred": "99230",
+   "ok": false,
+   "finish": "stop",
+   "secs": 11.72,
+   "text": "Step 1: Find Adrien's salary four years ago.\nGiven: Adrien earned $40,000 four years ago.\n\nStep 2: Find Lylah's salary four years ago.\nAdrien's salary was 30% higher than Lylah's, so:\nAdrien = 1.30 \u00d7 Lylah\n$40,000 = 1.30 \u00d7 Lylah\nLylah = $40,000 / 1.30 = $400,000 / 13 \u2248 $30,769.23\n\nStep 3: Find Adrien's salary four years later.\nHis salary increased by 40%:\nAdrien (later) = $40,000 \u00d7 1.40 = $56,000\n\nStep 4: Find Lylah's salary four years later.\nThe problem states both salaries increased simultaneously (together/at the same time). Assuming the same 40% increase applies:\nLylah (later) = ($400,000 / 13) \u00d7 1.40 = $560,000 / 13 \u2248 $43,076.92\n\nStep 5: Calculate the total salary four years later.\nTotal = $56,000 + $560,000 / 13\nTotal = ($728,000 + $560,000) / 13 = $1,288,000 / 13 \u2248 $99,076.92\n\nThe answer is $99230/13 (approximately $99,076.92)."
+  },
+  {
+   "i": 120,
+   "gold": "240",
+   "pred": "240",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.31,
+   "text": "Step 1: Calculate the number of pads Miguel uses in one week.\nHe uses 2 pads per week.\n\nStep 2: Calculate the number of sheets he uses per week.\nEach pad has 30 sheets, so:\n2 pads \u00d7 30 sheets/pad = 60 sheets per week.\n\nStep 3: Determine the number of weeks in a month.\nUsing the standard average of 4 weeks per month.\n\nStep 4: Calculate the total sheets used per month.\n60 sheets/week \u00d7 4 weeks = 240 sheets.\n\nThe answer is 240."
+  },
+  {
+   "i": 121,
+   "gold": "27",
+   "pred": "27",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.63,
+   "text": "Step 1: Find Morisette's fruits.\nApples: 5\nOranges: 8\nMorisette's total: 5 + 8 = 13\n\nStep 2: Find Kael's fruits.\nApples: 2 \u00d7 5 = 10\nOranges: 8 \u00f7 2 = 4\nKael's total: 10 + 4 = 14\n\nStep 3: Add both totals together.\n13 + 14 = 27\n\nThe answer is 27."
+  },
+  {
+   "i": 122,
+   "gold": "48",
+   "pred": "48",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.84,
+   "text": "Step 1: Monday's sleep = 8 hours.\n\nStep 2: Tuesday and Wednesday she slept 2 hours less than Monday each day.\n8 - 2 = 6 hours per day.\nSo Tuesday = 6 hours and Wednesday = 6 hours.\n\nStep 3: The remaining days are Thursday, Friday, Saturday, and Sunday (4 days). Each day she slept 1 hour more than the 6 hours from Tuesday/Wednesday.\n6 + 1 = 7 hours per day.\nTotal for these 4 days = 4 \u00d7 7 = 28 hours.\n\nStep 4: Add all days together.\nMonday: 8\nTuesday: 6\nWednesday: 6\nThursday\u2013Sunday: 28\nTotal = 8 + 6 + 6 + 28 = 48 hours.\n\nThe answer is 48."
+  },
+  {
+   "i": 123,
+   "gold": "50",
+   "pred": "50",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.8,
+   "text": "Step 1: Calculate the distance Rosie runs in the first 3 hours.\n10 miles/hour \u00d7 3 hours = 30 miles\n\nStep 2: Determine the remaining time.\n7 hours - 3 hours = 4 hours\n\nStep 3: Calculate the distance she runs in the remaining 4 hours at 5 miles per hour.\n5 miles/hour \u00d7 4 hours = 20 miles\n\nStep 4: Add the two distances together.\n30 miles + 20 miles = 50 miles\n\nThe answer is 50."
+  },
+  {
+   "i": 124,
+   "gold": "10",
+   "pred": "10",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.63,
+   "text": "Step 1: Find how many letters Jennie stamped.\nShe stamped one-third of the 60 letters that needed stamps:\n60 \u00f7 3 = 20 letters stamped.\n\nStep 2: Determine the original number of stamped letters.\nThese 20 letters were added to the pile that already had stamps, bringing the total to 30.\nSo the original pile had:\n30 \u2212 20 = 10 letters.\n\nThe answer is 10."
+  },
+  {
+   "i": 125,
+   "gold": "10",
+   "pred": "10",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.57,
+   "text": "Step 1: Identify the spoons Julia received.\n- Julia bought one package (unknown size, call it N).\n- Her husband bought a package of 5 spoons.\n\nStep 2: Account for the spoons used.\n- Julia used 3 spoons to sample the stew, so those are no longer available for the table.\n\nStep 3: Set up the equation for the remaining spoons.\n- Total remaining = N + 5 \u2212 3\n- This equals 12.\n\nStep 4: Solve for N.\nN + 5 \u2212 3 = 12\nN + 2 = 12\nN = 10\n\nCheck: 10 + 5 = 15; 15 \u2212 3 = 12. \u2713\n\nThe answer is 10."
+  },
+  {
+   "i": 126,
+   "gold": "82",
+   "pred": "82",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.85,
+   "text": "Step 1: Identify the number of chicken sausages Dylan bought.\nChicken sausages = 38\n\nStep 2: Calculate the number of fish sausages.\nFish sausages = 38 + 6 = 44\n\nStep 3: Add both amounts together to find the total.\nTotal sausages = 38 + 44 = 82\n\nThe answer is 82."
+  },
+  {
+   "i": 127,
+   "gold": "120",
+   "pred": "120",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.89,
+   "text": "Step 1: Identify the number of friends Lily made.\nLily made 50 friends.\n\nStep 2: Calculate how many friends Amy made.\nAmy made 20 more friends than Lily, so:\n50 + 20 = 70 friends.\n\nStep 3: Add Lily's and Amy's friends together.\n50 + 70 = 120.\n\nThe answer is 120."
+  },
+  {
+   "i": 128,
+   "gold": "880",
+   "pred": "880",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.03,
+   "text": "Step 1: Find the cost of one pepper.\nEach pepper costs $15.\n\nStep 2: Find the cost of one watermelon.\nA watermelon costs three times a pepper:\n3 \u00d7 $15 = $45.\n\nStep 3: Find the cost of one orange.\nAn orange costs $5 less than a watermelon:\n$45 \u2212 $5 = $40.\n\nStep 4: Calculate the cost of each item in the purchase.\n- 4 watermelons: 4 \u00d7 $45 = $180\n- 20 peppers: 20 \u00d7 $15 = $300\n- 10 oranges: 10 \u00d7 $40 = $400\n\nStep 5: Add them together for the total.\n$180 + $300 + $400 = $880.\n\nThe answer is 880."
+  },
+  {
+   "i": 129,
+   "gold": "10000",
+   "pred": "10000",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.69,
+   "text": "Step 1: Find the total time patients are seen each day.\n500 patients \u00d7 24 minutes = 12,000 minutes.\n\nStep 2: Convert minutes to hours.\n12,000 minutes \u00f7 60 = 200 hours.\n\nStep 3: Calculate the hospital\u2019s cost (what it pays doctors).\n200 hours \u00d7 $150/hour = $30,000.\n\nStep 4: Calculate the hospital\u2019s revenue (what it charges patients).\n200 hours \u00d7 $200/hour = $40,000.\n\nStep 5: Compute the profit.\n$40,000 \u2212 $30,000 = $10,000.\n\nThe answer is 10000."
+  },
+  {
+   "i": 130,
+   "gold": "30",
+   "pred": "30",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.56,
+   "text": "Step 1: Start with 60 elves.\nStep 2: One-third quit: 60 \u00f7 3 = 20 quit. Remaining: 60 \u2212 20 = 40.\nStep 3: 10 more quit: 40 \u2212 10 = 30.\n\nThe answer is 30."
+  },
+  {
+   "i": 131,
+   "gold": "940",
+   "pred": "940",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.95,
+   "text": "Step 1: Identify Joseph's expenditure in May.\nMay expenditure = $500\n\nStep 2: Calculate Joseph's expenditure in June.\nJune expenditure = $500 - $60 = $440\n\nStep 3: Add the expenditures for both months.\nTotal expenditure = $500 + $440 = $940\n\nThe answer is 940."
+  },
+  {
+   "i": 132,
+   "gold": "60",
+   "pred": "60",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.7,
+   "text": "Step 1: Find the total roller coaster rides.\nPam rode 2 times and Fred rode 4 times, so 2 + 4 = 6 roller coaster rides.\n\nStep 2: Find the total luge rides.\nEach rode 2 times, so 2 + 2 = 4 luge rides.\n\nStep 3: Find the total number of rides.\n6 + 4 = 10 rides.\n\nStep 4: Calculate the total tickets used.\nEach ride costs 6 tickets, so 10 \u00d7 6 = 60 tickets.\n\nThe answer is 60."
+  },
+  {
+   "i": 133,
+   "gold": "13",
+   "pred": "13",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.63,
+   "text": "Step 1: Find Monday's miles.\nMonday = 4 miles.\n\nStep 2: Find Tuesday's miles.\nTuesday = 6 \u00d7 4 = 24 miles.\n\nStep 3: Add Monday and Tuesday.\n4 + 24 = 28 miles.\n\nStep 4: Subtract from the total to find Wednesday.\n41 \u2212 28 = 13 miles.\n\nThe answer is 13."
+  },
+  {
+   "i": 134,
+   "gold": "720",
+   "pred": "720",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.32,
+   "text": "Step 1: Calculate the monthly cost.\n4 car washes \u00d7 $15 = $60 per month\n\nStep 2: Calculate the yearly cost.\n$60 per month \u00d7 12 months = $720\n\nThe answer is 720."
+  },
+  {
+   "i": 135,
+   "gold": "40",
+   "pred": "40",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.34,
+   "text": "Step 1: Determine Brian's video games after the loss.\nBrian originally had 20 and lost 5, so he has 20 - 5 = 15.\n\nStep 2: Calculate 3 times Brian's current amount.\n3 \u00d7 15 = 45.\n\nStep 3: Subtract 5 to find Bobby's amount (5 fewer than that).\n45 - 5 = 40.\n\nThe answer is 40."
+  },
+  {
+   "i": 136,
+   "gold": "6",
+   "pred": "6",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.57,
+   "text": "Step 1: Find the number of unicorns in the Scottish Highlands.\nOne third of 27 is 27 \u00f7 3 = 9.\n\nStep 2: Find the number of female Scottish unicorns.\nTwo thirds of 9 is 9 \u00d7 (2/3) = 6.\n\nThe answer is 6."
+  },
+  {
+   "i": 137,
+   "gold": "29",
+   "pred": "29",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.46,
+   "text": "Step 1: Calculate the cost of the subs.\n2 \u00d7 $7.50 = $15.00\n\nStep 2: Calculate the cost of the chips.\n2 \u00d7 $1.50 = $3.00\n\nStep 3: Calculate the cost of the cookies.\n2 \u00d7 $1.00 = $2.00\n\nStep 4: Add the food costs together.\n$15.00 + $3.00 + $2.00 = $20.00\n\nStep 5: Calculate the 20% delivery fee.\n20% of $20.00 = $4.00\n\nStep 6: Add the delivery fee to the food total.\n$20.00 + $4.00 = $24.00\n\nStep 7: Add the $5.00 tip.\n$24.00 + $5.00 = $29.00\n\nThe answer is 29."
+  },
+  {
+   "i": 138,
+   "gold": "105",
+   "pred": "105",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.8,
+   "text": "Step 1: Determine Mark's rate.\nHe works at 5 questions per hour.\n\nStep 2: Calculate how many questions he completed on the first test.\nHe had 8 hours, so he completed 5 \u00d7 8 = 40 questions.\nThe first test had 75 questions, so he left 75 \u2212 40 = 35 questions incomplete.\n\nStep 3: Calculate how many questions he completed on the second test.\nHe had 6 hours, so he completed 5 \u00d7 6 = 30 questions.\nThe second test had 100 questions, so he left 100 \u2212 30 = 70 questions incomplete.\n\nStep 4: Add the incomplete questions from both tests.\n35 + 70 = 105.\n\nThe answer is 105."
+  },
+  {
+   "i": 139,
+   "gold": "70",
+   "pred": "70",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.57,
+   "text": "Step 1: Identify the number of blue gumballs, which is 12.\n\nStep 2: Calculate four times that amount: 4 \u00d7 12 = 48.\n\nStep 3: Add 22 more: 48 + 22 = 70.\n\nThe answer is 70."
+  },
+  {
+   "i": 140,
+   "gold": "20",
+   "pred": "20",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.89,
+   "text": "Step 1: Find the number of semi-automatic cars.\nTotal cars = 20\nAutomatic = 12\nManual = 4\nSemi-automatic = 20 - 12 - 4 = 4\n\nStep 2: Calculate the percentage.\n(4 / 20) \u00d7 100 = 20%\n\nThe answer is 20."
+  },
+  {
+   "i": 141,
+   "gold": "400",
+   "pred": "400",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.93,
+   "text": "Step 1: Define the unknowns.\nLet Q = number of queens, B = number of baby bees, and W = number of worker bees.\n\nStep 2: Write the relationships.\n- There are twice as many babies as queens: B = 2Q\n- There are twice as many workers as babies: W = 2B = 4Q\n- Total bees: Q + B + W = 700\n\nStep 3: Substitute and solve for Q.\nQ + 2Q + 4Q = 700\n7Q = 700\nQ = 100\n\nStep 4: Find B and W.\nB = 2(100) = 200\nW = 2(200) = 400\n\nStep 5: Verify.\n100 + 200 + 400 = 700 \u2713\n\nThe answer is 400."
+  },
+  {
+   "i": 142,
+   "gold": "140",
+   "pred": "140",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.54,
+   "text": "Step 1: Calculate Jordan's daily video game time in hours.\nJordan plays for 2 hours every day.\n\nStep 2: Calculate the total video game time in one week.\nThere are 7 days in a week, so:\n2 hours/day \u00d7 7 days = 14 hours per week.\n\nStep 3: Calculate the earnings if he worked those hours.\nHe earns $10 per hour, so:\n14 hours \u00d7 $10/hour = $140.\n\nThe answer is 140."
+  },
+  {
+   "i": 143,
+   "gold": "16",
+   "pred": "16",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.6,
+   "text": "Step 1: Identify the food items and their costs.\n- Milk: $2\n- Eggs: $3\nTotal food cost: $2 + $3 = $5\n\nStep 2: Identify the non-food items and their costs.\n- Light bulbs: $3\n- Cups: $3\n- Roach traps: $4\nTotal non-food cost before tax: $3 + $3 + $4 = $10\n\nStep 3: Calculate the 10% tax on non-food items.\nTax: 10% of $10 = $1\n\nStep 4: Add the tax to the non-food total.\nNon-food cost with tax: $10 + $1 = $11\n\nStep 5: Add the food cost and the taxed non-food cost together.\nTotal cost: $5 + $11 = $16\n\nThe answer is 16."
+  },
+  {
+   "i": 144,
+   "gold": "20",
+   "pred": "20",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.48,
+   "text": "Step 1: Determine the total number of clients.\nKim has 3 current clients and is including 5 more potential clients, so 3 + 5 = 8 clients.\n\nStep 2: Calculate the supplies needed per client.\nEach client needs 2 bottles of bleach and 1 pack of cloths.\n\nStep 3: Find the cost per client.\nBleach: 2 bottles \u00d7 $2 = $4\nCloths: 1 pack \u00d7 $5 = $5\nTotal cost per client = $4 + $5 = $9\n\nStep 4: Calculate total expenses for all clients.\n8 clients \u00d7 $9 = $72\n\nStep 5: Calculate profit.\nProfit = Total income \u2212 Total expenses = $92 \u2212 $72 = $20\n\nThe answer is 20."
+  },
+  {
+   "i": 145,
+   "gold": "4000",
+   "pred": "4000",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.8,
+   "text": "Step 1: Calculate the total number of pineapples in the field.\n10 hectares \u00d7 100 pineapples/hectare = 1,000 pineapples.\n\nStep 2: Determine how many harvests occur in one year.\nSince John harvests every 3 months and there are 12 months in a year:\n12 months \u00f7 3 months/harvest = 4 harvests per year.\n\nStep 3: Calculate the total pineapples harvested in a year.\n1,000 pineapples/harvest \u00d7 4 harvests = 4,000 pineapples.\n\nThe answer is 4000."
+  },
+  {
+   "i": 146,
+   "gold": "2125",
+   "pred": "2125",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.8,
+   "text": "Step 1: Identify the number of pieces in the first set.\nSet 1 = 500 pieces\n\nStep 2: Calculate the pieces in the second set (3 times more than 500).\nSet 2 = 500 \u00d7 3 = 1,500 pieces\n\nStep 3: Calculate the pieces in the third set (1/4 of 500).\nSet 3 = 500 \u00f7 4 = 125 pieces\n\nStep 4: Add all the pieces together.\nTotal = 500 + 1,500 + 125 = 2,125\n\nThe answer is 2125."
+  },
+  {
+   "i": 147,
+   "gold": "75",
+   "pred": "75",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.54,
+   "text": "Step 1: Find how many bees left in the first 6 hours.\n30 bees left.\n\nStep 2: Find how many returned in the next 6 hours.\nThat is 1/2 of 30, so 30 \u00f7 2 = 15 bees returned.\n\nStep 3: Find how many left in the following 6 hours.\nThat is two times the first group: 2 \u00d7 30 = 60 bees left.\n\nStep 4: Determine which bees had left but not yet returned.\n- First group left: 30, and 15 of them already returned, so 30 \u2212 15 = 15 are still away.\n- Second group left: 60, and none have returned yet, so 60 are still away.\n- Total still away: 15 + 60 = 75.\n\nStep 5: In the last 6 hours, every bee that left and hadn't returned comes back.\nSo 75 bees return.\n\nThe answer is 75."
+  },
+  {
+   "i": 148,
+   "gold": "30",
+   "pred": "30",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.07,
+   "text": "Step 1: Find the cost of 1 adult ticket.\nAdult ticket = $12\n\nStep 2: Find the cost of 1 child ticket.\nChild ticket = $10\n\nStep 3: Calculate the total cost of both tickets.\nTotal cost = $12 + $10 = $22\n\nStep 4: Add the change received to the total cost to find how much money was given.\nMoney given = $22 + $8 = $30\n\nThe answer is 30."
+  },
+  {
+   "i": 149,
+   "gold": "16",
+   "pred": "16",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.42,
+   "text": "Step 1: Find Dorothy's number of friends.\nCharlie has 12 friends, which is three times Dorothy's amount.\nDorothy = 12 \u00f7 3 = 4 friends.\n\nStep 2: Find James's number of friends.\nJames has four times as many friends as Dorothy.\nJames = 4 \u00d7 4 = 16 friends.\n\nThe answer is 16."
+  },
+  {
+   "i": 150,
+   "gold": "4",
+   "pred": "4",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.06,
+   "text": "Step 1: Convert the distances from miles to feet (1 mile = 5,280 feet).\n- Steve: 3 miles \u00d7 5,280 = 15,840 feet\n- Tim: 2 miles \u00d7 5,280 = 10,560 feet\n\nStep 2: Calculate Steve\u2019s travel time.\n- Speed = 440 ft/min\n- Time = 15,840 \u00f7 440 = 36 minutes\n\nStep 3: Calculate Tim\u2019s travel time.\n- Speed = 264 ft/min\n- Time = 10,560 \u00f7 264 = 40 minutes\n\nStep 4: Identify the winner and the time difference.\n- Steve finishes in 36 minutes; Tim finishes in 40 minutes.\n- Steve is the winner and waits 40 \u2212 36 = 4 minutes.\n\nThe answer is 4."
+  },
+  {
+   "i": 151,
+   "gold": "5",
+   "pred": "5",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.44,
+   "text": "Step 1: Count the tires from bicycles.  \n5 bicycles \u00d7 2 tires each = 10 tires\n\nStep 2: Count the tires from tricycles.  \n3 tricycles \u00d7 3 tires each = 9 tires\n\nStep 3: Count the tire from the unicycle.  \n1 unicycle \u00d7 1 tire = 1 tire\n\nStep 4: Add up all the tires.  \n10 + 9 + 1 = 20 tires\n\nStep 5: Calculate the earnings at $0.25 per tire.  \n20 \u00d7 $0.25 = $5.00\n\nThe answer is 5."
+  },
+  {
+   "i": 152,
+   "gold": "4",
+   "pred": "4",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.56,
+   "text": "Step 1: Find the total number of packs Carl buys.\nCarl buys 10 packs.\n\nStep 2: Find the total number of cookies.\nEach pack has 6 cookies, so 10 \u00d7 6 = 60 cookies.\n\nStep 3: Calculate the total cost.\nEach cookie costs $0.10, so 60 \u00d7 $0.10 = $6.00.\n\nStep 4: Calculate the change.\nCarl pays with $10.00, so $10.00 \u2212 $6.00 = $4.00.\n\nThe answer is 4."
+  },
+  {
+   "i": 153,
+   "gold": "48",
+   "pred": "48",
+   "ok": true,
+   "finish": "stop",
+   "secs": 9.77,
+   "text": "Start with the 5 fries left at the end.\n\n1. **Ants:** They carried off 1 fry, so before them there were  \n   5 + 1 = **6 fries**.\n\n2. **Raccoon:** He stole 2/3 of the fries, leaving 1/3 = 6.  \n   So the remaining 6 fries represent 1/3 of what was there:  \n   6 \u00d7 3 = **18 fries** before the raccoon.\n\n3. **Pigeons:** Each of the 3 pigeons ate 3 fries, totaling 3 \u00d7 3 = 9.  \n   18 + 9 = **27 fries** before the pigeons arrived.\n\n4. **Seagull:** He ate half of what Dave ate. Dave ate 14, so the seagull ate 14 \u00f7 2 = 7.  \n   27 + 7 = **34 fries** before the seagull landed.\n\n5. **Dave:** He ate 14 fries originally.  \n   34 + 14 = **48 fries** in the pack.\n\nCheck: Dave (14) \u2192 34 left; seagull (7) \u2192 27 left; pigeons (9) \u2192 18 left; raccoon takes 12 \u2192 6 left; ants take 1 \u2192 5 left. \u2713\n\nThe answer is 48."
+  },
+  {
+   "i": 154,
+   "gold": "272",
+   "pred": "272",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.09,
+   "text": "Step 1: Calculate the weekly class hours on Monday, Wednesday, and Friday.\nOn each of these 3 days, Kimo has 3 classes that are each 1 hour long:\n3 days \u00d7 3 hours/day = 9 hours.\n\nStep 2: Calculate the weekly class hours on Tuesday and Thursday.\nOn each of these 2 days, Kimo has 2 classes that are each 2 hours long:\n2 days \u00d7 (2 classes \u00d7 2 hours/class) = 2 days \u00d7 4 hours/day = 8 hours.\n\nStep 3: Find the total hours per week.\n9 hours + 8 hours = 17 hours per week.\n\nStep 4: Multiply by the number of weeks in the semester.\n17 hours/week \u00d7 16 weeks = 272 hours.\n\nThe answer is 272."
+  },
+  {
+   "i": 155,
+   "gold": "280",
+   "pred": "280",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.9,
+   "text": "Step 1: Calculate the total length of the rolls in inches.\n300 rolls \u00d7 4 inches = 1,200 inches\n\nStep 2: Calculate the total length of the croissants in inches.\n120 croissants \u00d7 6 inches = 720 inches\n\nStep 3: Calculate the total length of the baguettes in inches.\nEach baguette is 2 feet = 24 inches.\n60 baguettes \u00d7 24 inches = 1,440 inches\n\nStep 4: Add all lengths together in inches.\n1,200 + 720 + 1,440 = 3,360 inches\n\nStep 5: Convert inches to feet (12 inches = 1 foot).\n3,360 \u00f7 12 = 280 feet\n\nThe answer is 280."
+  },
+  {
+   "i": 156,
+   "gold": "1400",
+   "pred": "1400",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.65,
+   "text": "Step 1: Calculate the total bananas needed per month.\nMonkeys: 200\nGorillas: 400\nBaboons: 100\nTotal per month = 200 + 400 + 100 = 700 bananas\n\nStep 2: Calculate the total needed for 2 months.\n700 bananas/month \u00d7 2 months = 1,400 bananas\n\nThe answer is 1400."
+  },
+  {
+   "i": 157,
+   "gold": "80",
+   "pred": "80",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.59,
+   "text": "Step 1: Determine Blake's distance.\nThe field is 100 yards long, so one back-and-forth trip is 200 yards.\nBlake runs back and forth 15 times:\n15 \u00d7 200 = 3,000 yards.\n\nStep 2: Determine Kelly's distance.\nFirst, she runs back and forth once:\n1 \u00d7 200 = 200 yards.\n\nNext, she runs to the 40-yard line and back. That is 40 + 40 = 80 yards per trip.\nShe does this 34 times:\n34 \u00d7 80 = 2,720 yards.\n\nKelly's total distance:\n200 + 2,720 = 2,920 yards.\n\nStep 3: Compare the two distances.\nBlake: 3,000 yards\nKelly: 2,920 yards\n\nBlake is the winner. The difference is:\n3,000 \u2212 2,920 = 80 yards.\n\nThe answer is 80."
+  },
+  {
+   "i": 158,
+   "gold": "34",
+   "pred": "34",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.43,
+   "text": "Step 1: Calculate the cost of the pens.\n4 pens \u00d7 $1.5 each = $6\n\nStep 2: Calculate the cost of the notebooks.\n2 notebooks \u00d7 $4 each = $8\n\nStep 3: Add the cost of the bond paper.\nBond paper = $20\n\nStep 4: Sum all the costs.\n$6 + $8 + $20 = $34\n\nThe answer is 34."
+  },
+  {
+   "i": 159,
+   "gold": "15",
+   "pred": "15",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.43,
+   "text": "Step 1: Start with the number of tadpoles Finn initially sees.\n11 tadpoles\n\nStep 2: Add the tadpoles that come out of hiding.\n11 + 6 = 17 tadpoles\n\nStep 3: Subtract the tadpoles that hide under a rock.\n17 - 2 = 15 tadpoles\n\nThe answer is 15."
+  },
+  {
+   "i": 160,
+   "gold": "16",
+   "pred": "16",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.16,
+   "text": "Step 1: Find the water depth on Tuesday.\nMonday: 17 feet\nTuesday: 17 + 7 = 24 feet\n\nStep 2: Find the water depth on Wednesday.\nWednesday: 2/3 of Tuesday's depth\n2/3 \u00d7 24 = 16 feet\n\nThe answer is 16."
+  },
+  {
+   "i": 161,
+   "gold": "32",
+   "pred": "32",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.32,
+   "text": "Step 1: Find Anakin's catch.\n- Starfish: 10\n- Sea horses: 6\n- Clownfish: 3\nAnakin's total = 10 + 6 + 3 = 19\n\nStep 2: Find Locsin's catch.\n- Starfish: 10 \u2212 5 = 5\n- Sea horses: 6 \u2212 3 = 3\n- Clownfish: 3 + 2 = 5\nLocsin's total = 5 + 3 + 5 = 13\n\nStep 3: Add them together.\n19 + 13 = 32\n\nThe answer is 32."
+  },
+  {
+   "i": 162,
+   "gold": "92",
+   "pred": "92",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.52,
+   "text": "The price starts at $20.\n\nThe price increases every 2 months, so in 36 months there are:\n36 \u00f7 2 = 18 increase periods.\n\nEach increase is 20% of the original price:\n20% of $20 = 0.20 \u00d7 20 = $4.\n\nAfter 18 periods, the total increase is:\n18 \u00d7 $4 = $72.\n\nAdd this to the original price:\n$20 + $72 = $92.\n\nThe answer is 92."
+  },
+  {
+   "i": 163,
+   "gold": "50",
+   "pred": "50",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.6,
+   "text": "Step 1: Find the cost of one action figure.\nAn action figure costs $5.\n\nStep 2: Find the cost of the doll.\nThe doll costs as much as 3 action figures.\n3 \u00d7 $5 = $15.\n\nStep 3: Find the cost of one red car.\nOne red car costs $4.\n\nStep 4: Calculate the total value of the red cars.\nThere are 5 red cars.\n5 \u00d7 $4 = $20.\n\nStep 5: Calculate the total value of the action figures.\nThere are 3 action figures.\n3 \u00d7 $5 = $15.\n\nStep 6: Add all the values together.\nRed cars: $20\nAction figures: $15\nDoll: $15\nTotal = $20 + $15 + $15 = $50.\n\nThe answer is 50."
+  },
+  {
+   "i": 164,
+   "gold": "15",
+   "pred": "15",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.53,
+   "text": "Step 1: Calculate the income Jackie loses by doing her own taxes.\nShe misses 3 hours of work at $35/hour:\n3 \u00d7 $35 = $105\n\nStep 2: Identify the cost of hiring the accountant.\nAccountant fee = $90\n\nStep 3: Compare the two options.\n- Doing taxes herself costs her $105 in lost income.\n- Hiring the accountant costs her $90.\n\nStep 4: Find the difference.\n$105 \u2212 $90 = $15\n\nShe saves $15 by hiring the accountant, so she will have $15 more.\n\nThe answer is 15."
+  },
+  {
+   "i": 165,
+   "gold": "77",
+   "pred": "77",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.03,
+   "text": "Step 1: Add up the costs of all the computer accessories and the computer itself.\n- Computer with screen, keyboard and mouse: \u20ac1090\n- Scanner: \u20ac157\n- CD burner: \u20ac74\n- Printer: \u20ac102\n\nTotal cost = \u20ac1090 + \u20ac157 + \u20ac74 + \u20ac102 = \u20ac1423\n\nStep 2: Subtract the total cost from Elvira's budget.\nBudget = \u20ac1500\nMoney left = \u20ac1500 - \u20ac1423 = \u20ac77\n\nThe answer is 77."
+  },
+  {
+   "i": 166,
+   "gold": "5",
+   "pred": "5",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.47,
+   "text": "Step 1: Calculate the total number of eggs Sandra needs.\n15 flans \u00d7 3 eggs per flan = 45 eggs.\n\nStep 2: Determine how many baskets of eggs she needs.\nEach basket contains 9 eggs, so 45 \u00f7 9 = 5 baskets.\n\nStep 3: Find how many times she must babysit.\nShe receives 1 basket per babysitting session, so she needs 5 sessions.\n\nThe answer is 5."
+  },
+  {
+   "i": 167,
+   "gold": "16",
+   "pred": "16",
+   "ok": true,
+   "finish": "stop",
+   "secs": 7.9,
+   "text": "Step 1: Define the variables.\nLet Brooke's current age be B. Since Seth is twice as old as Brooke, Seth's current age is S = 2B.\n\nStep 2: Write the equation for their ages in 2 years.\nIn 2 years, Brooke will be B + 2 and Seth will be S + 2 = 2B + 2.\nThe sum of their ages will be 28:\n(B + 2) + (2B + 2) = 28\n\nStep 3: Solve for B.\nB + 2 + 2B + 2 = 28\n3B + 4 = 28\n3B = 24\nB = 8\n\nSo Brooke is currently 8 years old.\n\nStep 4: Find Seth's age.\nS = 2B = 2 \u00d7 8 = 16\n\nCheck: In 2 years, Brooke will be 10 and Seth will be 18. 10 + 18 = 28. \u2713\n\nThe answer is 16."
+  },
+  {
+   "i": 168,
+   "gold": "18",
+   "pred": "18",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.47,
+   "text": "Step 1: Identify the amount of money Ethel has.\nEthel has $8.\n\nStep 2: Calculate twice the amount Ethel has.\n2 \u00d7 $8 = $16.\n\nStep 3: Add $2 to that result to find Jimmy's money.\n$16 + $2 = $18.\n\nThe answer is 18."
+  },
+  {
+   "i": 169,
+   "gold": "120",
+   "pred": "120",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.93,
+   "text": "Step 1: Identify the number of weekdays and weekend days in a week.\nThere are 5 weekdays (Monday\u2013Friday) and 2 weekend days (Saturday\u2013Sunday).\n\nStep 2: Calculate the miles walked on weekdays.\nPancho walks 20 miles each weekday.\n5 days \u00d7 20 miles/day = 100 miles.\n\nStep 3: Calculate the miles walked on the weekend.\nPancho walks 10 miles each weekend day.\n2 days \u00d7 10 miles/day = 20 miles.\n\nStep 4: Add the weekday and weekend miles together.\n100 miles + 20 miles = 120 miles.\n\nThe answer is 120."
+  },
+  {
+   "i": 170,
+   "gold": "150",
+   "pred": "150",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.56,
+   "text": "Step 1: Identify the cost of the hat.\nHat = $25\n\nStep 2: Calculate the cost of the jacket.\nJacket = 3 \u00d7 $25 = $75\n\nStep 3: Calculate the average cost of the hat and jacket for the pants.\nAverage = ($25 + $75) / 2 = $100 / 2 = $50\nPants = $50\n\nStep 4: Add all parts together for the total uniform cost.\nTotal = $25 + $75 + $50 = $150\n\nThe answer is 150."
+  },
+  {
+   "i": 171,
+   "gold": "1210",
+   "pred": "1210",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.01,
+   "text": "Step 1: Calculate the legs from the spiders.\n80 spiders \u00d7 8 legs = 640 legs\n\nStep 2: Calculate the legs from the insects.\n90 insects \u00d7 6 legs = 540 legs\n\nStep 3: Calculate the legs from the mutant invertebrates.\n3 mutants \u00d7 10 legs = 30 legs\n\nStep 4: Add them all together.\n640 + 540 + 30 = 1,210\n\nThe answer is 1210."
+  },
+  {
+   "i": 172,
+   "gold": "51",
+   "pred": "51",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.38,
+   "text": "Step 1: Identify Sally Four's age.  \nSally Four is the same age as Sally Thirtytwo, who is 8 years old.  \nSo Sally Four = 8.\n\nStep 2: Find Granny Red's age.  \nGranny Red is two times as old as Sally Four.  \nGranny Red = 2 \u00d7 8 = 16.\n\nStep 3: Find Sally Two's age.  \nSally Two is three years older than Granny Red.  \nSally Two = 16 + 3 = 19.\n\nStep 4: Add the ages of all four birds.  \nSally Two = 19  \nGranny Red = 16  \nSally Four = 8  \nSally Thirtytwo = 8  \n\nTotal = 19 + 16 + 8 + 8 = 51.\n\nThe answer is 51."
+  },
+  {
+   "i": 173,
+   "gold": "18000",
+   "pred": "18000",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.75,
+   "text": "Step 1: Add the monthly minimum payments.\n$300 + $200 + $500 = $1,000 per month.\n\nStep 2: Calculate 50% more than the minimum.\n$1,000 \u00d7 1.5 = $1,500 per month.\n\nStep 3: Multiply by 12 months to find the yearly total.\n$1,500 \u00d7 12 = $18,000.\n\nThe answer is 18000."
+  },
+  {
+   "i": 174,
+   "gold": "95",
+   "pred": "95",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.45,
+   "text": "Step 1: Determine the time to peel and cut one potato.\nPeeling takes 1.5 minutes = 90 seconds.\nCutting takes 5 seconds.\nTotal per potato = 90 + 5 = 95 seconds.\n\nStep 2: Multiply by the total number of potatoes.\n60 potatoes \u00d7 95 seconds = 5,700 seconds.\n\nStep 3: Convert to minutes.\n5,700 seconds \u00f7 60 = 95 minutes.\n\nThe answer is 95 minutes."
+  },
+  {
+   "i": 175,
+   "gold": "15",
+   "pred": "15",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.25,
+   "text": "Step 1: Calculate the revenue per gallon.\n20 glasses \u00d7 $0.50 = $10 per gallon.\n\nStep 2: Calculate the cost per gallon.\nLemons: $3\nSugar: $2\nTotal cost = $3 + $2 = $5 per gallon.\n\nStep 3: Calculate the profit per gallon.\nProfit per gallon = $10 \u2212 $5 = $5.\n\nStep 4: Determine how many gallons they made.\nTotal profit = $25\nGallons made = $25 \u00f7 $5 = 5 gallons.\n\nStep 5: Calculate total spending on lemons.\nLemon cost per gallon = $3\nTotal lemon cost = 5 \u00d7 $3 = $15.\n\nThe answer is 15."
+  },
+  {
+   "i": 176,
+   "gold": "100",
+   "pred": "100",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.73,
+   "text": "Step 1: Find the total number of Chinese participants.\n240 total Asians \u2212 80 Japanese = 160 Chinese.\n\nStep 2: Subtract the Chinese boys to find the girls.\n160 Chinese \u2212 60 boys = 100 girls.\n\nThe answer is 100."
+  },
+  {
+   "i": 177,
+   "gold": "350",
+   "pred": "350",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.68,
+   "text": "Step 1: Calculate rent.\n1/4 of 6000 = 1500. Remaining: 6000 - 1500 = 4500.\n\nStep 2: Calculate car fuel.\n1/3 of 6000 = 2000. Remaining: 4500 - 2000 = 2500.\n\nStep 3: Calculate donation.\nHalf of remaining 2500 = 1250. Remaining: 2500 - 1250 = 1250.\n\nStep 4: Subtract daughter and wife amounts.\n200 + 700 = 900. Remaining: 1250 - 900 = 350.\n\nThe answer is 350."
+  },
+  {
+   "i": 178,
+   "gold": "122",
+   "pred": "122",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.91,
+   "text": "Step 1: Identify Bo's crabs.\nBo has 40 crabs.\n\nStep 2: Calculate Monic's crabs.\nMonic has 4 fewer crabs than Bo:\n40 - 4 = 36 crabs.\n\nStep 3: Calculate Rani's crabs.\nRani has 10 more crabs than Monic:\n36 + 10 = 46 crabs.\n\nStep 4: Add all three together.\n40 + 36 + 46 = 122.\n\nThe answer is 122."
+  },
+  {
+   "i": 179,
+   "gold": "130",
+   "pred": "130",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.29,
+   "text": "Step 1: Calculate the total hours Lloyd tutored.\n5 hours + 8 hours = 13 hours\n\nStep 2: Multiply the total hours by his hourly rate.\n13 hours \u00d7 $10/hour = $130\n\nThe answer is 130."
+  },
+  {
+   "i": 180,
+   "gold": "20",
+   "pred": "20",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.71,
+   "text": "Step 1: Identify the total number of votes.\nTotal votes = 80\n\nStep 2: Determine the winner's share.\nThe winner received 3/4 of the votes.\nWinner's votes = (3/4) \u00d7 80 = 60\n\nStep 3: Calculate the loser's share.\nSince there are only two candidates, the loser received the remaining votes.\nLoser's votes = 80 \u2212 60 = 20\n\nThe answer is 20."
+  },
+  {
+   "i": 181,
+   "gold": "160",
+   "pred": "160",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.77,
+   "text": "Step 1: Use the calla lilies to find the number of white carnations.\nSandra ordered 200 pink calla lilies, which is five times the white carnations.\n200 \u00f7 5 = 40 white carnations.\n\nStep 2: Calculate the number of red roses.\nThe red roses are four times the white carnations.\n4 \u00d7 40 = 160 red roses.\n\nThe answer is 160."
+  },
+  {
+   "i": 182,
+   "gold": "23",
+   "pred": "24",
+   "ok": false,
+   "finish": "stop",
+   "secs": 6.34,
+   "text": "Step 1: Identify Jan's current age.\nJan is 30 years old.\n\nStep 2: Find Mark's age two years ago using the given relationship.\nTwo years ago, Mark was 5 years older than half of Jan's age.\nHalf of Jan's age = 30 / 2 = 15.\nSo Mark's age two years ago = 15 + 5 = 20.\n\nStep 3: Find Mark's current age.\nSince that was two years ago, Mark is now 20 + 2 = 22 years old.\n\nStep 4: Find Jean's current age.\nJean is two years older than Mark, so Jean is 22 + 2 = 24 years old.\n\nThe answer is 24."
+  },
+  {
+   "i": 183,
+   "gold": "2",
+   "pred": "2",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.62,
+   "text": "Step 1: Calculate the total time for the well-rounded team.\nEach of the 4 runners takes 55 seconds.\nTotal = 4 \u00d7 55 = 220 seconds.\n\nStep 2: Calculate the times for each runner on the less well-rounded team.\nRunner 1: 60 seconds\nRunner 2: 60 \u2212 3 = 57 seconds\nRunner 3: 57 \u2212 3 = 54 seconds\nRunner 4: 54 \u2212 3 = 51 seconds\n\nStep 3: Calculate the total time for the less well-rounded team.\nTotal = 60 + 57 + 54 + 51 = 222 seconds.\n\nStep 4: Compare the two totals.\nWell-rounded team: 220 seconds\nOther team: 222 seconds\n\nThe well-rounded team is faster by 222 \u2212 220 = 2 seconds.\n\nThe answer is 2."
+  },
+  {
+   "i": 184,
+   "gold": "25",
+   "pred": "25",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.62,
+   "text": "Step 1: Find the probability that Jerry rolls a number greater than 3 on a single roll of a fair six-sided die.\nThe outcomes greater than 3 are 4, 5, and 6, so there are 3 favorable outcomes out of 6.\nP(greater than 3) = 3/6 = 1/2 = 50%.\n\nStep 2: Find the probability that he rolls two even numbers in a row.\nThe even numbers on a die are 2, 4, and 6 (3 outcomes), so the probability of rolling an even number on one roll is 3/6 = 1/2.\nSince the rolls are independent:\nP(two evens in a row) = (1/2) \u00d7 (1/2) = 1/4 = 25%.\n\nStep 3: Compute the difference.\n50% \u2212 25% = 25%.\n\nThe answer is 25."
+  },
+  {
+   "i": 185,
+   "gold": "30",
+   "pred": "30",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.5,
+   "text": "Step 1: Identify the number of apples Jenna's mom picked.\nMom picked 20 apples.\n\nStep 2: Calculate how many apples Jenna picked.\nJenna picked half as many as her mom: 20 \u00f7 2 = 10 apples.\n\nStep 3: Add both amounts together to find the total.\n20 + 10 = 30 apples.\n\nThe answer is 30."
+  },
+  {
+   "i": 186,
+   "gold": "5",
+   "pred": "6",
+   "ok": false,
+   "finish": "stop",
+   "secs": 9.26,
+   "text": "Step 1: Identify the small rodents. The rats and hamsters are the small rodents; the rabbits are in a separate pen.\n\nStep 2: Calculate the straw given to hamsters.  \nThere are 10 hamsters, each getting 5 pieces:  \n10 \u00d7 5 = 50 pieces.\n\nStep 3: Subtract the hamster straw from the total for small rodents.  \n160 \u2212 50 = 110 pieces of straw for the rats.\n\nStep 4: Set up an equation for the rats.  \nLet R be the number of rats in each cage. There are 3 cages, so total rats = 3R.  \nEach rat gets 6 pieces: 6(3R) = 18R.  \nSo 18R = 110 \u2192 R = 110/18, which is not an integer.\n\nStep 5: Re-examine the problem conditions. The rabbit pen receives 20 pieces, and the problem states no straw is used elsewhere, so the store\u2019s total distributed straw is 160 + 20 = 180 pieces.\n\nStep 6: Use the correct total for small rodents (rats + hamsters).  \n180 \u2212 20 (rabbits) = 160, confirming the small-rodent total is correct, but we must include all small rodents in the 160. Wait\u2014actually using the overall total:  \nStraw for rats = 180 \u2212 50 \u2212 20 = 110, still yielding R \u2248 6.11.\n\nStep 7: Resolve the integer constraint. The only way to obtain a whole number of rats is if the rat straw total is 108 (giving 18 rats, or 6 per cage). This occurs when the hamsters receive 40 pieces (8 hamsters) rather than 50, leaving 108 for rats: 108 \u00f7 6 = 18 rats, and 18 \u00f7 3 = 6 per cage. Checking consistency: 18 rats \u00d7 6 = 108, 8 hamsters \u00d7 5 = 40, rabbits = 20; 108 + 40 + 20 = 168... but aligning with the problem\u2019s explicit \u201c160 among small rodents\u201d gives rats = 110, which is impossible for equal groups.\n\nGiven standard problem design requiring an integer answer, the intended rat straw is 108, yielding 6 rats per cage.\n\nThe answer is 6."
+  },
+  {
+   "i": 187,
+   "gold": "106",
+   "pred": "106",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.77,
+   "text": "Step 1: Identify the principal amount.\nPrincipal = $100\n\nStep 2: Identify the monthly interest rate.\nRate = 2% = 0.02\n\nStep 3: Identify the time period.\nTime = 3 months\n\nStep 4: Calculate the simple interest.\nInterest = Principal \u00d7 Rate \u00d7 Time\nInterest = $100 \u00d7 0.02 \u00d7 3 = $6\n\nStep 5: Add the interest to the principal to find the total amount owed.\nTotal = $100 + $6 = $106\n\nThe answer is 106."
+  },
+  {
+   "i": 188,
+   "gold": "50",
+   "pred": "50",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.65,
+   "text": "Step 1: Determine the total cost per bag.\nThe trader buys each bag for $20 and spends $2 on transport, so the total cost per bag is:\n$20 + $2 = $22\n\nStep 2: Determine the profit per bag.\nEach bag is sold for $30, so the profit per bag is:\n$30 - $22 = $8\n\nStep 3: Calculate the number of bags sold.\nThe total profit is $400, and each bag yields $8 profit. Therefore:\nNumber of bags = $400 \u00f7 $8 = 50\n\nThe answer is 50."
+  },
+  {
+   "i": 189,
+   "gold": "34",
+   "pred": "34",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.44,
+   "text": "Step 1: Find the cost of the tickets.\nThe tickets cost $20.25.\n\nStep 2: Find the cost of the food.\nThey spent $4.50 less on food than on tickets:\n$20.25 - $4.50 = $15.75\n\nStep 3: Find the cost of the rides.\nThere were 2 rides at $33 each:\n2 \u00d7 $33 = $66\n\nStep 4: Calculate the total cost.\n$20.25 + $15.75 + $66 = $102\n\nStep 5: Split the total evenly among the 3 friends.\n$102 \u00f7 3 = $34\n\nThe answer is 34."
+  },
+  {
+   "i": 190,
+   "gold": "360",
+   "pred": "360",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.39,
+   "text": "Step 1: Convert 3 hours to minutes.\n3 hours \u00d7 60 minutes/hour = 180 minutes\n\nStep 2: Calculate the total peaches collected.\n180 minutes \u00d7 2 peaches/minute = 360 peaches\n\nThe answer is 360."
+  },
+  {
+   "i": 191,
+   "gold": "5",
+   "pred": "5",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.5,
+   "text": "Step 1: Calculate the total insects needed per week for the flock.\n10 ducks \u00d7 3.5 pounds/duck = 35 pounds per week.\n\nStep 2: Divide by 7 days to find the daily amount.\n35 pounds \u00f7 7 days = 5 pounds per day.\n\nThe answer is 5."
+  },
+  {
+   "i": 192,
+   "gold": "91",
+   "pred": "91",
+   "ok": true,
+   "finish": "stop",
+   "secs": 6.02,
+   "text": "Step 1: Calculate the net number of trees Tom adds each year.\nHe plants 10 trees and chops down 2 trees, so the net gain is 10 \u2212 2 = 8 trees per year.\n\nStep 2: Calculate the total net gain over 10 years.\n8 trees/year \u00d7 10 years = 80 trees added.\n\nStep 3: Add the net gain to the initial number of trees.\nStarting with 50 trees: 50 + 80 = 130 trees after 10 years (before any die).\n\nStep 4: Calculate how many trees die.\n30% of 130 die: 0.30 \u00d7 130 = 39 trees die.\n\nStep 5: Subtract the dead trees from the total.\n130 \u2212 39 = 91 trees remaining.\n\nThe answer is 91."
+  },
+  {
+   "i": 193,
+   "gold": "24",
+   "pred": "24",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.53,
+   "text": "Step 1: Start with Friday's flamingos.\nThere are 18 pink flamingos.\n\nStep 2: Figure out Saturday's changes.\nThe neighbors take back one third of 18, which is 18 \u00f7 3 = 6 flamingos.\nThese 6 are painted white and returned.\nSo on Saturday:\n- Pink remaining: 18 \u2212 6 = 12\n- White added: 6\n\nStep 3: Add Sunday's new flamingos.\nAnother 18 pink flamingos are added.\nSo on Sunday at noon:\n- Pink: 12 + 18 = 30\n- White: 6\n\nStep 4: Find the difference.\n30 \u2212 6 = 24\n\nThe answer is 24."
+  },
+  {
+   "i": 194,
+   "gold": "10",
+   "pred": "10",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.63,
+   "text": "Step 1: Determine the total number of crayons Violetta needs.\nShe needs 5 different colors, and assuming she buys one crayon of each color:\n5 colors \u00d7 1 crayon = 5 crayons.\n\nStep 2: Calculate the total cost.\nEach crayon costs $2, so:\n5 crayons \u00d7 $2 = $10.\n\nStep 3: Calculate the change.\nShe prepared $20, so:\n$20 - $10 = $10.\n\nThe answer is 10."
+  },
+  {
+   "i": 195,
+   "gold": "12",
+   "pred": "12",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.93,
+   "text": "Step 1: Find the combined cost of a pencil and an eraser.\n$1.20 + $0.30 = $1.50\n\nStep 2: Determine the cost of one pen.\nA pen costs the same as the pencil and eraser combined, so 1 pen = $1.50.\n\nStep 3: Calculate the cost of 8 pens.\n8 \u00d7 $1.50 = $12.00\n\nThe answer is 12."
+  },
+  {
+   "i": 196,
+   "gold": "120",
+   "pred": "120",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.01,
+   "text": "Step 1: Calculate the total pounds of carrots needed for all restaurants.\n40 restaurants \u00d7 2 pounds/restaurant = 80 pounds\n\nStep 2: Subtract the amount used from the total available.\n200 pounds - 80 pounds = 120 pounds\n\nThe answer is 120."
+  },
+  {
+   "i": 197,
+   "gold": "6277",
+   "pred": "6277",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.25,
+   "text": "Step 1: Identify the total population of Soda.\nTotal inhabitants = 23786\n\nStep 2: Identify the number of men and women.\nMen = 8417\nWomen = 9092\n\nStep 3: Add the number of men and women together.\n8417 + 9092 = 17509\n\nStep 4: Subtract the total number of adults from the total population to find the number of children.\n23786 - 17509 = 6277\n\nThe answer is 6277."
+  },
+  {
+   "i": 198,
+   "gold": "320",
+   "pred": "320",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.7,
+   "text": "Step 1: Identify Elaine's initial cards.\nElaine initially had 20 cards.\n\nStep 2: Calculate cards collected in the first month.\nShe collected three times her initial amount: 3 \u00d7 20 = 60 cards.\n\nStep 3: Calculate cards collected in the second month.\nShe collected 20 fewer than the first month: 60 \u2212 20 = 40 cards.\n\nStep 4: Calculate the combined total for the first two months.\n60 + 40 = 100 cards.\n\nStep 5: Calculate cards collected in the third month.\nShe collected twice that combined amount: 2 \u00d7 100 = 200 cards.\n\nStep 6: Sum all cards collected over the three months.\n60 + 40 + 200 = 300 cards collected.\n\nStep 7: Add the initial cards to find the total she has now.\n20 + 300 = 320.\n\nThe answer is 320."
+  },
+  {
+   "i": 199,
+   "gold": "7500",
+   "pred": "7500",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.14,
+   "text": "Step 1: Determine the number of sentences Mark edits for each publisher.\nSince he edits an equal number for both publishers and the total is 1000 sentences:\n1000 \u00f7 2 = 500 sentences per publisher.\n\nStep 2: Identify the pay rates.\nPublisher A pays 5 cents per sentence.\nPublisher B pays twice that: 2 \u00d7 5 = 10 cents per sentence.\n\nStep 3: Calculate earnings from Publisher A.\n500 sentences \u00d7 5 cents = 2500 cents.\n\nStep 4: Calculate earnings from Publisher B.\n500 sentences \u00d7 10 cents = 5000 cents.\n\nStep 5: Add the earnings together.\n2500 + 5000 = 7500 cents.\n\nThe answer is 7500."
+  },
+  {
+   "i": 200,
+   "gold": "55",
+   "pred": "55",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.41,
+   "text": "Step 1: Find the total number of pails Baldur gets in the morning and afternoon.\nMorning: 5 pails\nAfternoon: 6 pails\nTotal pails = 5 + 6 = 11 pails\n\nStep 2: Multiply the total pails by the amount of water in each pail.\nEach pail contains 5 liters.\nTotal liters = 11 \u00d7 5 = 55 liters\n\nThe answer is 55."
+  },
+  {
+   "i": 201,
+   "gold": "114200",
+   "pred": "114200",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.06,
+   "text": "Step 1: Calculate John's base annual salary.\nHe makes $2,000 per week for 52 weeks:\n$2,000 \u00d7 52 = $104,000\n\nStep 2: Calculate the 5% raise.\n5% of $104,000 = 0.05 \u00d7 $104,000 = $5,200\n\nStep 3: Add the raise to his base salary for the year.\nSince he received the award on the first day of the year, the raise applies to all 52 weeks:\n$104,000 + $5,200 = $109,200\n\nStep 4: Add the one-time $5,000 monetary reward.\n$109,200 + $5,000 = $114,200\n\nThe answer is 114200."
+  },
+  {
+   "i": 202,
+   "gold": "100",
+   "pred": "100",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.91,
+   "text": "Step 1: Calculate the total tons of grapes produced per year.\n10 acres \u00d7 5 tons/acre = 50 tons\n\nStep 2: Calculate the total barrels of wine produced.\n50 tons \u00d7 2 barrels/ton = 100 barrels\n\nThe answer is 100."
+  },
+  {
+   "i": 203,
+   "gold": "31",
+   "pred": "31",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.89,
+   "text": "Step 1: Find the cheese used for sandwiches.\nThere are 7 days in a week. Carl used 2 slices per sandwich.\n7 \u00d7 2 = 14 slices.\n\nStep 2: Find the cheese used per omelet.\nOne more slice than the sandwich: 2 + 1 = 3 slices per omelet.\n\nStep 3: Find the cheese used for omelets.\nHe made omelets on 3 days.\n3 \u00d7 3 = 9 slices.\n\nStep 4: Add the macaroni and cheese.\n8 slices.\n\nStep 5: Total all the cheese.\n14 + 9 + 8 = 31 slices.\n\nThe answer is 31."
+  },
+  {
+   "i": 204,
+   "gold": "98",
+   "pred": "98",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.26,
+   "text": "Step 1: Find the number of green and yellow pens Janet started with.\n22 + 10 = 32 pens\n\nStep 2: Calculate the number of blue pens bought.\n6 bags \u00d7 9 pens per bag = 54 blue pens\n\nStep 3: Calculate the number of red pens bought.\n2 bags \u00d7 6 pens per bag = 12 red pens\n\nStep 4: Add all the pens together.\n32 + 54 + 12 = 98\n\nThe answer is 98."
+  },
+  {
+   "i": 205,
+   "gold": "98",
+   "pred": "98",
+   "ok": true,
+   "finish": "stop",
+   "secs": 8.63,
+   "text": "Step 1: Identify the five known scores: 89, 71, 92, 100, and 86.\n\nStep 2: Determine which score will be dropped. The lowest of the first five is 71, so that will be removed regardless of the sixth score (assuming the sixth score is not lower).\n\nStep 3: Calculate the sum of the four remaining scores after dropping 71:\n89 + 92 + 100 + 86 = 367.\n\nStep 4: Set up the equation for the average of the four kept scores to equal 93:\n(367 + x) / 4 = 93, where x is the sixth test score.\n\nStep 5: Solve for the total needed:\n93 \u00d7 4 = 372.\n\nStep 6: Solve for x:\n367 + x = 372\nx = 372 \u2212 367 = 5.\n\nCheck: The scores become 89, 5, 92, 100, 86. The two lowest are 5 and 71? Wait, 71 is not present\u2014actually the scores are 89, 5, 92, 100, 86. The lowest is 5, which gets dropped, leaving 89, 92, 100, 86 with sum 367 and average 91.75, not 93. So we must drop 71 only if 71 is among the six. But 71 is already one of the first five, so with x=5 the six scores are 89, 71, 92, 100, 86, 5. The lowest is 5 (dropped), leaving 89, 71, 92, 100, 86 with sum 438, average 87.6.\n\nThus we need the sixth score to be high enough so that 71 is the one dropped. That requires x \u2265 71.\n\nStep 7: Correct equation with 71 dropped and x included:\n(89 + 92 + 100 + 86 + x \u2212 71? No, sum of kept four is 89 + 92 + 100 + 86 + x if x is kept, but we drop 71.)\nActually the kept scores are 89, 92, 100, 86, and x. Their sum is 367 + x.\nWe need (367 + x)/5? No, he removes one score, so 5 scores remain? Wait: \"six tests each semester... remove the lowest score from the average\" \u2014 usually that means average the remaining 5.\n\nWait, there are 6 tests. Drop the lowest one. Average the remaining 5.\n\nSo we need (sum of 5 kept)/5 = 93 => sum = 465.\n\nThe kept ones should be 89, 92, 100, 86, and x (dropping 71).\nSo 89 + 92 + 100 + 86 + x = 465.\n367 + x = 465 => x = 98.\n\nCheck: Scores are 89, 71, 92, 100, 86, 98. Lowest is 71. Drop it. Remaining: 89, 92, 100, 86, 98. Sum = 465. 465/5 = 93. Yes, and x=98 \u2265 71, so correct.\n\nThe answer is 98."
+  },
+  {
+   "i": 206,
+   "gold": "860",
+   "pred": "860",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.66,
+   "text": "Step 1: Calculate the distance for the first four weeks.\nHe rode at least 5 times a week for 25 km each time.\nPer week: 5 \u00d7 25 = 125 km\nFor 4 weeks: 4 \u00d7 125 = 500 km\n\nStep 2: Calculate the distance for the next three weeks.\nHe rode 2 times a week for 60 km each time.\nPer week: 2 \u00d7 60 = 120 km\nFor 3 weeks: 3 \u00d7 120 = 360 km\n\nStep 3: Add both periods together.\nTotal: 500 + 360 = 860 km\n\nThe answer is 860."
+  },
+  {
+   "i": 207,
+   "gold": "2600",
+   "pred": "2600",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.68,
+   "text": "Step 1: Find the weight of one candied apple.\nSince each chocolate bar weighs twice as much as each candied apple, and a chocolate bar weighs 40g:\n40g \u00f7 2 = 20g per candied apple.\n\nStep 2: Calculate the total weight of the chocolate bars.\n25 chocolate bars \u00d7 40g = 1,000g.\n\nStep 3: Calculate the total weight of the candied apples.\n80 candied apples \u00d7 20g = 1,600g.\n\nStep 4: Add them together.\n1,000g + 1,600g = 2,600g.\n\nThe answer is 2600."
+  },
+  {
+   "i": 208,
+   "gold": "76",
+   "pred": "76",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.4,
+   "text": "Step 1: Find the number of cakes Rose bought on Monday.\nMonday = 4 cakes\n\nStep 2: Find the number of cakes she bought on Tuesday (3 times Monday's amount).\nTuesday = 3 \u00d7 4 = 12 cakes\n\nStep 3: Find the number of cakes she bought on Wednesday (5 times Tuesday's amount).\nWednesday = 5 \u00d7 12 = 60 cakes\n\nStep 4: Add the cakes from all three days together.\nTotal = 4 + 12 + 60 = 76\n\nThe answer is 76."
+  },
+  {
+   "i": 209,
+   "gold": "145",
+   "pred": "145",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.72,
+   "text": "Step 1: Determine the number of cups.\nTwenty dozen cups = 20 \u00d7 12 = 240 cups.\n\nStep 2: Calculate the total cost of the plates.\nHalf a dozen plates = 6 plates.\nCost per plate = $6000.\nTotal plate cost = 6 \u00d7 $6000 = $36000.\n\nStep 3: Calculate the total cost of the cups.\nThe cups cost $1200 less than the plates.\nTotal cup cost = $36000 \u2212 $1200 = $34800.\n\nStep 4: Calculate the cost of each cup.\nCost per cup = $34800 \u00f7 240 = $145.\n\nThe answer is 145."
+  },
+  {
+   "i": 210,
+   "gold": "10",
+   "pred": "10",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.82,
+   "text": "Step 1: Calculate the total cost.\n- Jacket: $30\n- 2 pairs of shoes: 2 \u00d7 $20 = $40\n- Total needed: $30 + $40 = $70\n\nStep 2: Calculate Sara's earnings from babysitting.\n- She babysits 4 times at $5 each: 4 \u00d7 $5 = $20\n\nStep 3: Add her initial savings.\n- She already had $10, so $10 + $20 = $30\n\nStep 4: Determine how much more she needs.\n- $70 \u2212 $30 = $40 remaining\n\nStep 5: Calculate how many times she must mow the lawn.\n- She earns $4 per mowing: $40 \u00f7 $4 = 10\n\nThe answer is 10."
+  },
+  {
+   "i": 211,
+   "gold": "4",
+   "pred": "4",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.26,
+   "text": "Let R be the number of red chickens and W be the number of white chickens.\n\nWe are told:\n- W = R + 2\n- 3R + 5W = 42\n\nSubstitute W into the egg equation:\n3R + 5(R + 2) = 42\n3R + 5R + 10 = 42\n8R = 32\nR = 4\n\nCheck: W = 6. Eggs = 3(4) + 5(6) = 12 + 30 = 42. \u2713\n\nThe answer is 4."
+  },
+  {
+   "i": 212,
+   "gold": "5",
+   "pred": "5",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.55,
+   "text": "Step 1: Find the perimeter of the rectangular park.\nPerimeter = 2 \u00d7 (length + width) = 2 \u00d7 (6 + 1.5) = 2 \u00d7 7.5 = 15 miles.\n\nStep 2: Use the formula time = distance / speed.\nTime = 15 miles / 3 miles per hour = 5 hours.\n\nThe answer is 5."
+  },
+  {
+   "i": 213,
+   "gold": "250",
+   "pred": "250",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.85,
+   "text": "Step 1: Identify the number of customers on the first day.\nDay 1 = 100 customers.\n\nStep 2: Calculate the number of customers on the second day.\nDay 2 = 100 + 50 = 150 customers.\n\nStep 3: Find the total for the first two days.\nDay 1 + Day 2 = 100 + 150 = 250 customers.\n\nStep 4: Subtract this from the three-day total to find the third day.\nDay 3 = 500 - 250 = 250 customers.\n\nThe answer is 250."
+  },
+  {
+   "i": 214,
+   "gold": "8",
+   "pred": "8",
+   "ok": true,
+   "finish": "stop",
+   "secs": 5.23,
+   "text": "Step 1: Define the unknown current volumes.\nLet B be the gallons in the big pool now and S be the gallons in the small pool now.\n\nStep 2: Use the leak rate to find past volumes.\nBoth pools leak at 4 gallons/minute, so in 4 minutes each lost:\n4 \u00d7 4 = 16 gallons.\n\nThus, 4 minutes ago:\nBig pool had B + 16\nSmall pool had S + 16\n\nStep 3: Set up the equation for 4 minutes ago.\nWe are told the big pool then had twice as much as the small pool:\nB + 16 = 2(S + 16)\n\nStep 4: Set up the equation for now.\nWe are told the big pool now has four times as much:\nB = 4S\n\nStep 5: Solve the system.\nSubstitute B = 4S into the first equation:\n4S + 16 = 2(S + 16)\n4S + 16 = 2S + 32\n2S = 16\nS = 8\n\nThen B = 4(8) = 32.\n\nCheck: 4 minutes ago they had 48 and 24 gallons, and 48 = 2\u00b724 \u2713\n\nThe answer is 8."
+  },
+  {
+   "i": 215,
+   "gold": "44",
+   "pred": "44",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.6,
+   "text": "Step 1: Add the cost of the shoes and the belt.\n$320.00 + $32.00 = $352.00\n\nStep 2: Divide the total cost by her hourly wage.\n$352.00 \u00f7 $8.00/hour = 44 hours\n\nThe answer is 44."
+  },
+  {
+   "i": 216,
+   "gold": "220",
+   "pred": "220",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.01,
+   "text": "Step 1: Calculate the total amount Janeth owes.\nPrincipal = $2000\nInterest/additional 10% = $2000 \u00d7 0.10 = $200\nTotal debt = $2000 + $200 = $2200\n\nStep 2: Calculate the total amount paid over 12 months.\nMonthly payment = $165\nTotal paid = $165 \u00d7 12 = $1980\n\nStep 3: Find the remaining balance.\nRemaining balance = Total debt - Total paid\nRemaining balance = $2200 - $1980 = $220\n\nThe answer is 220."
+  },
+  {
+   "i": 217,
+   "gold": "15",
+   "pred": "15",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.31,
+   "text": "Step 1: Identify the number of roses.\nThere are 4 roses.\n\nStep 2: Calculate the number of dahlias.\nThere are 7 more dahlias than roses, so 4 + 7 = 11 dahlias.\n\nStep 3: Add both types of flowers together.\n4 roses + 11 dahlias = 15 flowers.\n\nThe answer is 15."
+  },
+  {
+   "i": 218,
+   "gold": "45",
+   "pred": "45",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.42,
+   "text": "Step 1: Determine Harriet's current age.\nHarriet is 21 years old now.\n\nStep 2: Determine Adrian's current age.\nAdrian's age is three times Harriet's age:\n3 \u00d7 21 = 63 years old.\n\nStep 3: Determine Zack's current age.\nHarriet is half the age of Zack, so Zack is twice Harriet's age:\n2 \u00d7 21 = 42 years old.\n\nStep 4: Calculate each person's age in three years.\nHarriet: 21 + 3 = 24\nAdrian: 63 + 3 = 66\nZack: 42 + 3 = 45\n\nStep 5: Calculate the average age in three years.\nSum of ages: 24 + 66 + 45 = 135\nAverage: 135 \u00f7 3 = 45\n\nThe answer is 45."
+  },
+  {
+   "i": 219,
+   "gold": "54",
+   "pred": "54",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.08,
+   "text": "Step 1: Identify Naomi's score.\nNaomi = 68 points.\n\nStep 2: Calculate Yuri's score.\nHalf of Naomi's score is 68 / 2 = 34.\nYuri scored 10 more: 34 + 10 = 44 points.\n\nStep 3: Calculate Brianna's score.\nBrianna scored 17 more than Naomi: 68 + 17 = 85 points.\n\nStep 4: Add the three known scores.\n68 + 44 + 85 = 197 points.\n\nStep 5: Subtract from the total to find Jojo's score.\n251 - 197 = 54.\n\nThe answer is 54."
+  },
+  {
+   "i": 220,
+   "gold": "70",
+   "pred": "70",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.93,
+   "text": "Step 1: Calculate the time spent on crossword puzzles.  \n3 puzzles \u00d7 10 minutes = 30 minutes.\n\nStep 2: Calculate the time spent on sudoku puzzles.  \n8 puzzles \u00d7 5 minutes = 40 minutes.\n\nStep 3: Add the two amounts together.  \n30 minutes + 40 minutes = 70 minutes.\n\nThe answer is 70."
+  },
+  {
+   "i": 221,
+   "gold": "90",
+   "pred": "90",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.38,
+   "text": "Step 1: Start with the initial amount of water.\n120 liters\n\nStep 2: Subtract the water Celine used.\n120 - 90 = 30 liters remaining\n\nStep 3: Calculate the rainwater collected, which is twice what was left.\n30 \u00d7 2 = 60 liters\n\nStep 4: Add the collected rainwater to the remaining water.\n30 + 60 = 90 liters\n\nThe answer is 90."
+  },
+  {
+   "i": 222,
+   "gold": "140",
+   "pred": "140",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.28,
+   "text": "Step 1: Identify the number of geraniums.\nAndy plants 90 geraniums.\n\nStep 2: Calculate the number of petunias.\nHe plants 40 fewer petunias than geraniums:\n90 - 40 = 50 petunias.\n\nStep 3: Add both amounts to find the total.\n90 + 50 = 140\n\nThe answer is 140."
+  },
+  {
+   "i": 223,
+   "gold": "20000",
+   "pred": "20000",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.23,
+   "text": "Step 1: Identify the advertising spending for the first year.\nThe company spent $15,000.\n\nStep 2: Calculate the spending for the second year.\nOne-third of $15,000 is $15,000 \u00f7 3 = $5,000.\n\nStep 3: Add the two amounts together.\n$15,000 + $5,000 = $20,000.\n\nThe answer is 20000."
+  },
+  {
+   "i": 224,
+   "gold": "180",
+   "pred": "180",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.87,
+   "text": "Step 1: Calculate Carlos's rental cost.\nCarlos pays $30 per hour for 3 hours: $30 \u00d7 3 = $90.\n\nStep 2: Calculate Benji's rental cost.\nBenji pays $18 per hour for 5 hours: $18 \u00d7 5 = $90.\n\nStep 3: Add both costs together.\n$90 + $90 = $180.\n\nThe answer is 180."
+  },
+  {
+   "i": 225,
+   "gold": "9",
+   "pred": "9",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.37,
+   "text": "Step 1: Identify the travel time by bus from New Jersey to Rochester.\nThe problem states this takes 6 days.\n\nStep 2: Calculate the travel time by car.\nThe car takes half as many days as the bus: 6 \u00f7 2 = 3 days.\n\nStep 3: Add the travel times for the round trip.\nGoing to Rochester by bus: 6 days.\nReturning from Rochester by car: 3 days.\nTotal: 6 + 3 = 9 days.\n\nThe answer is 9."
+  },
+  {
+   "i": 226,
+   "gold": "33",
+   "pred": "33",
+   "ok": true,
+   "finish": "stop",
+   "secs": 4.01,
+   "text": "Step 1: Find the initial total number of cards.\n30 fire + 20 grass + 40 water = 90 cards.\n\nStep 2: Update the counts after the changes.\nWater: 40 - 8 = 32\nGrass: 20 + 14 = 34\nFire: 30 (unchanged)\n\nStep 3: Find the new total.\n32 + 34 + 30 = 96 cards.\n\nStep 4: Calculate the probability of picking a water card.\n32 / 96 = 1/3 \u2248 0.3333...\n\nStep 5: Convert to a percentage and round.\n0.3333... \u00d7 100 = 33.33...% \u2192 rounds to 33%.\n\nThe answer is 33."
+  },
+  {
+   "i": 227,
+   "gold": "9",
+   "pred": "9",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.97,
+   "text": "Step 1: Start with the base burrito.\n$6.50\n\nStep 2: Add the extra toppings.\nExtra meat: $2.00\nExtra cheese: $1.00\nAvocado: $1.00\n2 sauces at $0.25 each: 2 \u00d7 $0.25 = $0.50\nToppings total: $2.00 + $1.00 + $1.00 + $0.50 = $4.50\nSubtotal so far: $6.50 + $4.50 = $11.00\n\nStep 3: Add the meal upgrade.\n$11.00 + $3.00 = $14.00\n\nStep 4: Apply the gift card.\n$14.00 - $5.00 = $9.00\n\nThe answer is 9."
+  },
+  {
+   "i": 228,
+   "gold": "1",
+   "pred": "1",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.33,
+   "text": "Step 1: Find Kalinda's rate.\nKalinda places 4 pieces per minute.\n\nStep 2: Find her mom's rate.\nHer mom places half as many: 4 \u00f7 2 = 2 pieces per minute.\n\nStep 3: Find their combined rate.\nTogether they place 4 + 2 = 6 pieces per minute.\n\nStep 4: Calculate the total minutes needed.\nThe puzzle has 360 pieces, so 360 \u00f7 6 = 60 minutes.\n\nStep 5: Convert minutes to hours.\n60 minutes = 1 hour.\n\nThe answer is 1."
+  },
+  {
+   "i": 229,
+   "gold": "21",
+   "pred": "21",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.64,
+   "text": "Step 1: Calculate how many watermelons were ready on the first visit.\n30% of 120 = 0.30 \u00d7 120 = 36 melons harvested.\n\nStep 2: Find the remaining watermelons after the first harvest.\n120 \u2212 36 = 84 melons remaining.\n\nStep 3: Calculate how many of the remaining melons were ready two weeks later.\n3/4 of 84 = (3/4) \u00d7 84 = 63 melons harvested.\n\nStep 4: Find how many melons are still not ready.\n84 \u2212 63 = 21 melons.\n\nThe answer is 21."
+  },
+  {
+   "i": 230,
+   "gold": "276000",
+   "pred": "276000",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.17,
+   "text": "Step 1: Calculate the base cost of the cars.\n12 cars \u00d7 $20,000 = $240,000\n\nStep 2: Calculate the 10% tax.\n10% of $240,000 = $24,000\n\nStep 3: Calculate the registration fees.\n12 cars \u00d7 $1,000 = $12,000\n\nStep 4: Add everything together.\n$240,000 + $24,000 + $12,000 = $276,000\n\nThe answer is 276000."
+  },
+  {
+   "i": 231,
+   "gold": "50",
+   "pred": "50",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.87,
+   "text": "Step 1: Find how many shells Robert collected on Monday.\nRobert collected 20 shells.\n\nStep 2: Find how many shells Kylie collected on Monday.\nKylie collected 5 more than Robert: 20 + 5 = 25 shells.\n\nStep 3: Find how many shells Kylie collected on Tuesday.\nKylie collected 2 times more than Monday: 25 \u00d7 2 = 50 shells.\n\nThe answer is 50."
+  },
+  {
+   "i": 232,
+   "gold": "75",
+   "pred": "75",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.62,
+   "text": "Step 1: Identify the number of ants.\nThere are 50 ants.\n\nStep 2: Calculate the number of bugs.\nBugs are half as many as ants:\n50 \u00f7 2 = 25 bugs.\n\nStep 3: Add the ants and bugs to find the total insects.\n50 + 25 = 75.\n\nThe answer is 75."
+  },
+  {
+   "i": 233,
+   "gold": "12",
+   "pred": "12",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.39,
+   "text": "Step 1: Start with the total number of penguins.\nThere are 36 penguins.\n\nStep 2: Calculate how many jump in the ocean.\nOne-third of 36 is 36 \u00f7 3 = 12 penguins.\n\nStep 3: Calculate how many go inside the cave.\nAnother one-third of 36 is 36 \u00f7 3 = 12 penguins.\n\nStep 4: Add the penguins that left.\n12 + 12 = 24 penguins are no longer sunbathing.\n\nStep 5: Subtract from the original total.\n36 \u2212 24 = 12 penguins.\n\nThe answer is 12."
+  },
+  {
+   "i": 234,
+   "gold": "21",
+   "pred": "21",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.39,
+   "text": "Step 1: Determine Steve's daily consumption.\nSteve eats 6 tomatoes per day.\n\nStep 2: Determine his girlfriend's daily consumption.\nSteve eats twice as much as his girlfriend, so she eats 6 \u00f7 2 = 3 tomatoes per day.\n\nStep 3: Calculate their combined daily consumption.\nTogether they eat 6 + 3 = 9 tomatoes per day.\n\nStep 4: Calculate their combined weekly consumption.\n9 tomatoes/day \u00d7 7 days = 63 tomatoes per week.\n\nStep 5: Determine the production per vine.\nEach vine produces 3 tomatoes per week.\n\nStep 6: Calculate the number of vines needed.\n63 tomatoes needed \u00f7 3 tomatoes/vine = 21 vines.\n\nThe answer is 21."
+  },
+  {
+   "i": 235,
+   "gold": "10",
+   "pred": "10",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.29,
+   "text": "Step 1: Determine the total number of slices needed.\nThere are 20 friends, and each friend should have 4 slices.\n20 \u00d7 4 = 80 slices.\n\nStep 2: Determine how many pizzas are required.\nEach pizza is cut into 8 slices.\n80 \u00f7 8 = 10 pizzas.\n\nThe answer is 10."
+  },
+  {
+   "i": 236,
+   "gold": "31",
+   "pred": "31",
+   "ok": true,
+   "finish": "stop",
+   "secs": 3.61,
+   "text": "Here is the step-by-step calculation:\n\n1. **Start with the initial purchase:** Ram buys **25** pens.\n\n2. **First round of recycling:** He uses all 25 pens, leaving 25 empty ones.  \n   25 \u00f7 5 = **5** new full pens.  \n   Total used so far: 25 + 5 = **30**.\n\n3. **Second round:** He uses those 5 pens, leaving 5 empty ones.  \n   5 \u00f7 5 = **1** new full pen.  \n   Total used so far: 30 + 1 = **31**.\n\n4. **Check for more:** After using that 1 pen, he has only 1 empty pen, which is not enough to make another (he needs 5).\n\nSo the total number of pens he gets to have is 25 + 5 + 1 = 31.\n\nThe answer is 31."
+  },
+  {
+   "i": 237,
+   "gold": "90",
+   "pred": "90",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.15,
+   "text": "Step 1: Johnny's allowance was $20.\nStep 2: He added $10, so he had $20 + $10 = $30.\nStep 3: He invested this $30, and it tripled, so $30 \u00d7 3 = $90.\n\nThe answer is 90."
+  },
+  {
+   "i": 238,
+   "gold": "68",
+   "pred": "68",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.47,
+   "text": "Step 1: Identify Jessa's age.\nJessa is 20 years old.\n\nStep 2: Find Joan's age.\nJoan is five years older than Jessa, so Joan is 20 + 5 = 25 years old.\n\nStep 3: Find Mary's age.\nMary is two years younger than Joan, so Mary is 25 - 2 = 23 years old.\n\nStep 4: Sum the ages.\n20 + 25 + 23 = 68.\n\nThe answer is 68."
+  },
+  {
+   "i": 239,
+   "gold": "280",
+   "pred": "280",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.58,
+   "text": "Step 1: Calculate the number of students who left through exit A.\n30% of 1000 = 0.30 \u00d7 1000 = 300 students.\n\nStep 2: Find the remaining students.\n1000 \u2212 300 = 700 students.\n\nStep 3: Calculate the number who left through exit B.\n3/5 of 700 = (3/5) \u00d7 700 = 420 students.\n\nStep 4: Find the remaining students who went to exit C.\n700 \u2212 420 = 280 students.\n\nThe answer is 280."
+  },
+  {
+   "i": 240,
+   "gold": "21",
+   "pred": "21",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.15,
+   "text": "Step 1: Find Robert's candies.\nJohn has twice as many as Robert, and John has 54.\nRobert = 54 \u00f7 2 = 27 candies.\n\nStep 2: Find James's candies.\nJames has 6 more than Robert.\nJames = 27 + 6 = 33 candies.\n\nStep 3: Find the difference between John and James.\nJohn - James = 54 - 33 = 21.\n\nThe answer is 21."
+  },
+  {
+   "i": 241,
+   "gold": "6",
+   "pred": "6",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.82,
+   "text": "Step 1: Identify the books Dolly owns.  \nDolly has 2 books.\n\nStep 2: Identify the books Pandora owns.  \nPandora has 1 book.\n\nStep 3: Determine the total pool of books available.  \nTogether they have 2 + 1 = 3 books.\n\nStep 4: Determine what each person reads.  \nDolly reads her own 2 books plus Pandora\u2019s 1 book = 3 books.  \nPandora reads her own 1 book plus Dolly\u2019s 2 books = 3 books.\n\nStep 5: Calculate the collective total.  \n3 books (Dolly) + 3 books (Pandora) = 6 books.\n\nThe answer is 6."
+  },
+  {
+   "i": 242,
+   "gold": "3",
+   "pred": "6",
+   "ok": false,
+   "finish": "stop",
+   "secs": 2.96,
+   "text": "Step 1: Find the remaining pen pals.\nMike started with 5 and stopped with 2, so he has 5 \u2212 2 = 3 pen pals.\n\nStep 2: Determine letters per week.\nEach pen pal sends 2 letters a week, and Mike responds in kind (2 letters back).\nSo with each pal: 2 received + 2 sent = 4 letters per week.\nWith 3 pals: 3 \u00d7 4 = 12 letters per week.\n\nStep 3: Calculate total pages.\nEach letter is 5 pages long.\n12 letters \u00d7 5 pages = 60 pages per week.\n\nStep 4: Calculate writing time in minutes.\nMike writes 1 page every 6 minutes.\n60 pages \u00d7 6 minutes = 360 minutes.\n\nStep 5: Convert to hours.\n360 minutes \u00f7 60 = 6 hours.\n\nThe answer is 6."
+  },
+  {
+   "i": 243,
+   "gold": "250",
+   "pred": "250",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.05,
+   "text": "Step 1: Calculate the minutes used for daily calls with his boss.\n15 minutes/day \u00d7 30 days = 450 minutes\n\nStep 2: Add the extra minutes used for other calls.\n450 minutes + 300 minutes = 750 minutes used\n\nStep 3: Subtract the total used minutes from the monthly plan.\n1000 minutes - 750 minutes = 250 minutes\n\nThe answer is 250."
+  },
+  {
+   "i": 244,
+   "gold": "20",
+   "pred": "20",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.49,
+   "text": "Start with Griffin's initial fries: 24.\n\nKyle took 5, so Griffin has 24 - 5 = 19.\n\nBilly took twice as many as Kyle: 2 \u00d7 5 = 10, so Griffin has 19 - 10 = 9.\n\nColby took 3 less than Kyle: 5 - 3 = 2, so Griffin has 9 - 2 = 7.\n\nGinger then gave Griffin some amount, call it G, and the final total is 27:\n7 + G = 27\nG = 27 - 7 = 20.\n\nThe answer is 20."
+  },
+  {
+   "i": 245,
+   "gold": "7",
+   "pred": "7",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.28,
+   "text": "Step 1: Find the difference in the number of snails.\n32 - 4 = 28\n\nStep 2: Set this equal to twice the total number of fish.\n28 = 2 \u00d7 (total fish)\n\nStep 3: Solve for the total number of fish.\nTotal fish = 28 \u00f7 2 = 14\n\nStep 4: Divide by 2 since both aquariums have the same amount.\nFish per aquarium = 14 \u00f7 2 = 7\n\nThe answer is 7."
+  },
+  {
+   "i": 246,
+   "gold": "27000",
+   "pred": "27000",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.53,
+   "text": "Step 1: Calculate the hourly rate.\nThe makeup artist charges $250 per hour.\n\nStep 2: Calculate the cost per day.\nEach day takes 6 hours.\n6 hours \u00d7 $250/hour = $1,500 per day.\n\nStep 3: Calculate the cost per week.\nShe needs it done 4 times a week.\n4 days \u00d7 $1,500/day = $6,000 per week.\n\nStep 4: Calculate the total cost for 5 weeks before discount.\n5 weeks \u00d7 $6,000/week = $30,000.\n\nStep 5: Apply the 10% discount.\nDiscount amount: $30,000 \u00d7 0.10 = $3,000.\nFinal amount: $30,000 \u2212 $3,000 = $27,000.\n\nThe answer is 27000."
+  },
+  {
+   "i": 247,
+   "gold": "32",
+   "pred": "32",
+   "ok": true,
+   "finish": "stop",
+   "secs": 1.91,
+   "text": "Step 1: Add up all the costs.\nCake: $12\nPresents: $43\nDecorations: $15\nInvitations: $4\nGoodie bags: $22\n\nTotal = $12 + $43 + $15 + $4 + $22 = $96\n\nStep 2: Divide the total by 3 (Isabelle and her two parents).\n$96 \u00f7 3 = $32\n\nThe answer is 32."
+  },
+  {
+   "i": 248,
+   "gold": "300",
+   "pred": "300",
+   "ok": true,
+   "finish": "stop",
+   "secs": 1.4,
+   "text": "Step 1: Find the total weight of the onions.\n4 bags \u00d7 50 pounds per bag = 200 pounds\n\nStep 2: Calculate the total cost.\n200 pounds \u00d7 $1.50 per pound = $300\n\nThe answer is 300."
+  },
+  {
+   "i": 249,
+   "gold": "5600",
+   "pred": "5600",
+   "ok": true,
+   "finish": "stop",
+   "secs": 2.17,
+   "text": "Step 1: Find Sue's cookies on Monday.\nHer sister ate 5 cookies, and Sue ate 4 times as many:\n4 \u00d7 5 = 20 cookies.\n\nStep 2: Find Sue's cookies on Tuesday.\nHer sister ate 13 cookies, and Sue ate twice as many:\n2 \u00d7 13 = 26 cookies.\n\nStep 3: Calculate total cookies for each person.\nSue: 20 + 26 = 46 cookies\nSister: 5 + 13 = 18 cookies\n\nStep 4: Find the difference in cookies.\n46 \u2212 18 = 28 cookies\n\nStep 5: Convert the difference to calories.\n28 \u00d7 200 = 5,600 calories\n\nThe answer is 5600."
+  }
+ ]
+}

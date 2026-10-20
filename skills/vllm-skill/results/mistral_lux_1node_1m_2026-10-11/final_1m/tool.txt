@@ -1,0 +1,1 @@
+TOOL OK: get_weather({"city": "Paris"})

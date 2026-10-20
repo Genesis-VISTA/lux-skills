@@ -1,0 +1,30 @@
+science suite: Mistral-Large-Instruct-2411 at http://<headnode>:8000, 4225 questions (gpqa, mascqa, mmlu_pro), concurrency 128, max_tokens 8192
+  422/4225 done, 328 s
+  844/4225 done, 400 s
+  1266/4225 done, 480 s
+  1688/4225 done, 556 s
+  2110/4225 done, 637 s
+  2532/4225 done, 739 s
+  2954/4225 done, 790 s
+  3376/4225 done, 903 s
+  3798/4225 done, 956 s
+  4220/4225 done, 1005 s
+suite score 0.644 (mean of 3 benchmark accuracies), 1005.2 s
+  gpqa        93/179  = 0.520  95% CI (0.4467, 0.5916)  (1 truncated, 0 errors, 2 no answer)
+      chemistry                38/93   = 0.409
+      physics                  55/86   = 0.639
+  mascqa     497/646  = 0.769  95% CI (0.7353, 0.8002)  (5 truncated, 0 errors, 1 no answer)
+      MATCH                    67/70   = 0.957
+      MCQS                    234/284  = 0.824
+      MCQS-NUM                 54/67   = 0.806
+      NUM                     142/225  = 0.631
+  mmlu_pro  2189/3400 = 0.644  95% CI (0.6276, 0.6597)  (65 truncated, 0 errors, 28 no answer)
+      chemistry               781/1132 = 0.690
+      engineering             479/969  = 0.494
+      physics                 929/1299 = 0.715
+  by field:
+      physics                 984/1385 = 0.711  95% CI (0.686, 0.7337)
+      chemistry               819/1225 = 0.669  95% CI (0.6417, 0.6944)
+      materials               497/646  = 0.769  95% CI (0.7353, 0.8002)
+      engineering             479/969  = 0.494  95% CI (0.4629, 0.5258)
+{"model": "Mistral-Large-Instruct-2411", "suite_score": 0.6442, "wall_s": 1005.2, "gpqa": 0.5196, "mascqa": 0.7693, "mmlu_pro": 0.6438}

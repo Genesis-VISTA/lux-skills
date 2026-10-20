@@ -1,0 +1,8 @@
+job=219230 tag=r10_needle_f16 nodes=<headnode> tree=<package> steps= correctness needle  Sun Oct 11 03:55:10 PM EDT 2026
+ZENITH_DATASETSPATH=<datasets>
+ZENITH_GRAPHROOT=<bb>/containers/storage
+ZENITH_IMAGE_TAR=<images>/inference_image_gfx950.tar
+ZENITH_MODEL=Mistral-Large-Instruct-2411
+ZENITH_MODELPATH=<models>
+ZENITH_STARTUP_TRIES=120
+ZENITH_TMPDIR=<bb>/containers/tmp

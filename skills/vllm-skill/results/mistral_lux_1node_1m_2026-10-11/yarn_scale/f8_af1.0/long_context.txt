@@ -1,0 +1,11 @@
+model Mistral-Large-Instruct-2411, 4.47 chars/token, lengths [256000, 512000, 1040000], depths [0.1, 0.5, 0.9]
+  256000 depth 0.10: PASS  prompt 255606  ttft 28.31 s  prefill 9029 tok/s  decode 67.4 tok/s  answer 'The access code for the Zenith archive is saffron-463450.'
+  256000 depth 0.50: PASS  prompt 255912  ttft 28.04 s  prefill 9127 tok/s  decode 67.2 tok/s  answer 'The access code for the Zenith archive is saffron-108284.'
+  256000 depth 0.90: PASS  prompt 255840  ttft 28.04 s  prefill 9124 tok/s  decode 67.4 tok/s  answer 'The access code for the Zenith archive is indigo-579342.'
+  512000 depth 0.10: PASS  prompt 511826  ttft 86.5 s  prefill 5917 tok/s  decode 52.6 tok/s  answer 'The access code for the Zenith archive is indigo-283337.'
+  512000 depth 0.50: PASS  prompt 511848  ttft 86.5 s  prefill 5917 tok/s  decode 52.6 tok/s  answer 'The access code for the Zenith archive is cobalt-308077.'
+  512000 depth 0.90: PASS  prompt 511971  ttft 86.55 s  prefill 5915 tok/s  decode 52.7 tok/s  answer 'The access code for the Zenith archive is cobalt-863613.'
+ 1040000 depth 0.10: FAIL  prompt 1039913  ttft 303.4 s  prefill 3427 tok/s  decode 35.4 tok/s  answer ', and the other, and the same time, the same thing is true, '
+ 1040000 depth 0.50: FAIL  prompt 1039777  ttft 303.26 s  prefill 3429 tok/s  decode 35.4 tok/s  answer 'The most important of the three great laws of the United Sta'
+ 1040000 depth 0.90: FAIL  prompt 1039653  ttft 303.02 s  prefill 3431 tok/s  decode 35.4 tok/s  answer 'The same is true, and the same is true, for the most part, t'
+{"model": "Mistral-Large-Instruct-2411", "passed": 6, "cells": 9, "max_prompt_tokens_passed": 511971}

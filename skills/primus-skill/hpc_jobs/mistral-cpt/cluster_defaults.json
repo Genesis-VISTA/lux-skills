@@ -1,0 +1,17 @@
+{
+  "lux": {
+    "duration": 2700,
+    "resources": {
+      "node_count": 4,
+      "processes_per_node": 1,
+      "gpus_per_node": 8,
+      "exclusive_node_use": true
+    },
+    "iri": {
+      "partition": "batch",
+      "environment": {
+        "PKG": "/lustre/orion/world-shared/stf218/junqi/Genesis-Hackathon"
+      }
+    }
+  }
+}

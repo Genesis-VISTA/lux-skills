@@ -1,0 +1,9 @@
+     25 via NET/RCCL-ANP/0/GDRDMA
+      1 via NET/RCCL-ANP/1/GDRDMA
+      3 via NET/RCCL-ANP/3/GDRDMA
+      1 via NET/RCCL-ANP/4/GDRDMA
+      2 via NET/RCCL-ANP/5/GDRDMA
+     12 via NET/RCCL-ANP/6/GDRDMA
+      2 via NET/RCCL-ANP/7/GDRDMA
+TP all-reduce (TP=8, 1024 MiB): bus bandwidth min 2851.4 / max 2853.9 Gbps over 16 GPUs
+stage 0 -> 1: 2931.8 Gbps aggregate over 8 TP lanes (per GPU min 362.0 Gbps, 8192-token handoff)

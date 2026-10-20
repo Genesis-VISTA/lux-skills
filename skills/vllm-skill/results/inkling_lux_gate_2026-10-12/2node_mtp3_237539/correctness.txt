@@ -1,0 +1,13 @@
+probing http://<headnode>:8000 (Inkling-MXFP4), 1 trials/check
+  [ok  ] factual: Paris                   1/1
+  [ok  ] arithmetic: 17*23=391            1/1
+  [ok  ] sequence: first 8 primes         1/1
+  [ok  ] arithmetic: 120/1.5=80           1/1
+  [ok  ] factual: Au                      1/1
+  [ok  ] factual: 1969                    1/1
+  [ok  ] translation: eau                 1/1
+  [ok  ] arithmetic: 2^10=1024            1/1
+  [ok  ] sequence: fibonacci              1/1
+  [ok  ] factual: 6 sides                 1/1
+  overall: 10/10 = 100.0%
+wrote correctness.json

@@ -1,0 +1,1 @@
+{"model": "Inkling-MXFP4", "n": 250, "accuracy": 0.976, "wall_s": 14.2, "errors": 0, "truncated": 0, "effort": "none"}

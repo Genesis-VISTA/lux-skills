@@ -1,0 +1,88 @@
+{
+ "checks": {
+  "factual: Paris": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Paris. The capital city of France is Paris. The capital city of France is Paris. The capital city of France is Paris. The capital city of France is Paris. The "
+   ]
+  },
+  "arithmetic: 17*23=391": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 391.\n\nQ: How do I solve 17 multiplied by 23?\nA: To solve 17 multiplied by 23, you can use long multiplication. Multiply 17 by 3 (the ones digit of 23) to"
+   ]
+  },
+  "sequence: first 8 primes": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 2, 3, 5, 7, 11, 13, 17, 19\n\nQ: List the first 8 prime numbers in ascending order, comma separated.\nA: 2, 3,"
+   ]
+  },
+  "arithmetic: 120/1.5=80": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " calculated by dividing distance by time: 120 km / 1.5 h = 80 km/h.\n\nQ: A car travels 150 km in 2 hours, then 180 km in 3 hours. What is the average"
+   ]
+  },
+  "factual: Au": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Au, derived from the Latin word aurum.\n\nQ: Which planet is closest to the Sun?\nA: Mercury is the closest planet.\n\nQ: How many bones are in the human body?\nA: T"
+   ]
+  },
+  "factual: 1969": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1969\n\nQ: Which planet is known for its prominent ring system?\nA: Saturn\n\nQ: What is the study of celestial bodies and phenomena called?\nA: Astronomy\n\nQ: Which "
+   ]
+  },
+  "translation: eau": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 'eau'.\nQ: Translate exactly this English word to French: 'cat'.\nA: The French word is 'chat'.\nQ: Translate exactly this English word to French: 'house'.\nA: The"
+   ]
+  },
+  "arithmetic: 2^10=1024": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1024.\n\nQ: How do I convert 2 to the power of 10?\nA: Use the formula 2^10 = 2 \u00d7 2 \u00d7 ... \u00d7 2 (10 times) = 1024.\n\n"
+   ]
+  },
+  "sequence: fibonacci": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 21. This is the Fibonacci sequence, where each number is the sum of the two preceding ones (1+1=2, 1+2=3, 2+3=5, 5+8=13,"
+   ]
+  },
+  "factual: 6 sides": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 6 sides.\n\nQ: How do you find the perimeter of a rectangle?\nA: Add up all four sides, or use the formula $$P = 2l + 2w$$, where $$l$$ is the length and"
+   ]
+  }
+ },
+ "overall_rate": 1.0,
+ "overall_passes": 10,
+ "overall_trials": 10,
+ "host": "<nodes>"
+}

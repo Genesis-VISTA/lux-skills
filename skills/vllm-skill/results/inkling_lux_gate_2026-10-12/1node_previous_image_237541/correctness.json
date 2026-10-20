@@ -1,0 +1,88 @@
+{
+ "checks": {
+  "factual: Paris": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Paris. The capital city of France is the city of Paris. The capital city of France is the city of Paris. The capital city of France is the city of Paris. The c"
+   ]
+  },
+  "arithmetic: 17*23=391": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 391.\n\nQ: How do I solve 17 multiplied by 23?\nA: To solve 17 multiplied by 23, you can use long multiplication. Multiply 7 (the ones digit of 17) by 3 ("
+   ]
+  },
+  "sequence: first 8 primes": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 2, 3, 5, 7, 11, 13, 17, 19\n\nQ: List the first 8 powers of 2 in ascending order, comma separated.\nA: 1, "
+   ]
+  },
+  "arithmetic: 120/1.5=80": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " calculated by dividing distance by time: 120 km / 1.5 h = 80 km/h.\nQ: A car travels 150 km in 2 hours. How long will it take to travel 300 km at the same"
+   ]
+  },
+  "factual: Au": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " Au, derived from the Latin word aurum.\n\nQ: Which planet is known as the Red Planet?\nA: Mars is called the Red Planet due to iron oxide on its surface.\n\nQ: How "
+   ]
+  },
+  "factual: 1969": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1969\n\nQ: Which planet is known for its prominent ring system?\nA: Saturn\n\nQ: What is the primary source of energy for the Sun?\nA: Nuclear fusion\n\nQ: Which moon "
+   ]
+  },
+  "translation: eau": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 'eau'.\nQ: Translate exactly this English word to French: 'bread'.\nA: The French word is 'pain'.\nQ: Translate exactly this English word to French: 'apple'.\nA: T"
+   ]
+  },
+  "arithmetic: 2^10=1024": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 1024.\n\nQ: How do you convert 0.75 to a fraction?\nA: 0.75 equals 3/4.\n\nQ: What is the square root of 144?\nA: The square root is "
+   ]
+  },
+  "sequence: fibonacci": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 21, part of the Fibonacci sequence.\nExplanation: Each term is the sum of the two preceding ones (1+1=2, 1+2=3, etc.).\nCommon Mistake: Adding wrong pairs (e.g.,"
+   ]
+  },
+  "factual: 6 sides": {
+   "passes": 1,
+   "trials": 1,
+   "rate": 1.0,
+   "samples": [
+    " 6 sides.\n\nQ: How do you find the perimeter of a rectangle?\nA: Add up all four sides, or use the formula $$P = 2l + 2w$$.\n\nQ: How do you find the perimeter"
+   ]
+  }
+ },
+ "overall_rate": 1.0,
+ "overall_passes": 10,
+ "overall_trials": 10,
+ "host": "<nodes>"
+}
