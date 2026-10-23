@@ -115,7 +115,8 @@ $PKG/tutorials/01_icf_4agent/run_icf_with_inkling.sh -A $ACCOUNT ~/icf_4agent   
 `run_icf_with_inkling.sh` finds your RUNNING job **named `inkling.serve`** (so do not rename it; `bench.sh` uses
 `inkling.bench` so the app never latches onto a job that is about to exit), or takes `INKLING_URL`. Agents get
 8,192-token replies at medium effort. Everyone on one server shares its throughput; for one or two agents on long
-contexts, serve with `LUX_MTP=1` (below).
+contexts, serve with `LUX_MTP=1` (below). To run the ICF agents headless as a batch or VISTA job, use the
+`autogen-skill` skill (`autogen-skill/icf-campaign`): it finds a running `inkling-serve` / `inkling.serve` job itself.
 
 ## Science benchmark suite
 

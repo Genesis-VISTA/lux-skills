@@ -30,6 +30,7 @@ REQUIRED_FILES = (
     "NOTICE",
     "docs/getting_started.md",
     "skills/ATTRIBUTION.md",
+    "skills/autogen-skill/LICENSE",
     "skills/primus-skill/LICENSE",
     "skills/vllm-skill/LICENSE",
 )
@@ -53,6 +54,7 @@ CONTENT_CHECKS = (
     ),
     ("CONTRIBUTING.md", "### Guidelines for AI/LLM-Assisted Contributions"),
     ("NOTICE", "skills/ATTRIBUTION.md"),
+    ("NOTICE", "skills/autogen-skill/LICENSE"),
     ("NOTICE", "skills/primus-skill/LICENSE"),
     ("NOTICE", "skills/vllm-skill/LICENSE"),
     ("skills/ATTRIBUTION.md", "Apache-2.0"),

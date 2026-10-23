@@ -1,0 +1,10 @@
+model gptoss-20b-hedp at http://localhost:8000/v1
+run: single campaign at 3 MJ, movie, PI debrief
+settings: max_tokens 2048, reasoning_effort server default, temperature 1.0, defect budget delta<=0.3 roughness<=3e-06 m
+
+robust yield 6.20 MJ (worst case over 4 defect probes); best single run 8.18 MJ
+best design: R0=0.00016, v0=-5.5e+05, T0=1.4, M_sh=2.98e-07, M_hs=4e-09
+simulations: 24; mean yield 5.30 +- 2.50 MJ
+time: campaign 167 s, movie 6 s, debrief 4 s; total 177 s
+files: implosion.gif implosion.mp4 time_histories.png
+=== CAMPAIGN OK

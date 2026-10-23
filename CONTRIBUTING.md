@@ -17,7 +17,7 @@ Thank you for your interest in contributing to Lux Skills. This guide covers the
 Lux is the one target, so skills sit directly in `skills/` (`skills/<skill>/SKILL.md`),
 with no domain folder:
 
-- `primus-skill` (training) and `vllm-skill` (inference), both on the Lux HPC side
+- `primus-skill` (training), `vllm-skill` (inference) and `autogen-skill` (agents on a vLLM endpoint), all on the Lux HPC side
   (Slurm, ROCm, containers, Orion, NVMe)
 
 Add a new skill as `skills/<skill>/` and list its authors in `skills/ATTRIBUTION.md`.

@@ -1,0 +1,8 @@
+pyautogen~=0.2.0
+gradio
+numpy
+scipy
+matplotlib
+mcp[cli]
+# SOCKS support for httpx, needed only for the public share link through login1
+socksio

@@ -1,0 +1,10 @@
+model Inkling-MXFP4 at http://lux439:8000/v1
+run: single campaign at 3 MJ, movie, PI debrief
+settings: max_tokens 8192, reasoning_effort medium, temperature 1.0, defect budget delta<=0.3 roughness<=3e-06 m
+
+robust yield 7.19 MJ (worst case over 3 defect probes); best single run 8.69 MJ
+best design: R0=0.000125, v0=-5.1e+05, T0=2.2, M_sh=3.45e-07, M_hs=5.5e-09
+simulations: 25; mean yield 4.03 +- 3.67 MJ
+time: campaign 430 s, movie 20 s, debrief 14 s; total 464 s
+files: implosion.gif implosion.mp4 time_histories.png
+=== CAMPAIGN OK
