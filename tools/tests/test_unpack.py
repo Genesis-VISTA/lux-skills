@@ -253,7 +253,7 @@ class UnpackTest(unittest.TestCase):
 class ActualCatalogTest(unittest.TestCase):
     def test_entire_catalog_survives_both_modes(self):
         sources = leaves(REPO / "skills")
-        self.assertEqual(len(sources), 3)
+        self.assertEqual(len(sources), 4)
         self.assertEqual(len({source.name for source in sources}), len(sources))
         with tempfile.TemporaryDirectory(prefix="lux full catalog ") as tmp:
             for mode in ("copy", "symlink"):

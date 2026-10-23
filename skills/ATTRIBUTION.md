@@ -23,6 +23,23 @@ other Python packages are installed from PyPI by the job, not shipped.
 `icf_4agent/tiktoken/o200k_base.tiktoken` is a copy of OpenAI's o200k_base
 vocabulary, shipped for offline use (TODO: confirm its licence terms).
 
+## parallel-attention-skill
+
+Written for this repository from RingX
+([jqyin/ringX-attention](https://github.com/jqyin/ringX-attention), MIT, Copyright
+2025) and its SC '25 paper (Yin, Palash, Shankar, Wang; DOI
+10.1145/3712285.3759859). It links to, and quotes short snippets from:
+
+- RingX: the kernels, the benchmark and the tests;
+- [ring-flash-attention](https://github.com/zhuzilin/ring-flash-attention) (zhuzilin): the benchmark baselines;
+- [climate-vit](https://github.com/jqyin/climate-vit): the ViT example;
+- [forge](https://github.com/at-aaims/forge), `xforge` branch: the GPT example.
+
+RingX and ring-flash-attention are not vendored: the `ringx-bench` job clones and
+installs them on Lux. The job ships small adapted files: `bench_ringx.py` (RingX's
+benchmark loop), `tests/test_ringX4_attn_func.py` (adapted from RingX's ringX3
+test) and `shims/utils.py` (ring-flash-attention's test helpers), all from MIT code.
+
 ## primus-skill
 
 **Original repository:** https://github.com/jqyin/lux-primus-skill (imported as
