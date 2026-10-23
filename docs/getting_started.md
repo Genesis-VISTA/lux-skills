@@ -22,7 +22,7 @@ export SKILLS_DIR="$HOME/.agents/skills"
 
 ## Use The Skills In VISTA
 
-Each skill ships VISTA HPC jobs under `hpc_jobs/`. Import the skill folder in VISTA (**Skills → Import**), load it into a project, and ask for a job such as `primus-skill/primus-smoke`, `vllm-skill/inkling-serve` (Inkling) or `vllm-skill/muse-serve` (Muse Spark Open) on `lux`.
+Each skill ships VISTA HPC jobs under `hpc_jobs/`. Import the skill folder in VISTA (**Skills → Import**), load it into a project, and ask for a job such as `primus-skill/primus-smoke`, `vllm-skill/inkling-serve` (Inkling) `vllm-skill/muse-serve` (Muse Spark Open) or `autogen-skill/icf-campaign` (the ICF agents, against an Inkling server) on `lux`.
 
 ## Next Steps
 

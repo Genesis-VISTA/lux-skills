@@ -28,11 +28,12 @@ Skills are markdown files (`SKILL.md`) with YAML frontmatter that teach an AI ag
 
 | Skill | Target | Description |
 |---|---|---|
+| [`autogen-skill`](skills/autogen-skill/SKILL.md) | Lux HPC (Slurm + rootless podman) | Run AutoGen multi-agent workflows headless: the four-agent ICF capsule optimizer (a campaign or a laser-energy sweep, with an implosion movie) against a `vllm-skill` Inkling server or gpt-oss-20b served in the job. |
 | [`primus-skill`](skills/primus-skill/SKILL.md) | Lux HPC (Slurm + apptainer) | Train LLMs with AMD Primus (Megatron backend): a Mistral-7B smoke test, or Mistral-Large-Instruct-2411 123B continued pretraining and its Hugging Face export. |
 | [`vllm-skill`](skills/vllm-skill/SKILL.md) | Lux HPC (Slurm + rootless podman) | Serve LLMs with vLLM as an OpenAI-compatible endpoint (Inkling-MXFP4 by default, or Muse Spark Open on one node) and score them on a science benchmark suite. |
 
 Lux has two sides: an HPC side (Slurm, ROCm, Lmod, Orion, NVMe) and a Kubernetes
-side (Rancher, kubectl). Both skills target the **HPC side** only; neither has a
+side (Rancher, kubectl). All skills target the **HPC side** only; none has a
 Kubernetes section.
 
 ---
@@ -68,7 +69,8 @@ options. Existing same-named destination entries are replaced.
 
 Import a skill folder (for example `skills/vllm-skill/`) in VISTA
 with **Skills → Import**, load it into a project, then ask for its job, for
-example `vllm-skill/inkling-serve` or `primus-skill/primus-smoke` on `lux`. Each
+example `vllm-skill/inkling-serve`, `primus-skill/primus-smoke` or
+`autogen-skill/icf-campaign` on `lux`. Each
 `SKILL.md` lists its jobs, their `script_args` keys and the output files to read.
 
 ### Use a Skill
@@ -85,6 +87,7 @@ matching skill from its description.
 lux-skills/
 ├── unpack.sh                  # flatten skills into an agent's skills dir
 ├── skills/
+│   ├── autogen-skill/SKILL.md
 │   ├── primus-skill/SKILL.md
 │   └── vllm-skill/SKILL.md
 ├── CONTRIBUTING.md

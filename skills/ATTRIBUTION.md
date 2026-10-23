@@ -11,6 +11,18 @@ own terms, listed in each skill's `SKILL.md` § "License and acknowledgments".
 **Authors:**
 - Junqi Yin, Oak Ridge National Laboratory (ORNL)
 
+## autogen-skill
+
+**Original repository:** https://github.com/jqyin/lux-autogen-skill (imported as
+`lux-autogen-skill`, renamed `autogen-on-lux` → `autogen-skill`).
+
+The app under `autogen-skill/hpc_jobs/icf-campaign/icf_4agent/` is AMD's
+four-agent ICF tutorial app, MIT-licensed (Copyright (c) 2026 Advanced Micro
+Devices, Inc.; `LICENSE` in that directory). AutoGen (pyautogen 0.2) and the
+other Python packages are installed from PyPI by the job, not shipped.
+`icf_4agent/tiktoken/o200k_base.tiktoken` is a copy of OpenAI's o200k_base
+vocabulary, shipped for offline use (TODO: confirm its licence terms).
+
 ## primus-skill
 
 **Original repository:** https://github.com/jqyin/lux-primus-skill (imported as

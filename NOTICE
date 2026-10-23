@@ -17,6 +17,17 @@ LICENSE for that subtree.
 
 Known subtrees with separate licensing at the time of this writing:
 
+  skills/autogen-skill/             Sourced from github.com/jqyin/lux-autogen-skill.
+                                    Includes an Apache-2.0 LICENSE at
+                                    skills/autogen-skill/LICENSE, which is
+                                    authoritative for the skill's own code.
+                                    See skills/ATTRIBUTION.md.
+
+  skills/autogen-skill/hpc_jobs/icf-campaign/icf_4agent/
+                                    AMD's ICF four-agent tutorial app, MIT:
+                                    LICENSE in that directory (Copyright (c)
+                                    2026 Advanced Micro Devices, Inc.).
+
   skills/primus-skill/              Sourced from github.com/jqyin/lux-primus-skill.
                                     Includes an Apache-2.0 LICENSE at
                                     skills/primus-skill/LICENSE, which is

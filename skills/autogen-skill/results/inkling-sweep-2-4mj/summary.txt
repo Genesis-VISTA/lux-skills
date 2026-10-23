@@ -1,0 +1,14 @@
+model Inkling-MXFP4 at http://lux439:8000/v1
+run: sweep 2-4 MJ, 3 points: 2, 3, 4 MJ, movie, PI debrief
+settings: max_tokens 8192, reasoning_effort medium, temperature 1.0, defect budget delta<=0.3 roughness<=3e-06 m
+
+laser MJ   no defects MJ   worst case MJ (robust)
+    2.00            5.13   4.34
+    3.00            8.48   7.32
+    4.00           12.58   10.88
+best robust design: 10.88 MJ at 4 MJ laser
+best design: R0=0.00013, v0=-4.8e+05, T0=2.5, M_sh=5.21e-07, M_hs=9e-09
+simulations: 111; mean yield 3.37 +- 3.67 MJ
+time: campaign 1985 s, movie 5 s, debrief 14 s; total 2004 s
+files: implosion.gif implosion.mp4 time_histories.png yield_vs_laser.png
+=== CAMPAIGN OK

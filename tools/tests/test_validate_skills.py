@@ -1220,15 +1220,15 @@ def test_cli_profile_all_and_repeatable(tmp_path: Path) -> None:
 # --------------------------------------------------------------------------- #
 
 
-def test_shipped_catalog_discovers_both_skills() -> None:
+def test_shipped_catalog_discovers_all_skills() -> None:
     discovery = vs.discover_skills([REPO_ROOT / "skills"])
-    assert sorted(entry.name for entry in discovery.entries) == ["primus-skill", "vllm-skill"]
+    assert sorted(entry.name for entry in discovery.entries) == ["autogen-skill", "primus-skill", "vllm-skill"]
     assert all(entry.filename == "SKILL.md" for entry in discovery.entries)
     assert discovery.orphans == [] and discovery.case_variants == []
 
 
 def test_shipped_skills_have_no_spec_errors() -> None:
-    for name in ("primus-skill", "vllm-skill"):
+    for name in ("autogen-skill", "primus-skill", "vllm-skill"):
         findings = validate(REPO_ROOT / "skills" / name, ["spec"])
         assert [f.message for f in findings if f.severity == "error"] == []
 
@@ -1237,7 +1237,7 @@ def test_cli_default_paths_cover_the_catalog() -> None:
     proc = run_cli("--profile", "spec", "--list", cwd=REPO_ROOT)
     assert proc.returncode == 0, proc.stderr
     names = [line.split("\t")[0] for line in proc.stdout.splitlines()]
-    assert sorted(names) == ["primus-skill", "vllm-skill"]
+    assert sorted(names) == ["autogen-skill", "primus-skill", "vllm-skill"]
 
 
 def test_rule_ids_are_namespaced_by_profile() -> None:

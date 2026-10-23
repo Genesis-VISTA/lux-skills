@@ -43,6 +43,7 @@ def _write_valid_fixture(root: Path) -> None:
                 "",
                 "Known subtrees with separate licensing:",
                 "",
+                "  skills/autogen-skill/LICENSE",
                 "  skills/primus-skill/LICENSE",
                 "  skills/vllm-skill/LICENSE",
                 "  skills/ATTRIBUTION.md",
@@ -67,9 +68,10 @@ def _write_valid_fixture(root: Path) -> None:
             ]
         ),
     )
+    write_skill(root / "skills" / "autogen-skill", description="AutoGen agents on Lux")
     write_skill(root / "skills" / "primus-skill", description="Primus training on Lux")
     write_skill(root / "skills" / "vllm-skill", description="vLLM serving on Lux")
-    for name in ("primus-skill", "vllm-skill"):
+    for name in ("autogen-skill", "primus-skill", "vllm-skill"):
         write_text(root / "skills" / name / "LICENSE", "Apache-2.0 license placeholder\n")
 
     tree = "\n".join(build_readme_tree_lines(root))

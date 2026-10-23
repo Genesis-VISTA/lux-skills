@@ -1,0 +1,18 @@
+{
+  "lux": {
+    "duration": 3600,
+    "resources": {
+      "node_count": 1,
+      "processes_per_node": 1,
+      "gpus_per_node": 8,
+      "exclusive_node_use": true
+    },
+    "iri": {
+      "partition": "batch",
+      "environment": {
+        "ICF_GPTOSS_MODEL": "/lustre/orion/world-shared/stf218/junqi/Genesis-Hackathon/models/gptoss-20b-hedp.03302026",
+        "ICF_VLLM_IMAGE_TAR": "/lustre/orion/world-shared/stf218/junqi/Genesis-Hackathon/containers/inference_image_gfx950_v8mi250_20261011.tar"
+      }
+    }
+  }
+}
