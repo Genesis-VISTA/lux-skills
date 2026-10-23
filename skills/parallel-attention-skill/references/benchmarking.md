@@ -1,7 +1,7 @@
 # Benchmarking RingX kernels
 
 Paths are in [jqyin/ringX-attention](https://github.com/jqyin/ringX-attention) (read at `d1e53d7`). Everything below
-comes from a static reading of that code. None of it has been run on Lux.
+comes from a static reading of that code, except the "Lux (MI355X)" section, which was run on one node.
 
 ## What is upstream
 
@@ -58,13 +58,14 @@ The kernels run in the order ringX, `zigzag_ring_flash_attn_func`, `stripe_flash
 
 ### Upstream issues to work around
 
-Every item here comes from reading the code; none was confirmed by running it.
+These come from reading the code. On Lux, the shim (1) worked, the zigzag assert (2) was confirmed, and the
+iteration fix (3) was applied (`--num_iter 5`). Items 4 and 5 were not exercised.
 
 1. **Import path.** `submit_frontier.sh` sets `PYTHONPATH=../ringX_attn` and passes `--module ringX1_attn`. The
    modules start with `from .utils import get_default_args` (a relative import), so importing `ringX1_attn` as a
    top-level module should fail. Passing `--module ringX_attn.ringX1_attn` does not help either: the script then
    looks up `ringX_attn.ringX1_attn_func`. A workaround that leaves upstream untouched is one shim module per
-   kernel (TODO: verify on a run):
+   kernel (it works on Lux; the failure of the original form was not tried):
 
    ```bash
    pip install -e /path/to/ringX-attention
@@ -151,40 +152,124 @@ The parts that carry over are the Python script, one rank per GPU, and `setup_di
 | Collectives | RCCL + aws-ofi-rccl over Slingshot (`cxi`) | RCCL on AMD, NCCL on NVIDIA, each with your fabric's plugin and interface variables |
 | `MASTER_ADDR` | first hostname | Use an address on the interface the job's traffic goes over |
 
-### Lux (MI355X), adapted but not yet run
+### Lux (MI355X), tested on one node
 
-The values below come from this repo's `primus-skill` job (`hpc_jobs/primus-smoke/job.lux.slurm`), which runs RCCL
-over Lux's fabric:
+Run on 2026-10-23, on one node (8x MI355X): RingX `d1e53d7`, ring-flash-attn 0.1.8, inside the Primus image
+`/lustre/orion/world-shared/stf218/junqi/primus/primus-v26.5.sif`. That image has torch 2.12 (ROCm 7.15),
+FlashAttention 2.8.3 with forward and backward kernels, and RCCL 2.30.4. No pip install into the image is needed.
+Put the packages on `PYTHONPATH`:
 
 ```bash
-# inside an allocation: salloc -A <account> -p batch -N <nodes> --exclusive
-IFACE=bond0
-export MASTER_ADDR=$(srun -N1 -n1 -w "$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -1)" \
-  bash -c "ip -4 addr show $IFACE | grep -oP '(?<=inet )[0-9.]+'" | tail -1)
-export MASTER_PORT=$(( 20000 + SLURM_JOB_ID % 20000 ))
-export NCCL_SOCKET_IFNAME=$IFACE GLOO_SOCKET_IFNAME=$IFACE
-export NCCL_IB_HCA=ionic_0,ionic_1,ionic_2,ionic_3,ionic_4,ionic_5,ionic_6,ionic_7
-export NCCL_IB_GID_INDEX=1 USING_AINIC=1 RCCL_USE_AMD_SMI_LIB=1
-export PYTHONPATH=$PWD/shims                       # the import shim above
-srun -N "$SLURM_NNODES" --ntasks-per-node=8 --cpus-per-task=16 bash -c '
-  export RANK=$SLURM_PROCID LOCAL_RANK=$SLURM_LOCALID WORLD_SIZE=$SLURM_NTASKS HIP_VISIBLE_DEVICES=$SLURM_LOCALID
-  python benchmark_ringX_func.py --module ringX4_attn --causal --batch_size 1 --seq_length 16384 \
-    --num_heads 32 --head_dim 128 --num_iter 5' >> log.algo-ringX4_attn_n${SLURM_NNODES}_${SLURM_JOB_ID}
+W=$PWD                                 # holds ringX-attention/ (git clone), pydeps/ and shims/
+apptainer exec $SIF python -m pip install --no-deps --target $W/pydeps ring-flash-attn   # via the ORNL proxy
+export APPTAINERENV_PYTHONPATH=$W/ringX-attention:$W/pydeps:$W/shims   # ringX_attn, ring_flash_attn, shims
 ```
 
-TODO before this runs:
+Lux-specific requirements found on the run:
 
-- **A Python environment with torch (ROCm), flash_attn built for gfx950, ringX_attn and ring_flash_attn.**
-  Candidates in this repo:
-  - the Primus image `primus-v26.5.sif`. TODO: check whether it contains `flash_attn` by running
-    `apptainer exec --rocm <sif> python -c "import flash_attn"`;
-  - the vLLM image, which builds FlashAttention at `FA_HASH 145b1010` (see `vllm-skill`'s Dockerfile). It is a
-    podman image, and nobody has checked whether its FlashAttention build provides the backward kernels.
-  - Inside apptainer, pass the NCCL variables as `APPTAINERENV_*`, not with `--env`, which comma-splits
-    `NCCL_IB_HCA` (a note in the primus job).
-- **CPU binding.** `--cpus-per-task=16` (128 / 8 ranks) is an assumption. primus-skill notes that without a
-  `--cpus-per-task` Slurm confines the ranks to one CPU.
-- **NCCL_ALGO, GDR and the other Frontier tunings** have no tested Lux equivalent. Leave RCCL's defaults.
+- **Request the GPUs.** `#SBATCH --gpus-per-node=8` is required, together with `--exclusive`. Without it, the
+  job's steps see no GPU ("ProcessGroupNCCL is only supported with GPUs, no GPUs found!"), even on an exclusive node.
+- **rng_state for the baselines.** ring-flash-attn 0.1.8 calls `_flash_attn_backward` without `rng_state`. FA
+  2.8.3 on ROCm then fails ("Cannot access data pointer of Tensor that doesn't have storage"), as a 1-GPU check
+  confirmed. RingX passes `torch.empty(2)` and is not affected. Patch the baselines in a local copy of the
+  benchmark, before `from ring_flash_attn import ...`:
+
+  ```python
+  import torch, flash_attn.flash_attn_interface as fai
+  import ring_flash_attn.ring_flash_attn as _r, ring_flash_attn.zigzag_ring_flash_attn as _z, ring_flash_attn.stripe_flash_attn as _s
+  _orig = fai._flash_attn_backward
+  def _flash_attn_backward(dout, q, k, v, out, softmax_lse, dq, dk, dv, dropout_p, softmax_scale, causal,
+                           window_size_left, window_size_right, softcap, alibi_slopes, deterministic, rng_state=None):
+      if rng_state is None:
+          rng_state = torch.empty((2,), dtype=torch.int64, device=q.device)
+      return _orig(dout, q, k, v, out, softmax_lse, dq, dk, dv, dropout_p, softmax_scale, causal,
+                   window_size_left, window_size_right, softcap, alibi_slopes, deterministic, rng_state)
+  for m in (_r, _z, _s):
+      m._flash_attn_backward = _flash_attn_backward   # explicit signature: get_default_args must see the names
+  ```
+
+- The import shim (issue 1) and the bi-directional kernel list (issue 2) are needed as described.
+- The FA 2.8.3 private functions are torch custom ops whose signature reads `(*args, **kwargs)`. RingX's
+  `get_default_args` still gets the full argument list through `_init_fn`.
+- Every rank prints a "c10d::broadcast_: an autograd kernel was not registered" warning in backward. It is harmless:
+  RingX does its own backward, and the gradients match the reference (`integration.md`).
+
+The launcher used the NCCL variables of this repo's `primus-skill` job (`hpc_jobs/primus-smoke/job.lux.slurm`):
+
+```bash
+#SBATCH -A <account> -p batch -N 1 --exclusive --gpus-per-node=8
+IFACE=bond0
+export MASTER_ADDR=$(ip -4 addr show $IFACE | grep -oP '(?<=inet )[0-9.]+' | head -1)   # 1 node; multi-node: query the first host
+export MASTER_PORT=$(( 20000 + SLURM_JOB_ID % 20000 ))
+# APPTAINERENV_*, not --env, which comma-splits NCCL_IB_HCA
+export APPTAINERENV_NCCL_SOCKET_IFNAME=$IFACE APPTAINERENV_GLOO_SOCKET_IFNAME=$IFACE
+export APPTAINERENV_NCCL_IB_HCA=ionic_0,ionic_1,ionic_2,ionic_3,ionic_4,ionic_5,ionic_6,ionic_7
+export APPTAINERENV_NCCL_IB_GID_INDEX=1 APPTAINERENV_USING_AINIC=1 APPTAINERENV_RCCL_USE_AMD_SMI_LIB=1
+srun -N1 -n8 --ntasks-per-node=8 --cpus-per-task=16 bash -c "
+  export APPTAINERENV_RANK=\$SLURM_PROCID APPTAINERENV_LOCAL_RANK=\$SLURM_LOCALID APPTAINERENV_WORLD_SIZE=\$SLURM_NTASKS
+  export APPTAINERENV_MASTER_ADDR=$MASTER_ADDR APPTAINERENV_MASTER_PORT=$MASTER_PORT
+  export APPTAINERENV_HIP_VISIBLE_DEVICES=\$SLURM_LOCALID      # benchmark only: it uses cuda:0. Omit for the tests (cuda:rank)
+  exec apptainer exec --rocm --bind /lustre/orion $SIF python benchmark_ringX_func_lux.py \
+    --module ringX4_attn --causal --batch_size 1 --seq_length 16384 --num_heads 32 --head_dim 128 --num_iter 5" \
+  >> log.algo-ringX4_attn_n1_$SLURM_JOB_ID
+```
+
+`--cpus-per-task=16` (128 / 8) worked. The RCCL defaults were left alone; no `NCCL_ALGO`/GDR tuning was tried.
+
+**Measured, one node, 8 GPUs, bf16, fwd+bwd, 5 timed iterations, one run each** (TFLOPS/GPU from
+`benchmark/utils.py`). These are single measurements. Repeat them before relying on them.
+
+| Attention | Point (b, s/N, heads × d) | Kernel | Time (5 it) | TFLOPS/GPU |
+|---|---|---|---|---|
+| causal | 1, 16384, 32 × 128 | **ringX3** | 1.532 s | 366 |
+| | | ringX2 | 1.551 s | 362 |
+| | | ringX4 | 1.678 s | 334 |
+| | | ring | 1.65 s | 340 |
+| | | zigzag ring | 1.72–1.92 s | 292–326 |
+| | | stripe | 1.85–1.90 s | 296–303 |
+| bi-directional | 32, 8192, 32 × 128 | **ringX1** | 13.90 s | 342 |
+| | | ring | 36.92 s | 129 |
+| bi-directional | 128, 2048, 32 × 128 | **ringX1** | 6.14 s | 258 |
+| | | ring | 26.86 s | 59 |
+| causal | 64, 4096, 32 × 128 | **ringX3** | 4.56 s | 579 |
+| | | ringX4 | 7.28 s | 363 |
+| | | ringX2 | 9.10 s | 290 |
+| | | ring | 14.1–21.9 s | 121–187 |
+| | | zigzag ring | 21.1–27.3 s | 97–125 |
+| | | stripe | 20.1–35.7 s | 74–132 |
+| bi-directional | 64, 8192, 32 × 128 | **ringX1** | 27.35 s | 347 |
+| | | ring | 45.77 s | 208 |
+
+(The baseline ranges are over the three causal runs, which each re-time the baselines.)
+
+At batch 64, the causal point had to drop to 4096 tokens/GPU. At b=64 with 16384 tokens/GPU (131K global), ringX3
+runs out of memory all-gathering KV (a 128 GiB allocation, on 288 GB GPUs), and ringX2/ringX4 fail with "CUDA
+driver error: 1" inside `update_out_and_lse` (presumably memory too). The baselines vary up to 1.7x between
+repeats at b=64, so repeat them.
+
+**The TFLOPS column is not attention FLOPs.** `benchmark/utils.py` counts 3 × (8·b·S·h² + 4·b·S²·h). That includes
+projection FLOPs (8·b·S·h²) the kernel does not do, and it does not halve the S² term for causal attention. For a
+like-for-like number, count 4·b·S²·H·d × 3.5 (forward + 2.5x backward), halved for causal, and compare with
+single-GPU `flash_attn_func` on the same image (one MI355X, FA 2.8.3, bf16, fwd+bwd):
+
+| `flash_attn_func`, one GPU | Real attention TFLOPS |
+|---|---|
+| causal, b=1, s=16384 | 374 |
+| causal, b=64, s=4096 | 246 |
+| causal, b=1, s=131072 | 448 |
+| bi-directional, b=32 or 64, s=8192 | 464 |
+| bi-directional, b=8, s=65536 | 471 |
+
+Counted this way, on 8 GPUs:
+- ringX1 at b=32/64, s/N=8192 reaches 354/360 TFLOPS/GPU, about 77% of the 464 ceiling (ring: 133/215).
+- ringX3 reaches 201 at causal b=1, s/N=16K, and 270 at b=64, s/N=4K.
+
+For bi-directional attention, ringX1 is already at a plateau at b=32 (342 → 347 by the utils formula). Batch
+size helps the causal kernels more.
+
+On one node, ringX1 is 2.7–4.4x faster than ring attention for bi-directional attention. For causal attention at
+this point, ringX2/ringX3 are ~7% faster than ring and 11–20% faster than zigzag. ringX4 does not win on a single
+MI355X node, which differs from the "one node → ringX4" heuristic. Benchmark at your own point before choosing.
 
 ## Collective bandwidth
 

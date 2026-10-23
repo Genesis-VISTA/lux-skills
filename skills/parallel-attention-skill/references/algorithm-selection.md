@@ -60,6 +60,9 @@ volume (ringX1/2) or by using collectives that run faster at that size and scale
   sequence, 44% of the MI250X peak.
 - At **scale**, ringX3 is the fastest: up to **3.2x** over zigzag ring at 1024 tokens per GPU on 128 GPUs, and
   near-perfect scaling to 128 GPUs where ring falls to ~50%.
+- **On one Lux node (8x MI355X), one measurement** (`benchmarking.md`): at b=1, 16K tokens/GPU, 32×128, ringX3
+  (366 TFLOPS/GPU) and ringX2 (362) beat ringX4 (334) and ring (340). ringX4 was not the fastest there. Treat the
+  "one node → ringX4" rule as Frontier-derived, and benchmark on Lux.
 - **ringX2** beats ring at medium scale.
 - Zigzag load balancing is worth about 10% over stripe.
 

@@ -19,7 +19,8 @@ This skill has three parts, each in its own reference file:
 
 Nothing here is vendored: install RingX from upstream. The job scripts upstream are written for Frontier
 (MI250X, Slingshot, `cxi`). On Lux (8x MI355X per node, ROCm/RCCL, Slurm partition `batch`), use the adaptations in
-`references/benchmarking.md`. No RingX run has been made on Lux yet.
+`references/benchmarking.md`. All four kernels were run on one Lux node (2026-10-23, Primus image): correctness and
+a kernel benchmark, see "Lux (MI355X)" in `references/benchmarking.md`. No multi-node run yet.
 
 ## Choosing an algorithm
 
@@ -80,9 +81,14 @@ out = ringX1_attn_func(q, k, v, causal=False, group=cp_group)   # q,k,v: (b, s/N
   `ringX1o_varlen` raises `NotImplementedError` for causal. All of them default to `causal=False`.
 - **ringX3 memory.** ringX3 all-gathers the full KV onto every GPU (O(hbs) memory), so the context it supports is
   bounded by one GPU's memory. ringX4 has the same communication volume but O(hbs/N) memory.
+- **ringX4 needs an explicit group.** It calls `dist.get_global_rank(group, i)`, which raises "Group None is not
+  registered" for the default `group=None`. Pass `group=dist.group.WORLD` (or your CP group). ringX1/2/3 accept None.
 - **No masks or ALiBi.** There is no attention-mask argument, and `alibi_slopes` must be `None`.
 - **Private FlashAttention API.** The kernels call `flash_attn.flash_attn_interface._flash_attn_forward/_backward`.
-  A FlashAttention build that changes those signatures will break them.
+  A FlashAttention build that changes those signatures will break them. FlashAttention 2.8.3 (ROCm, Primus image)
+  wraps them as torch custom ops; RingX's `get_default_args` still reads the arguments, and the kernels work. The
+  ring-flash-attention baselines (0.1.8) do not: they omit `rng_state`, and the ROCm backward then fails with "Cannot
+  access data pointer of Tensor that doesn't have storage". The fix is in `references/benchmarking.md`.
 - **The upstream benchmark as written.** `--module ringX1_attn` with `PYTHONPATH=../ringX_attn` likely fails,
   because the modules use relative imports. Without `--causal`, it stops at the zigzag baseline, which asserts
   causal, so plain ring is never timed. `benchmark/utils.py` assumes 5 iterations. Fixes are in

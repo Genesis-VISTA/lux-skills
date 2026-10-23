@@ -253,9 +253,23 @@ Running the upstream tests:
   the shim from `benchmarking.md`.
 - They use `device = cuda:{rank}`, so they run as written only on **one node** with all GPUs visible to every
   rank. The README runs them as `srun -n8 bash -c "source setup_dist_vars.sh; python ../test/test_ringX1_attn_func.py"`.
-- Tests exist for ringX1, ringX1o_varlen, ringX2 and ringX3. For ringX4, adapt the ringX3 test (both use zigzag).
+- Tests exist for ringX1, ringX1o_varlen, ringX2 and ringX3. For ringX4, adapt the ringX3 test (both use zigzag),
+  and pass `group=dist.group.WORLD`: ringX4 fails on `group=None` (the ringX3 test passes none).
 
-Expect bf16-level differences. TODO: upstream gives no tolerance; judge against the reference's own scale, and
+Expect bf16-level differences. Upstream gives no tolerance. Measured on one Lux node (8 ranks, b=1, s≈3.8K,
+5 heads × 128, bf16; worst rank):
+
+| Kernel | out | lse | dq | dk | dv |
+|---|---|---|---|---|---|
+| ringX1 (bi-dir) | 9.8e-4 | 3.8e-6 | 9.8e-4 | 9.8e-4 | 9.8e-4 |
+| ringX2 | 2.0e-3 | 2.9e-6 | 2.0e-3 | 1.6e-2 | 1.6e-2 |
+| ringX3 | 4.9e-4 | 3.8e-6 | 2.0e-3 | 3.1e-2 | 3.1e-2 |
+| ringX4 | 4.9e-4 | 3.8e-6 | 2.0e-3 | 1.6e-2 | 1.6e-2 |
+
+These are max absolute differences, against outputs of scale ~4 and lse ~9. The causal tests compare only one
+sequence position per gradient (`dq[:, 0]`, `dk[:, 1]`, `dv[:, 2]`). The largest dk/dv errors are on rank 0, whose
+first positions are attended by every later token, and they fall to ≤2e-3 on the other ranks. Mean differences
+are 2e-3 or less. Use these as a reference scale, and
 compare with ring-flash-attention on the same inputs if in doubt. Re-run the check whenever the CP group, sharding
 or FlashAttention version changes. Then run a few training steps with CP = 1 and CP = N on the same data, and
 compare the losses.
