@@ -22,7 +22,7 @@ export SKILLS_DIR="$HOME/.agents/skills"
 
 ## Use The Skills In VISTA
 
-The Lux skills ship VISTA HPC jobs under `hpc_jobs/` (`parallel-attention-skill` is a guide and has none). Import the skill folder in VISTA (**Skills → Import**), load it into a project, and ask for a job such as `primus-skill/primus-smoke`, `vllm-skill/inkling-serve` (Inkling) `vllm-skill/muse-serve` (Muse Spark Open) or `autogen-skill/icf-campaign` (the ICF agents, against an Inkling server) on `lux`.
+The Lux skills ship VISTA HPC jobs under `hpc_jobs/`. Import the skill folder in VISTA (**Skills → Import**), load it into a project, and ask for a job such as `primus-skill/primus-smoke`, `vllm-skill/inkling-serve` (Inkling) `vllm-skill/muse-serve` (Muse Spark Open) `autogen-skill/icf-campaign` (the ICF agents, against an Inkling server) or `parallel-attention-skill/ringx-bench` (RingX kernel tests and benchmark) on `lux`.
 
 ## Next Steps
 

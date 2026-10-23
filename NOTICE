@@ -33,8 +33,10 @@ Known subtrees with separate licensing at the time of this writing:
                                     skills/parallel-attention-skill/LICENSE,
                                     which is authoritative for the skill's own
                                     text. It links to RingX (MIT) and other
-                                    upstream code; nothing is vendored. See
-                                    skills/ATTRIBUTION.md.
+                                    upstream code. RingX is not vendored; the
+                                    ringx-bench job ships small files adapted
+                                    from RingX and ring-flash-attention (MIT).
+                                    See skills/ATTRIBUTION.md.
 
   skills/primus-skill/              Sourced from github.com/jqyin/lux-primus-skill.
                                     Includes an Apache-2.0 LICENSE at

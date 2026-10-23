@@ -35,7 +35,10 @@ Written for this repository from RingX
 - [climate-vit](https://github.com/jqyin/climate-vit): the ViT example;
 - [forge](https://github.com/at-aaims/forge), `xforge` branch: the GPT example.
 
-No code from them is vendored.
+RingX and ring-flash-attention are not vendored: the `ringx-bench` job clones and
+installs them on Lux. The job ships small adapted files: `bench_ringx.py` (RingX's
+benchmark loop), `tests/test_ringX4_attn_func.py` (adapted from RingX's ringX3
+test) and `shims/utils.py` (ring-flash-attention's test helpers), all from MIT code.
 
 ## primus-skill
 

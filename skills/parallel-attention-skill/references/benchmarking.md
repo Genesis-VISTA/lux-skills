@@ -271,6 +271,98 @@ On one node, ringX1 is 2.7–4.4x faster than ring attention for bi-directional 
 this point, ringX2/ringX3 are ~7% faster than ring and 11–20% faster than zigzag. ringX4 does not win on a single
 MI355X node, which differs from the "one node → ringX4" heuristic. Benchmark at your own point before choosing.
 
+### Lux reference results: scaling to 16 nodes, sequence sweep, hardware FLOP check
+
+Run on 2026-10-23 with the job `hpc_jobs/ringx-bench` (`scripts/bench.sh`, `NODES=1..16`), same software as above.
+The context-parallel group is every GPU of the job (8 per node, up to 128). bf16, fwd+bwd, 32 heads × 128, 5 timed
+iterations, one run each. The numbers are **real** TFLOPS/GPU (attention FLOPs only, halved for causal); `%` is of
+single-GPU `flash_attn_func` at the same per-GPU shape. Outputs are in `runs/ringx.<jobid>/summary.txt`.
+
+**Weak scaling at 64K tokens/GPU, batch 1** (jobs 364897–364901; global sequence 512K to 8M tokens):
+
+| Nodes (GPUs) | ringX2 | ringX3 | ringX4 | ring | zigzag | stripe | best ringX / best baseline |
+|---|---|---|---|---|---|---|---|
+| 1 (8) | 235 | **441** (102%) | 407 | 231 | 400 | 345 | 1.10x |
+| 2 (16) | 191 | **384** | 333 | 120 | 343 | 167 | 1.12x |
+| 4 (32) | 225 | **445** | 410 | 96 | 306 | 112 | 1.46x |
+| 8 (64) | 217 | **438** | 403 | 111 | 299 | 113 | 1.47x |
+| 16 (128) | 217 | OOM | **398** (92%) | 154 | 278 | timed out (40 min) | 1.44x |
+
+| Nodes (GPUs) | bi-directional ringX1 | ring | ringX1 / ring |
+|---|---|---|---|
+| 1 (8) | **446** (95%) | 434 | 1.03x |
+| 2 (16) | **386** | 343 | 1.12x |
+| 4 (32) | **441** | 321 | 1.37x |
+| 8 (64) | **433** | 331 | 1.31x |
+| 16 (128) | **432** (93%) | 336 | 1.29x |
+
+**Weak scaling at 16K tokens/GPU** (jobs 364848–364853; causal batch 1, bi-directional batch 8):
+
+| Nodes (GPUs) | ringX2 | ringX3 | ringX4 | ring | zigzag | stripe | ringX1 (bidir) | ring (bidir) |
+|---|---|---|---|---|---|---|---|---|
+| 1 (8) | **199** | 198 | 189 | 189 | 164 | 167 | **347** | 310 |
+| 2 (16) | 116 | **238** | 193 | 122 | 135 | 129 | **176** | 72 |
+| 4 (32) | 182 | **398** | 300 | 128 | 140 | 133 | **335** | 74 |
+| 8 (64) | 177 | **393** | 303 | 19 | 139 | 50 | **325** | 78 |
+| 16 (128) | 170 | **392** | 300 | failed | 138 | 26 | **321** | timed out |
+
+What the scaling shows:
+
+- **The RingX kernels weak-scale almost flat from 1 to 16 nodes.** At 64K, ringX4 goes 407 → 398 and ringX1
+  446 → 432. The ring-attention baselines collapse across nodes: ring and stripe fall to 20–150, and zigzag holds
+  only about 140 (16K) or 280 (64K).
+- **2 nodes is a dip for every kernel** (ringX1 at 16K: 347 → 176 → 335). Do not extrapolate from 2 nodes.
+- **ringX3 is fastest wherever it fits, and its memory grows with the GPU count.** Its peak is the full gathered
+  KV: at 64K/GPU, 39, 71, 135 and 263 GiB on 1, 2, 4 and 8 nodes, and out of memory on 16 (288 GB GPUs). At 16K/GPU
+  it reaches 130 GiB on 16 nodes. The measured peaks fit about 16 × b × S × H × d bytes, with S the global
+  sequence (bf16 K and V, fp32 dK and dV, and buffers).
+- **ringX4 is the fallback beyond ringX3's memory limit.** It stays at 12.5 GiB (64K) and 3.1 GiB (16K) at every
+  node count, at 87–92% of ringX3's speed at 64K/GPU and about 75% at 16K/GPU. On Lux: ringX3 while
+  16·b·S·H·d bytes fits in GPU memory next to the model, then ringX4.
+- **ringX2 stays at about half of the single-GPU rate** at every scale (see the hardware check below for why).
+- **Longer sequences per GPU scale better** for every kernel: per-GPU compute grows as s², the messages as s.
+
+**Sequence-length sweep on one node at constant tokens per GPU × batch** (job 364868, causal, 8 GPUs):
+
+| Tokens/GPU × batch | ringX2 | ringX3 | ringX4 | 1-GPU `flash_attn_func` |
+|---|---|---|---|---|
+| 4K × 16 | 131 | **163** (67%) | 131 | 244 |
+| 8K × 8 | 173 | **260** (81%) | 215 | 323 |
+| 16K × 4 | 206 | **363** (93%) | 318 | 391 |
+| 32K × 2 | 224 | **426** (97%) | 393 | 437 |
+| 64K × 1 | 237 | **443** (104%) | 412 | 425 |
+| 128K × 1 | 245 | **456** (101%) | 434 | 451 |
+
+Bi-directional ringX1 on the same sweep: 273 (63%) at 4K × 16, 399 (86%) at 16K × 4, 448 (95%) at 64K × 1, and 460
+(97%) at 128K × 1. Throughput rises with the per-GPU sequence for two reasons. FlashAttention itself is faster at
+long sequences (244 → 451 on one GPU), and the communication share falls. **For the same tokens per GPU, prefer a
+longer sequence and a smaller batch.** At 64K and above, ringX3 and ringX1 are at the single-GPU rate (95–104%).
+
+**Hardware FLOP check with rocprofv3** (one node, `scripts/hwflops/run.sh`). The MI355X counter
+`SQ_INSTS_VALU_MFMA_MOPS_BF16` counts matrix-core work in units of 512 FLOPs. A bf16 GEMM of known size calibrates
+this exactly (1.000). Counted over one warm-up and one timed step, per GPU:
+
+| Workload | hardware FLOPs / `real` formula |
+|---|---|
+| bf16 GEMM 8192³, 1 GPU | 1.000 |
+| `flash_attn_func` fwd+bwd, bi-directional, s=16K, 1 GPU | 1.000 |
+| `flash_attn_func` fwd+bwd, causal, s=16K, 1 GPU | 1.008 |
+| ringX3, ringX4, zigzag: causal, 1:16384, 8 GPUs | 1.001 |
+| ringX1, ring: bi-directional, 8:8192, 8 GPUs | 1.000 |
+| ringX2: causal, 1:16384, 8 GPUs | 0.84 (one rank; see below) |
+
+- **The `real` count is what the hardware executes.** The FlashAttention backward is 2.5x the forward (it
+  recomputes QKᵀ), as the formula's × 3.5 assumes. Causal masking costs only 0.1–0.8% extra, for the diagonal
+  tiles. The context-parallel kernels add no recompute and no redundant blocks.
+- **`utils` overstates causal by 1.7–1.8x.** Quote `real` (and its `%`) for Lux results.
+- **ringX2 is not load-balanced.** Only one rank's counters were saved per run (all ranks wrote the same file
+  name), and that rank did 0.84x the mean work. Without zigzag sharding, the causal work per rank is uneven, so the
+  step waits on the busiest rank. This would explain its ~50% efficiency at every scale. It is inferred from one
+  rank and not yet confirmed per rank.
+- **Use `_rocm_sdk_core/bin/rocprofv3`** in the Primus image. The `rocprofv3` on `PATH` (`_rocm_sdk_devel`) loads a
+  second `libLLVM` next to torch's, and the process aborts with "Option 'spirv-expand-step' registered more than
+  once" and then hangs.
+
 ## Collective bandwidth
 
 The ranking of ringX3 against ringX4, and of ringX1/2 against ring, follows from how fast broadcast/reduce run

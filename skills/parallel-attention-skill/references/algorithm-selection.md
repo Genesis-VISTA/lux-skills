@@ -63,6 +63,10 @@ volume (ringX1/2) or by using collectives that run faster at that size and scale
 - **On one Lux node (8x MI355X), one measurement** (`benchmarking.md`): at b=1, 16K tokens/GPU, 32×128, ringX3
   (366 TFLOPS/GPU) and ringX2 (362) beat ringX4 (334) and ring (340). ringX4 was not the fastest there. Treat the
   "one node → ringX4" rule as Frontier-derived, and benchmark on Lux.
+- **On Lux from 1 to 16 nodes** (`benchmarking.md`, "Lux reference results"): ringX3 is the fastest at every node
+  count where it fits (2.8x the best baseline at 16K tokens/GPU, 1.1–1.5x at 64K). Its gathered KV runs out of memory
+  at 16 nodes × 64K. ringX4 then takes over at 398 TFLOPS/GPU (real), 1.44x zigzag. This matches the paper's "at
+  scale → ringX3", with ringX4 as the fallback when ringX3 runs out of memory.
 - **ringX2** beats ring at medium scale.
 - Zigzag load balancing is worth about 10% over stripe.
 
