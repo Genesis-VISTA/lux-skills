@@ -28,6 +28,14 @@ Known subtrees with separate licensing at the time of this writing:
                                     LICENSE in that directory (Copyright (c)
                                     2026 Advanced Micro Devices, Inc.).
 
+  skills/parallel-attention-skill/  Written for this repository. Includes an
+                                    Apache-2.0 LICENSE at
+                                    skills/parallel-attention-skill/LICENSE,
+                                    which is authoritative for the skill's own
+                                    text. It links to RingX (MIT) and other
+                                    upstream code; nothing is vendored. See
+                                    skills/ATTRIBUTION.md.
+
   skills/primus-skill/              Sourced from github.com/jqyin/lux-primus-skill.
                                     Includes an Apache-2.0 LICENSE at
                                     skills/primus-skill/LICENSE, which is

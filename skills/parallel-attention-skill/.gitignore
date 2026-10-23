@@ -1,0 +1,7 @@
+runs/
+work/
+__pycache__/
+*.pyc
+*.log
+log.algo*
+benchmark/logs/

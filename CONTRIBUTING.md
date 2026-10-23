@@ -19,6 +19,7 @@ with no domain folder:
 
 - `primus-skill` (training), `vllm-skill` (inference) and `autogen-skill` (agents on a vLLM endpoint), all on the Lux HPC side
   (Slurm, ROCm, containers, Orion, NVMe)
+- `parallel-attention-skill` (RingX context-parallel attention: choosing, benchmarking, integrating)
 
 Add a new skill as `skills/<skill>/` and list its authors in `skills/ATTRIBUTION.md`.
 
