@@ -64,3 +64,15 @@ is ported from AMD's Zenith v0.1.9 (https://github.com/jbelofamd/zenith, tag
 `v0.1.9`, commit `70e5f0bf`), MIT-licensed (Copyright (c) 2026 The Zenith
 authors; `LICENSE-zenith` in that directory), with Zenith -> Lux renames and
 the Lux additions listed in its `README.md`, which are Apache-2.0.
+
+## verl-grpo-skill
+
+Written for this repository as a wrapper around tutorial 4 from the Lux
+AI-for-Science package at `lux-primus/lux_hackathon_AI4Sci_tutorials`.
+Its GRPO assets are also shared under `Genesis-Hackathon`, the skill's default
+package root. The tutorial's verl GRPO driver, custom science reward, Ray/Slurm
+scripts, prepared data, model weights and containers are read from that package;
+none is vendored here. This subtree's original wrappers and documentation are
+Apache-2.0. The Mistral model and its derivatives use the Mistral Research
+Licence; the package's `README.hackathon` and tutorial 4 `README.md` give the
+data and result attribution.

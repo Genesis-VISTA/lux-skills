@@ -31,6 +31,7 @@ Skills are markdown files (`SKILL.md`) with YAML frontmatter that teach an AI ag
 | [`autogen-skill`](skills/autogen-skill/SKILL.md) | Lux HPC (Slurm + rootless podman) | Run AutoGen multi-agent workflows headless: the four-agent ICF capsule optimizer (a campaign or a laser-energy sweep, with an implosion movie) against a `vllm-skill` Inkling server or gpt-oss-20b served in the job. |
 | [`parallel-attention-skill`](skills/parallel-attention-skill/SKILL.md) | GPU clusters (Lux, Frontier) | Choose, benchmark and integrate RingX context-parallel attention (ringX1 to ringX4) for long-sequence ViT and GPT training; a Lux job tests and benchmarks the kernels against ring attention. |
 | [`primus-skill`](skills/primus-skill/SKILL.md) | Lux HPC (Slurm + apptainer) | Train LLMs with AMD Primus (Megatron backend): a Mistral-7B smoke test, or Mistral-Large-Instruct-2411 123B continued pretraining and its Hugging Face export. |
+| [`verl-grpo-skill`](skills/verl-grpo-skill/SKILL.md) | Lux HPC (Slurm + apptainer) | Post-train Mistral-Large 123B with verl GRPO and verifiable science rewards: an 8-node smoke test, checkpointed control/public-only runs, and science evaluation. |
 | [`vllm-skill`](skills/vllm-skill/SKILL.md) | Lux HPC (Slurm + rootless podman) | Serve LLMs with vLLM as an OpenAI-compatible endpoint (Inkling-MXFP4 by default, or Muse Spark Open on one node) and score them on a science benchmark suite. |
 
 Lux has two sides: an HPC side (Slurm, ROCm, Lmod, Orion, NVMe) and a Kubernetes
@@ -73,6 +74,8 @@ with **Skills → Import**, load it into a project, then ask for its job, for
 example `vllm-skill/inkling-serve`, `primus-skill/primus-smoke`,
 `autogen-skill/icf-campaign` or `parallel-attention-skill/ringx-bench` on `lux`. Each
 `SKILL.md` lists its jobs, their `script_args` keys and the output files to read.
+For GRPO, submit `verl-grpo-skill/grpo-train`; it defaults to the tutorial's
+three-step smoke run.
 
 ### Use a Skill
 
@@ -91,6 +94,7 @@ lux-skills/
 │   ├── autogen-skill/SKILL.md
 │   ├── parallel-attention-skill/SKILL.md
 │   ├── primus-skill/SKILL.md
+│   ├── verl-grpo-skill/SKILL.md
 │   └── vllm-skill/SKILL.md
 ├── CONTRIBUTING.md
 ├── LICENSE
