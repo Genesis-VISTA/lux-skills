@@ -5,6 +5,9 @@ description: Serve LLMs with vLLM on OLCF Lux (MI355X, Slurm + rootless podman) 
 
 # vLLM on OLCF Lux
 
+For Ignite Kubernetes hosting or access to an existing Rancher-managed service,
+use `ignite-serving-skill`. This skill covers the Slurm workflow.
+
 Lux: `login1.lux.olcf.ornl.gov`, nodes `lux001..504`, 8x MI355X (gfx950, 288 GB) per node, 8x Pollara 400G RoCE
 NICs, Slurm partition `batch`. Inference runs in **rootless podman** (the Primus skill uses apptainer; this image is
 a 57 GB podman archive). Compute nodes reach the internet only through the OLCF proxy (`http(s)_proxy=http://proxy.ccs.ornl.gov:3128`); serving needs none.

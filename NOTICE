@@ -28,6 +28,13 @@ Known subtrees with separate licensing at the time of this writing:
                                     LICENSE in that directory (Copyright (c)
                                     2026 Advanced Micro Devices, Inc.).
 
+  skills/ignite-serving-skill/     Original wrappers and documentation by
+                                    Nicholas Malaya with Codex assistance,
+                                    under its Apache-2.0 LICENSE. Invokes an
+                                    authorized external Zenith ML4 checkout;
+                                    no Zenith sources or weights are vendored.
+                                    See skills/ATTRIBUTION.md.
+
   skills/parallel-attention-skill/  Written for this repository. Includes an
                                     Apache-2.0 LICENSE at
                                     skills/parallel-attention-skill/LICENSE,

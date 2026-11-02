@@ -1,6 +1,6 @@
 # Contributing to Lux Skills
 
-Thank you for your interest in contributing to Lux Skills. This guide covers the [Claude Code skills format](https://code.claude.com/docs/en/skills) as a baseline, the [VISTA HPC skill format](https://genesis-vista.github.io/docs/modsim-skill) every skill here follows, plus our conventions for portable multi-client skills. The development repository is TODO: (not settled yet).
+Thank you for your interest in contributing to Lux Skills. This guide covers the [Claude Code skills format](https://code.claude.com/docs/en/skills) as a baseline, the [VISTA HPC skill format](https://genesis-vista.github.io/docs/modsim-skill) used by HPC skills, plus our conventions for portable multi-client skills. Kubernetes skills use kubectl workflows and do not need artificial Slurm jobs. The development repository is TODO: (not settled yet).
 
 ---
 
@@ -20,6 +20,7 @@ with no domain folder:
 - `primus-skill` (continued pretraining), `verl-grpo-skill` (GRPO reinforcement learning), `vllm-skill` (inference) and `autogen-skill` (agents on a vLLM endpoint), all on the Lux HPC side
   (Slurm, ROCm, containers, Orion, NVMe)
 - `parallel-attention-skill` (RingX context-parallel attention: choosing, benchmarking, integrating)
+- `ignite-serving-skill` (shared-service access and ML4 hosting on Ignite Kubernetes)
 
 Add a new skill as `skills/<skill>/` and list its authors in `skills/ATTRIBUTION.md`.
 
@@ -31,7 +32,7 @@ mark it `TODO:`.
 
 ### VISTA HPC Jobs
 
-Each job lives at `<skill>/hpc_jobs/<job>/` with a `README.md` whose first line
+For HPC skills, each job lives at `<skill>/hpc_jobs/<job>/` with a `README.md` whose first line
 is `# <job>`, a `cluster_defaults.json` with a `lux` section (`iri.partition`,
 `resources.gpus_per_node`, `duration` in seconds, at most 4 hours), and a
 `job.lux.slurm` with no `#SBATCH` lines that writes under `$VISTA_OUT` and
@@ -43,7 +44,7 @@ skill with VISTA's `hpc-skill-author` validator before opening a PR.
 
 Use this checklist when your PR adds or changes a skill:
 
-1. Create or update the skill subtree under `skills/<domain>/<skill>/`.
+1. Create or update the skill subtree under `skills/<skill>/`.
 2. Keep the skill instructions in `SKILL.md` and any supporting files in the same subtree.
 3. Add or update the relevant attribution file in that subtree when the skill has authors, upstream sources, or provenance notes.
 4. Put new author names in the attribution source file first, not directly in the root README.
