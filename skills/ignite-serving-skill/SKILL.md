@@ -1,6 +1,7 @@
 ---
 name: ignite-serving-skill
 description: Connect to a shared vLLM endpoint on Lux Ignite Kubernetes, or prepare and operate a pinned Zenith Mistral Large 4 GPU Job. Use for Rancher/kubectl model hosting on Ignite; Slurm serving stays in vllm-skill.
+compatibility: Needs a host shell with kubectl, OpenSSH and a route to the Ignite Rancher API. It does not run inside the VISTA sandbox and ships no VISTA HPC jobs.
 ---
 
 # Model serving on Lux Ignite Kubernetes
@@ -10,6 +11,18 @@ Use this skill for an existing shared endpoint or a new single-node ML4 server.
 The hosting recipe retains Zenith's pinned, unmerged vLLM/AITER optimizations.
 It does not use `sbatch`, VISTA `submit_hpc_job`, Slurm/Flux, or a Docker daemon.
 For a Slurm workload use `vllm-skill` instead.
+
+## Running inside VISTA
+
+If `/mnt/skills` exists, you are in the VISTA sandbox. It has no kubectl, OpenSSH
+or git, reaches only public network destinations, and cannot take the user's
+SecurID prompt, so do not try to connect, port-forward or apply manifests here,
+and never ask for a kubeconfig to be copied into the sandbox. Explain the steps,
+or render a plan with `prepare_ml4.py` if an authorized Zenith checkout is
+already in the sandbox. Tell the user to run `connect.py` and any `kubectl apply`
+in a terminal on their own machine. To use a running Ignite model from VISTA,
+they can point a custom inference endpoint in VISTA's Settings at the local URL
+`connect.py` prints; this route is untested.
 
 ## Choose the requested operation
 

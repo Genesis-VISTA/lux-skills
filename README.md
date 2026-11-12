@@ -5,13 +5,14 @@
 Lux Skills is a collection of reusable [Agent Skills](https://agentskills.io) for
 training and serving large language models on the
 [OLCF Lux](https://docs.olcf.ornl.gov/systems/lux_user_guide.html) AMD Instinct
-MI355X cluster. HPC skills ship jobs in the
+MI355X cluster. Skills marked "yes" under **VISTA** in the table below ship jobs in the
 [VISTA](https://genesis-vista.github.io/docs/modsim-skill) `hpc_jobs/` format, so
-VISTA can submit it with `submit_hpc_job(job="<skill>/<job>", cluster="lux")`,
+VISTA can submit them with `submit_hpc_job(job="<skill>/<job>", cluster="lux")`,
 and it also works by hand from a Lux login node with Claude Code, Codex, Cursor,
 OpenCode or Gemini CLI. `ignite-serving-skill` targets Lux's Ignite Kubernetes
 partition through kubectl, with a shared-service client and a pinned ML4 hosting
-recipe. It does not submit VISTA HPC jobs.
+recipe. It does not yet support submission via VISTA;
+use it from a terminal agent on a machine with kubectl and a route to Rancher.
 
 ---
 
@@ -28,14 +29,14 @@ Skills are markdown files (`SKILL.md`) with YAML frontmatter that teach an AI ag
 
 ## Skills
 
-| Skill | Target | Description |
-|---|---|---|
-| [`autogen-skill`](skills/autogen-skill/SKILL.md) | Lux HPC (Slurm + rootless podman) | Run AutoGen multi-agent workflows headless: the four-agent ICF capsule optimizer (a campaign or a laser-energy sweep, with an implosion movie) against a `vllm-skill` Inkling server or gpt-oss-20b served in the job. |
-| [`ignite-serving-skill`](skills/ignite-serving-skill/SKILL.md) | Lux Ignite (Kubernetes + Rancher) | Connect to a shared model or host Zenith's pinned Mistral Large 4 stack on four MI355X GPUs using persistent storage, bounded GPU Jobs and kubectl. Hosting requires an authorized Zenith checkout. |
-| [`parallel-attention-skill`](skills/parallel-attention-skill/SKILL.md) | GPU clusters (Lux, Frontier) | Choose, benchmark and integrate RingX context-parallel attention (ringX1 to ringX4) for long-sequence ViT and GPT training; a Lux job tests and benchmarks the kernels against ring attention. |
-| [`primus-skill`](skills/primus-skill/SKILL.md) | Lux HPC (Slurm + apptainer) | Train LLMs with AMD Primus (Megatron backend): a Mistral-7B smoke test, or Mistral-Large-Instruct-2411 123B continued pretraining and its Hugging Face export. |
-| [`verl-grpo-skill`](skills/verl-grpo-skill/SKILL.md) | Lux HPC (Slurm + apptainer) | Post-train Mistral-Large 123B with verl GRPO and verifiable science rewards: an 8-node smoke test, checkpointed control/public-only runs, and science evaluation. |
-| [`vllm-skill`](skills/vllm-skill/SKILL.md) | Lux HPC (Slurm + rootless podman) | Serve LLMs with vLLM as an OpenAI-compatible endpoint (Inkling-MXFP4 by default, or Muse Spark Open on one node) and score them on a science benchmark suite. |
+| Skill | Target | VISTA | Description |
+|---|---|---|---|
+| [`autogen-skill`](skills/autogen-skill/SKILL.md) | Lux HPC (Slurm + rootless podman) | yes | Run AutoGen multi-agent workflows headless: the four-agent ICF capsule optimizer (a campaign or a laser-energy sweep, with an implosion movie) against a `vllm-skill` Inkling server or gpt-oss-20b served in the job. |
+| [`ignite-serving-skill`](skills/ignite-serving-skill/SKILL.md) | Lux Ignite (Kubernetes + Rancher) | no (terminal agent only) | Connect to a shared model or host Mistral Large 4 stack on four MI355X GPUs using persistent storage, bounded GPU Jobs and kubectl.  |
+| [`parallel-attention-skill`](skills/parallel-attention-skill/SKILL.md) | GPU clusters (Lux, Frontier) | yes | Choose, benchmark and integrate RingX context-parallel attention (ringX1 to ringX4) for long-sequence ViT and GPT training; a Lux job tests and benchmarks the kernels against ring attention. |
+| [`primus-skill`](skills/primus-skill/SKILL.md) | Lux HPC (Slurm + apptainer) | yes | Train LLMs with AMD Primus (Megatron backend): a Mistral-7B smoke test, or Mistral-Large-Instruct-2411 123B continued pretraining and its Hugging Face export. |
+| [`verl-grpo-skill`](skills/verl-grpo-skill/SKILL.md) | Lux HPC (Slurm + apptainer) | yes | Post-train Mistral-Large 123B with verl GRPO and verifiable science rewards: an 8-node smoke test, checkpointed control/public-only runs, and science evaluation. |
+| [`vllm-skill`](skills/vllm-skill/SKILL.md) | Lux HPC (Slurm + rootless podman) | yes | Serve LLMs with vLLM as an OpenAI-compatible endpoint (Inkling-MXFP4 by default, or Muse Spark Open on one node) and score them on a science benchmark suite. |
 
 Lux has two sides: an HPC side (Slurm, ROCm, Lmod, Orion, NVMe) and a Kubernetes
 side (Rancher, kubectl). Use `ignite-serving-skill` for Kubernetes hosting and
@@ -91,6 +92,11 @@ for example: "Connect to my existing Ignite model service using my kubeconfig."
 For a new deployment, ask it to prepare and validate an ML4 Kubernetes plan.
 The skill checks the caller's actual namespace and keeps the optimized Zenith
 vLLM/AITER revisions pinned. See its validation record for tested scope.
+
+This skill does not work from VISTA: VISTA's sandbox has no kubectl or SSH, and
+`submit_hpc_job` covers Slurm only. To use an Ignite-hosted model from VISTA, run
+`connect.py` on your own machine and set the local URL it prints as a custom
+inference endpoint in VISTA's Settings (untested).
 
 ---
 
