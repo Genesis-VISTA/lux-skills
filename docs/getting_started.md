@@ -12,7 +12,7 @@ cd lux-skills
 
 ## Use The Skills Catalog
 
-The repository organizes skills under `skills/<domain>/<skill>/`.
+The repository organizes skills under `skills/<skill>/`.
 Most agent clients expect each skill to be a direct child of a configured skills directory, so flatten the catalog with `unpack.sh`:
 
 ```bash
@@ -22,7 +22,19 @@ export SKILLS_DIR="$HOME/.agents/skills"
 
 ## Use The Skills In VISTA
 
-The Lux skills ship VISTA HPC jobs under `hpc_jobs/`. Import the skill folder in VISTA (**Skills → Import**), load it into a project, and ask for a job such as `primus-skill/primus-smoke`, `vllm-skill/inkling-serve` (Inkling) `vllm-skill/muse-serve` (Muse Spark Open) `autogen-skill/icf-campaign` (the ICF agents, against an Inkling server) or `parallel-attention-skill/ringx-bench` (RingX kernel tests and benchmark) on `lux`.
+The HPC skills ship VISTA jobs under `hpc_jobs/`. Import the skill folder in VISTA (**Skills → Import**), load it into a project, and ask for a job such as `primus-skill/primus-smoke`, `vllm-skill/inkling-serve` (Inkling) `vllm-skill/muse-serve` (Muse Spark Open) `autogen-skill/icf-campaign` (the ICF agents, against an Inkling server) or `parallel-attention-skill/ringx-bench` (RingX kernel tests and benchmark) on `lux`.
+
+## Use Ignite Kubernetes
+
+Load `ignite-serving-skill` into a terminal-capable agent. Ask it to connect to
+an existing Ignite service, or prepare a new ML4 GPU Job. Supply your own Rancher
+kubeconfig, the assigned namespace and the intended Service or workload name.
+Do not paste credentials into chat. The skill uses kubectl instead of VISTA's
+HPC submission API and keeps all client forwarding on localhost.
+
+New hosting requires access to the pinned Zenith recipe; using an existing
+service does not. See [the skill](../skills/ignite-serving-skill/SKILL.md) for
+storage, resource reservations, walltime, validation and cleanup.
 
 ## Next Steps
 

@@ -1,14 +1,15 @@
 # Attribution
 
-The skills in this directory run AI workloads on the HPC side of OLCF Lux
-(Slurm, ROCm, containers, Orion Lustre and node-local NVMe). None of them uses
-the Lux Kubernetes (Rancher/kubectl) side.
+The skills in this directory run AI workloads on OLCF Lux. HPC skills use
+Slurm, ROCm, containers, Orion Lustre and node-local NVMe; `ignite-serving-skill`
+targets the Kubernetes side through Rancher and kubectl.
 
 The skills' own code (job folders, wrappers, `env.lux.sh`, docs) is licensed
 Apache-2.0; each skill carries its licence at `<skill>/LICENSE`. Third-party content the skills ship, run or read keeps its
 own terms, listed in each skill's `SKILL.md` § "License and acknowledgments".
 
 **Authors:**
+- Nicholas Malaya, Advanced Micro Devices (AMD)
 - Junqi Yin, Oak Ridge National Laboratory (ORNL)
 
 ## autogen-skill
@@ -22,6 +23,17 @@ Devices, Inc.; `LICENSE` in that directory). AutoGen (pyautogen 0.2) and the
 other Python packages are installed from PyPI by the job, not shipped.
 `icf_4agent/tiktoken/o200k_base.tiktoken` is a copy of OpenAI's o200k_base
 vocabulary, shipped for offline use (TODO: confirm its licence terms).
+
+## ignite-serving-skill
+
+Original Apache-2.0 wrappers and documentation by Nicholas Malaya, with Codex
+assistance, based on a working November 2026 Ignite deployment. The hosting
+wrapper invokes Jonathan Belof and the Zenith contributors' ML4 recipe from
+[Zenith PR #2](https://github.com/jbelofamd/zenith/pull/2), pinned at
+`ebf19b355b753d5a26c590463f782a0f1f43901f`. Zenith sources, patches, model weights
+and credentials are not redistributed here. Deployment requires an authorized
+Zenith checkout; connecting to an existing service does not. Zenith, vLLM,
+AITER, ROCm images and model weights retain their own licenses.
 
 ## parallel-attention-skill
 
